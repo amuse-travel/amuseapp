@@ -1,4 +1,4 @@
-import 'package:amuse_app/pages/chat/chat_page.dart';
+import 'package:amuse_app/pages/login/login_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.white
       ),
-      home: ChatPage(),
+      home: LoginPage(),
     );
   }
 }
