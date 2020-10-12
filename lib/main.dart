@@ -1,5 +1,6 @@
-import 'package:amuse_app/pages/login/login_page.dart';
 import 'package:flutter/material.dart';
+
+import 'pages/login/login_page.dart';
 
 void main() {
   runApp(MyApp());
