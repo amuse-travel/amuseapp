@@ -6,21 +6,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   final SocketIo _socketIo = SocketIo();
 
   @override
-  Future<bool> createSocketConnection() async {
-    try {
-      _socketIo.createSocketConnection();
-      if (_socketIo.socket.connected) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e) {
-      print(']-----] createSocketConnection [-----[ ${e.toString()}');
-    }
-  }
-
-  @override
-  Future<void> destroySocketConnection() async {
+  void destroySocketConnection() {
     _socketIo.socket.dispose();
   }
 
@@ -30,7 +16,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
     @required String avatar,
   }) async {
     try {
-      // _socketIo.socket.on('initUser', (dynamic dd) {}); ??
+      _socketIo.createSocketConnection();
 
       _socketIo.socket.emitWithAck(
         'initUser',

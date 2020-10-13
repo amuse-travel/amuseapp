@@ -17,3 +17,5 @@ class AuthenticationTried extends AuthenticationEvent {
   final String userName;
   final String avatar;
 }
+
+class AuthenticationFinished extends AuthenticationEvent {}

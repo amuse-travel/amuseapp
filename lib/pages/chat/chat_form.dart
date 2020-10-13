@@ -1,3 +1,4 @@
+import 'package:amuse_app/blocs/authentication/authentication_bloc.dart';
 import 'package:amuse_app/blocs/chat/chat_bloc.dart';
 import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,8 @@ class _ChatFormState extends State<ChatForm> {
   String _userName;
 
   ChatBloc _chatBloc;
+
+  AuthenticationBloc _authenticationBloc;
 
   final GlobalKey<DashChatState> _chatViewKey = GlobalKey<DashChatState>();
 
@@ -43,6 +46,8 @@ class _ChatFormState extends State<ChatForm> {
     _userName = widget.userName;
 
     _chatBloc = BlocProvider.of<ChatBloc>(context);
+
+    _authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
 
     _textEditingController = TextEditingController();
 
@@ -79,27 +84,48 @@ class _ChatFormState extends State<ChatForm> {
     _chatBloc.add(ChatMessageSendTried(chatMessage: chatMessage));
   }
 
+  void _onBackButtonPressed() {
+    _authenticationBloc.add(AuthenticationFinished());
+  }
+
   @override
   Widget build(BuildContext context) {
     final double _sizeWidth = MediaQuery.of(context).size.width;
     final double _sizeHeight = MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
-    return BlocListener<ChatBloc, ChatState>(
-      listener: (BuildContext context, ChatState state) {
-        if (state is ChatMessageSendTrySuccess) {
-          _messages.add(state.chatMessage);
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<AuthenticationBloc, AuthenticationState>(
+          listener: (BuildContext context, AuthenticationState state) {
+            if (state is AuthenticationFinishSuccess) {
+              Navigator.pop(context);
+            }
+          },
+        ),
+        BlocListener<ChatBloc, ChatState>(
+          listener: (BuildContext context, ChatState state) {
+            if (state is ChatMessageSendTrySuccess) {
+              _messages.add(state.chatMessage);
 
-          _chatViewKey.currentState.scrollController.animateTo(
-            _chatViewKey.currentState.scrollController.position.maxScrollExtent + 48,
-            duration: const Duration(milliseconds: 100),
-            curve: Curves.easeOutQuint,
-          );
-        }
-      },
+              _chatViewKey.currentState.scrollController.animateTo(
+                _chatViewKey.currentState.scrollController.position.maxScrollExtent + 48,
+                duration: const Duration(milliseconds: 100),
+                curve: Curves.easeOutQuint,
+              );
+            }
+          },
+        ),
+      ],
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: const Text('Chat'),
           centerTitle: true,
+          leading: IconButton(
+            onPressed: _onBackButtonPressed,
+            icon: Icon(
+              Icons.arrow_back_ios,
+            ),
+          ),
         ),
         body: SafeArea(
           child: Container(

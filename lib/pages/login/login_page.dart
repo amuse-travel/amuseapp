@@ -13,18 +13,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider<AuthenticationRepository>(
-      create: (BuildContext context) {
-        final AuthenticationRepository _authenticationRepository = AuthenticationRepositoryImpl();
-        return _authenticationRepository;
-      },
-      child: BlocProvider<AuthenticationBloc>(
-        create: (BuildContext context) {
-          final AuthenticationRepository _authenticationRepository = RepositoryProvider.of<AuthenticationRepository>(context);
-          return AuthenticationBloc(authenticationRepository: _authenticationRepository);
-        },
-        child: LoginForm(),
-      ),
-    );
+    return LoginForm();
   }
 }
