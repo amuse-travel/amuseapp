@@ -73,7 +73,7 @@ class _ChatPageState extends State<ChatPage> {
     _messages.add(message);
 
     _chatViewKey.currentState.scrollController.animateTo(
-      _chatViewKey.currentState.scrollController.position.maxScrollExtent,
+      _chatViewKey.currentState.scrollController.position.maxScrollExtent + 48,
       duration: const Duration(milliseconds: 100),
       curve: Curves.easeInOut,
     );
@@ -128,7 +128,6 @@ class _ChatPageState extends State<ChatPage> {
                 color: _senderColor(),
               ),
             ),
-            // onTextChange: _onTextChanged,
             messageDecorationBuilder: (ChatMessage chatMessage, bool isUser) {
               if (isUser) {
                 return BoxDecoration(

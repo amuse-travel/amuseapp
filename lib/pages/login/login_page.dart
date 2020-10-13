@@ -1,5 +1,6 @@
-import 'package:amuse_app/pages/chat/chat_page.dart';
 import 'package:flutter/material.dart';
+
+import '../chat/chat_page.dart';
 
 class LoginPage extends StatefulWidget {
   @override
