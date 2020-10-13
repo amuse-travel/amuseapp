@@ -7,8 +7,6 @@ abstract class AuthenticationEvent extends Equatable {
   List<Object> get props => <Object>[];
 }
 
-class AuthenticationConnectionTried extends AuthenticationEvent {}
-
 class AuthenticationTried extends AuthenticationEvent {
   const AuthenticationTried({
     @required this.userName,

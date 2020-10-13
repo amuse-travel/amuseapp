@@ -1,4 +1,4 @@
-import 'package:amuse_app/blocs/authentication_bloc.dart';
+import 'package:amuse_app/blocs/authentication/authentication_bloc.dart';
 import 'package:amuse_app/pages/chat/chat_page.dart';
 import 'package:amuse_app/pages/common/decoration/underline_text_field_decoration.dart';
 import 'package:amuse_app/pages/common/dismiss_keyboard_listener/dismiss_keyboard_listener.dart';
@@ -39,7 +39,12 @@ class _LoginFormState extends State<LoginForm> {
 
   void _onLoginButtonPressed() {
     if (_emailTextController.text.isNotEmpty) {
-      _authenticationBloc.add(AuthenticationConnectionTried());
+      _authenticationBloc.add(
+        AuthenticationTried(
+          userName: _emailTextController.text,
+          avatar: 'https://api.adorable.io/avatars/285/abott@adorable.png',
+        ),
+      );
     }
   }
 
@@ -53,14 +58,6 @@ class _LoginFormState extends State<LoginForm> {
     final double _sizeHeight = MediaQuery.of(context).size.height;
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (BuildContext context, AuthenticationState state) {
-        if (state is AuthenticationConnectionTrySuccess) {
-          _authenticationBloc.add(
-            AuthenticationTried(
-              userName: _emailTextController.text,
-              avatar: 'https://api.adorable.io/avatars/285/abott@adorable.png',
-            ),
-          );
-        }
         if (state is AuthenticationTrySuccess) {
           Navigator.push(
             context,

@@ -19,26 +19,8 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
   @override
   Stream<AuthenticationState> mapEventToState(AuthenticationEvent event) async* {
-    if (event is AuthenticationConnectionTried) {
-      yield* _mapAuthenticationConnectionTriedToState(event);
-    }
     if (event is AuthenticationTried) {
       yield* _mapAuthenticationTriedToState(event);
-    }
-  }
-
-  Stream<AuthenticationState> _mapAuthenticationConnectionTriedToState(AuthenticationConnectionTried event) async* {
-    yield AuthenticationInProgress();
-    try {
-      final bool _isConnected = await authenticationRepository.createSocketConnection();
-      if (_isConnected) {
-        yield AuthenticationConnectionTrySuccess();
-      } else {
-        yield AuthenticationFailure();
-      }
-    } catch (e) {
-      print(']-----] _mapAuthenticationConnectionTriedToState [-----[ ${e.toString()}');
-      yield AuthenticationFailure();
     }
   }
 

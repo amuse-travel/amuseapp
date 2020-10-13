@@ -30,11 +30,16 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
     @required String avatar,
   }) async {
     try {
-      _socketIo.socket.emit(
+      // _socketIo.socket.on('initUser', (dynamic dd) {}); ??
+
+      _socketIo.socket.emitWithAck(
         'initUser',
         <String, String>{
           'username': userName,
           'avatar': avatar,
+        },
+        ack: (dynamic data) {
+          print(data);
         },
       );
 

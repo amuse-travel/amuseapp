@@ -7,7 +7,7 @@ class SocketIo {
     'http://localhost:3000',
     <String, dynamic>{
       'transports': ['websocket'],
-      'autoConnect': false,
+      // 'autoConnect': false,
     },
   );
 
