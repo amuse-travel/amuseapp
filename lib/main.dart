@@ -10,9 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Amuse App',
-      theme: ThemeData(
-        primaryColor: Colors.white
-      ),
+      theme: ThemeData(primaryColor: Colors.white),
       home: LoginPage(),
     );
   }
