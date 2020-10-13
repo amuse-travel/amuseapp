@@ -80,17 +80,17 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 10,
                 ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 40),
-                  child: TextFormField(
-                    controller: _passwordTextController,
-                    focusNode: _passwordFocusNode,
-                    autocorrect: false,
-                    decoration: underlineTextFieldDecoration(
-                      hintText: 'password',
-                    ),
-                  ),
-                ),
+                // Container(
+                //   margin: const EdgeInsets.symmetric(horizontal: 40),
+                //   child: TextFormField(
+                //     controller: _passwordTextController,
+                //     focusNode: _passwordFocusNode,
+                //     autocorrect: false,
+                //     decoration: underlineTextFieldDecoration(
+                //       hintText: 'password',
+                //     ),
+                //   ),
+                // ),
                 const SizedBox(
                   height: 10,
                 ),
