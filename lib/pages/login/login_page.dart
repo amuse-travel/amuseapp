@@ -1,3 +1,4 @@
+import 'package:amuse_app/pages/common/keyboard_dismiss/keyboard_dismiss_listener.dart';
 import 'package:flutter/material.dart';
 
 import '../chat/chat_page.dart';
@@ -41,36 +42,39 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final double _sizeWidth = MediaQuery.of(context).size.width;
     final double _sizeHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Container(
-          width: _sizeWidth,
-          height: _sizeHeight,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                child: const Text('Amuse App'),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 40),
-                child: TextFormField(
-                  controller: _textEditingController,
+    return KeyboardDismissListener(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          child: Container(
+            width: _sizeWidth,
+            height: _sizeHeight,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  child: const Text('Amuse App'),
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Container(
-                child: RaisedButton(
-                  onPressed: _onLoginButtonPressed,
-                  child: const Text(
-                    'Login',
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 40),
+                  child: TextFormField(
+                    controller: _textEditingController,
+                    autocorrect: false,
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  child: RaisedButton(
+                    onPressed: _onLoginButtonPressed,
+                    child: const Text(
+                      'Login',
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
