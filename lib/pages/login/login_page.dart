@@ -1,4 +1,4 @@
-import 'package:amuse_app/pages/common/keyboard_dismiss/keyboard_dismiss_listener.dart';
+import 'package:amuse_app/pages/common/dismiss_keyboard_listener/dismiss_keyboard_listener.dart';
 import 'package:flutter/material.dart';
 
 import '../chat/chat_page.dart';
@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final double _sizeWidth = MediaQuery.of(context).size.width;
     final double _sizeHeight = MediaQuery.of(context).size.height;
-    return KeyboardDismissListener(
+    return DismissKeyboardListener(
       child: Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(

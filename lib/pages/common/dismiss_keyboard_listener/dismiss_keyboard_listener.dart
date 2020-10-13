@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class KeyboardDismissListener extends StatelessWidget {
-  const KeyboardDismissListener({
+class DismissKeyboardListener extends StatelessWidget {
+  const DismissKeyboardListener({
     @required this.child,
   }) : assert(child != null);
 
