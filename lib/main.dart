@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'blocs/bloc_observer/custom_bloc_observer.dart';
 import 'pages/login/login_page.dart';
 
 void main() {
+  Bloc.observer = CustomBlocObserver();
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
