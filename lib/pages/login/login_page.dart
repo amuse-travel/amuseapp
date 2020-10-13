@@ -1,3 +1,4 @@
+import 'package:amuse_app/pages/common/decoration/underline_text_field_decoration.dart';
 import 'package:amuse_app/pages/common/dismiss_keyboard_listener/dismiss_keyboard_listener.dart';
 import 'package:flutter/material.dart';
 
@@ -9,33 +10,43 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController _textEditingController;
+  TextEditingController _emailTextController;
+
+  TextEditingController _passwordTextController;
+
+  FocusNode _passwordFocusNode;
 
   @override
   void initState() {
     super.initState();
 
-    _textEditingController = TextEditingController();
+    _emailTextController = TextEditingController();
+
+    _passwordFocusNode = FocusNode();
   }
 
   @override
   void dispose() {
-    _textEditingController.dispose();
+    _emailTextController.dispose();
 
     super.dispose();
   }
 
   void _onLoginButtonPressed() {
-    if (_textEditingController.text.isNotEmpty) {
+    if (_emailTextController.text.isNotEmpty) {
       Navigator.push(
         context,
         MaterialPageRoute<Widget>(
           builder: (BuildContext context) => ChatPage(
-            userName: _textEditingController.text,
+            userName: _emailTextController.text,
           ),
         ),
       );
     }
+  }
+
+  void _onFieldSubmitted(String text) {
+    FocusScope.of(context).requestFocus(_passwordFocusNode);
   }
 
   @override
@@ -58,8 +69,26 @@ class _LoginPageState extends State<LoginPage> {
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 40),
                   child: TextFormField(
-                    controller: _textEditingController,
+                    controller: _emailTextController,
                     autocorrect: false,
+                    decoration: underlineTextFieldDecoration(
+                      hintText: 'Email',
+                    ),
+                    onFieldSubmitted: _onFieldSubmitted,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 40),
+                  child: TextFormField(
+                    controller: _passwordTextController,
+                    focusNode: _passwordFocusNode,
+                    autocorrect: false,
+                    decoration: underlineTextFieldDecoration(
+                      hintText: 'password',
+                    ),
                   ),
                 ),
                 const SizedBox(
