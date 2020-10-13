@@ -93,7 +93,7 @@ class _ChatFormState extends State<ChatForm> {
     final double _sizeWidth = MediaQuery.of(context).size.width;
     final double _sizeHeight = MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     return MultiBlocListener(
-      listeners: [
+      listeners: <BlocListener<dynamic, dynamic>>[
         BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (BuildContext context, AuthenticationState state) {
             if (state is AuthenticationFinishSuccess) {
@@ -122,7 +122,7 @@ class _ChatFormState extends State<ChatForm> {
           centerTitle: true,
           leading: IconButton(
             onPressed: _onBackButtonPressed,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_ios,
             ),
           ),
