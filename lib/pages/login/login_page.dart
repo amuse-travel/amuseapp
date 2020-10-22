@@ -16,7 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return BlocProvider<LoginBloc>(
       create: (BuildContext buildContext) {
-        final AuthenticationRepository _authenticationRepository = RepositoryProvider.of<AuthenticationRepository>(buildContext);
+        final AuthenticationRepository _authenticationRepository = RepositoryProvider.of<AuthenticationRepository>(context);
         return LoginBloc(
           authenticationRepository: _authenticationRepository,
         );

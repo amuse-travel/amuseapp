@@ -1,4 +1,3 @@
-import 'package:amuse_app/blocs/authentication/authentication_bloc.dart';
 import 'package:amuse_app/cubits/bottom_tab/bottom_tab_cubit.dart';
 import 'package:amuse_app/enums/tab_enum.dart';
 import 'package:amuse_app/pages/amuse/amuse_page.dart';
@@ -23,14 +22,6 @@ class _MainFormState extends State<MainForm> {
     super.initState();
 
     _tabIndex = 0;
-  }
-
-  void _logout() {
-    context.bloc<AuthenticationBloc>().add(AuthenticationOut());
-    Navigator.popUntil(
-      context,
-      ModalRoute.withName('/'),
-    );
   }
 
   void _onSelectTab({TabEnum tabEnum}) {
@@ -75,23 +66,20 @@ class _MainFormState extends State<MainForm> {
                 type: BottomNavigationBarType.fixed,
                 items: const <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.home,
-                    ),
-                    label: 'home'
-                  ),
+                      icon: Icon(
+                        Icons.home,
+                      ),
+                      label: 'home'),
                   BottomNavigationBarItem(
                       icon: Icon(
                         Icons.chat,
                       ),
-                      label: 'home'
-                  ),
+                      label: 'home'),
                   BottomNavigationBarItem(
                       icon: Icon(
                         Icons.settings,
                       ),
-                      label: 'home'
-                  ),
+                      label: 'home'),
                 ],
               ),
             ),

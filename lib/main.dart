@@ -1,5 +1,6 @@
 import 'package:amuse_app/blocs/authentication/authentication_bloc.dart';
-import 'package:amuse_app/pages/main_page.dart';
+import 'package:amuse_app/pages/common/common_widgets/loading_indicator/loading_indicator.dart';
+import 'package:amuse_app/pages/main/main_page.dart';
 import 'package:amuse_app/pages/splash_screen.dart';
 import 'package:amuse_app/repositories/authentication_repository/authentication_repository.dart';
 import 'package:amuse_app/repositories/authentication_repository/authentication_repository_impl.dart';
@@ -53,6 +54,11 @@ class AmuseApp extends StatelessWidget {
           }
           if (state is AuthenticationRequired) {
             return LoginPage();
+          }
+          if (state is AuthenticationInProgress) {
+            return Scaffold(
+              body: LoadingIndicator(),
+            );
           }
           return SplashScreen();
         },
