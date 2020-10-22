@@ -37,7 +37,6 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       if (_isLogin) {
         yield AuthenticationTrySuccess();
       } else {
-        authenticationRepository.destroySocketConnection();
         yield AuthenticationFailure();
       }
     } catch (e) {
@@ -49,7 +48,6 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   Stream<AuthenticationState> _mapAuthenticationFinishedToState(AuthenticationFinished event) async* {
     yield AuthenticationInProgress();
     try {
-      authenticationRepository.destroySocketConnection();
       yield AuthenticationFinishSuccess();
     } catch (e) {
       print(']-----] _mapAuthenticationFinishedToState [-----[ ${e.toString()}');

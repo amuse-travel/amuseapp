@@ -6,29 +6,25 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   final SocketIo _socketIo = SocketIo();
 
   @override
-  void destroySocketConnection() {
-    _socketIo.socket.dispose();
-  }
-
-  @override
   Future<bool> signIn({
     @required String userName,
     @required String avatar,
   }) async {
     try {
-      _socketIo.createSocketConnection();
-
-      _socketIo.socket.emitWithAck(
-        'initUser',
-        <String, String>{
-          'username': userName,
-          'avatar': avatar,
-        },
-        ack: (dynamic data) {
-          print(data);
-        },
-      );
-
+      // _socketIo.createSocketConnection();
+      //
+      // _socketIo.socket.emitWithAck(
+      //   'initUser',
+      //   <String, String>{
+      //     'username': userName,
+      //     'avatar': avatar,
+      //   },
+      //   ack: (dynamic data) {
+      //     print(data);
+      //   },
+      // );
+      //
+      // return true;
       return true;
     } catch (e) {
       print(']-----] signIn [-----[ ${e.toString()}');

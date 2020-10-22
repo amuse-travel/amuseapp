@@ -1,4 +1,5 @@
 import 'package:amuse_app/blocs/authentication/authentication_bloc.dart';
+import 'package:amuse_app/pages/app_screens.dart';
 import 'package:amuse_app/repositories/authentication_repository/authentication_repository.dart';
 import 'package:amuse_app/repositories/authentication_repository/authentication_repository_impl.dart';
 import 'package:flutter/material.dart';
@@ -21,13 +22,13 @@ void main() {
           final AuthenticationRepository _authenticationRepository = RepositoryProvider.of<AuthenticationRepository>(context);
           return AuthenticationBloc(authenticationRepository: _authenticationRepository);
         },
-        child: MyApp(),
+        child: MainPage(),
       ),
     ),
   );
 }
 
-class MyApp extends StatelessWidget {
+class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
           },
         ),
       ),
-      home: LoginPage(),
+      home: AppScreens(),
     );
   }
 }

@@ -1,17 +1,25 @@
 import 'package:socket_io_client/socket_io_client.dart';
 
 class SocketIo {
-  SocketIo();
-
   Socket socket = io(
     'http://localhost:3000',
     <String, dynamic>{
-      'transports': ['websocket'],
+      'transports': <String>['websocket'],
       'autoConnect': false,
     },
   );
 
-  void createSocketConnection() {
-    socket.connect();
+  Future<bool> createSocketConnection() async {
+    socket.onconnect();
+
+    if(socket.connected) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void destroySocketConnection() {
+    socket.dispose();
   }
 }
