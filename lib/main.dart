@@ -1,16 +1,20 @@
 import 'package:amuse_app/blocs/authentication/authentication_bloc.dart';
 import 'package:amuse_app/pages/app_screens.dart';
+import 'package:amuse_app/pages/splash_screen.dart';
 import 'package:amuse_app/repositories/authentication_repository/authentication_repository.dart';
 import 'package:amuse_app/repositories/authentication_repository/authentication_repository_impl.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'blocs/bloc_observer/custom_bloc_observer.dart';
 import 'pages/login/login_page.dart';
 
-void main() {
-  Bloc.observer = CustomBlocObserver();
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = CustomBlocObserver();
+  await Firebase.initializeApp();
+
   runApp(
     RepositoryProvider<AuthenticationRepository>(
       create: (BuildContext context) {
@@ -20,7 +24,7 @@ void main() {
       child: BlocProvider<AuthenticationBloc>(
         create: (BuildContext context) {
           final AuthenticationRepository _authenticationRepository = RepositoryProvider.of<AuthenticationRepository>(context);
-          return AuthenticationBloc(authenticationRepository: _authenticationRepository);
+          return AuthenticationBloc(authenticationRepository: _authenticationRepository)..add(AuthenticationTried());
         },
         child: MainPage(),
       ),
@@ -42,7 +46,17 @@ class MainPage extends StatelessWidget {
           },
         ),
       ),
-      home: AppScreens(),
+      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        builder: (BuildContext buildContext, AuthenticationState state) {
+          if (state is AuthenticationTrySuccess) {
+            return AppScreens();
+          }
+          if (state is AuthenticationRequired) {
+            return LoginPage();
+          }
+          return SplashScreen();
+        },
+      ),
     );
   }
 }

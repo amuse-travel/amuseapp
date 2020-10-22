@@ -1,4 +1,5 @@
 import 'package:amuse_app/blocs/authentication/authentication_bloc.dart';
+import 'package:amuse_app/blocs/login/login_bloc.dart';
 import 'package:amuse_app/pages/login/login_form.dart';
 import 'package:amuse_app/repositories/authentication_repository/authentication_repository.dart';
 import 'package:amuse_app/repositories/authentication_repository/authentication_repository_impl.dart';
@@ -13,6 +14,14 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return LoginForm();
+    return BlocProvider<LoginBloc>(
+      create: (BuildContext buildContext) {
+        final AuthenticationRepository _authenticationRepository = RepositoryProvider.of<AuthenticationRepository>(buildContext);
+        return LoginBloc(
+          authenticationRepository: _authenticationRepository,
+        );
+      },
+      child: LoginForm(),
+    );
   }
 }

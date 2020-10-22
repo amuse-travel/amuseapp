@@ -85,7 +85,7 @@ class _ChatFormState extends State<ChatForm> {
   }
 
   void _onBackButtonPressed() {
-    _authenticationBloc.add(AuthenticationFinished());
+    _authenticationBloc.add(AuthenticationOut());
   }
 
   @override

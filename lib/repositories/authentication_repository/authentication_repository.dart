@@ -1,8 +1,9 @@
-import 'package:flutter/widgets.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class AuthenticationRepository {
-  Future<bool> signIn({
-    @required String userName,
-    @required String avatar,
-  });
+  Future<User> authenticate();
+
+  void disprove();
+
+  Future<AuthCredential> googleSignIn();
 }

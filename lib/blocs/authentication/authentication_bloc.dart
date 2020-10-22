@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:amuse_app/repositories/authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 part 'authentication_event.dart';
@@ -22,7 +23,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     if (event is AuthenticationTried) {
       yield* _mapAuthenticationTriedToState(event);
     }
-    if (event is AuthenticationFinished) {
+    if (event is AuthenticationOut) {
       yield* _mapAuthenticationFinishedToState(event);
     }
   }
@@ -30,28 +31,26 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   Stream<AuthenticationState> _mapAuthenticationTriedToState(AuthenticationTried event) async* {
     yield AuthenticationInProgress();
     try {
-      final bool _isLogin = await authenticationRepository.signIn(
-        userName: event.userName,
-        avatar: event.avatar,
-      );
-      if (_isLogin) {
+      await Future<dynamic>.delayed(const Duration(seconds: 1));
+
+      final User user = await authenticationRepository.authenticate();
+      if (user != null) {
         yield AuthenticationTrySuccess();
       } else {
-        yield AuthenticationFailure();
+        yield AuthenticationRequired();
       }
     } catch (e) {
-      print(']-----] _mapAuthenticationTriedToState [-----[ ${e.toString()}');
-      yield AuthenticationFailure();
+      yield AuthenticationFailure(errorCode: 'AuthenticationTried ${e.toString()}');
     }
   }
 
-  Stream<AuthenticationState> _mapAuthenticationFinishedToState(AuthenticationFinished event) async* {
+  Stream<AuthenticationState> _mapAuthenticationFinishedToState(AuthenticationOut event) async* {
     yield AuthenticationInProgress();
     try {
-      yield AuthenticationFinishSuccess();
+      authenticationRepository.disprove();
+      yield AuthenticationRequired();
     } catch (e) {
-      print(']-----] _mapAuthenticationFinishedToState [-----[ ${e.toString()}');
-      yield AuthenticationFailure();
+      yield AuthenticationFailure(errorCode: 'AuthenticationFinished ${e.toString()}');
     }
   }
 }

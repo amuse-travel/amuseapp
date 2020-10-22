@@ -74,7 +74,7 @@ app.*.map.json
 # iOS/XCode related
 **/ios/Runner/Info.plist
 **/ios/Runner/Keys.plist
-**/ios/GoogleService-Info.plist
+**/ios/Runner/GoogleService-Info.plist
 **/ios/**/*.mode1v3
 **/ios/**/*.mode2v3
 **/ios/**/*.moved-aside

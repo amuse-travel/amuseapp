@@ -7,15 +7,17 @@ abstract class AuthenticationEvent extends Equatable {
   List<Object> get props => <Object>[];
 }
 
-class AuthenticationTried extends AuthenticationEvent {
-  const AuthenticationTried({
+class AuthenticationSignUpTried extends AuthenticationEvent {
+  const AuthenticationSignUpTried({
     @required this.userName,
-    @required this.avatar,
+    @required this.password,
   })  : assert(userName != null),
-        assert(avatar != null);
+        assert(password != null);
 
   final String userName;
-  final String avatar;
+  final String password;
 }
 
-class AuthenticationFinished extends AuthenticationEvent {}
+class AuthenticationTried extends AuthenticationEvent {}
+
+class AuthenticationOut extends AuthenticationEvent {}
