@@ -9,7 +9,7 @@ class SplashScreen extends StatelessWidget {
         height: MediaQuery.of(context).size.height,
         color: Colors.redAccent,
         child: const Center(
-          child: const Text(
+          child: Text(
             'Welcome To Amuse',
             style: TextStyle(
               fontSize: 30,
