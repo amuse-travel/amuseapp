@@ -49,6 +49,37 @@ class _MainFormState extends State<MainForm> {
             bottom: false,
             child: Scaffold(
               backgroundColor: Colors.white,
+              appBar: AppBar(
+                title: IndexedStack(
+                  index: _tabIndex,
+                  children: const <Widget>[
+                    Text(
+                      '메인',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Text(
+                      '채팅',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Text(
+                      '설정',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+                backgroundColor: Colors.white,
+                elevation: 1,
+                centerTitle: true,
+              ),
               body: IndexedStack(
                 index: _tabIndex,
                 children: <Widget>[
@@ -64,22 +95,26 @@ class _MainFormState extends State<MainForm> {
                 showSelectedLabels: false,
                 showUnselectedLabels: false,
                 type: BottomNavigationBarType.fixed,
+                elevation: 1,
                 items: const <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
-                      icon: Icon(
-                        Icons.home,
-                      ),
-                      label: 'home'),
+                    icon: Icon(
+                      Icons.home,
+                    ),
+                    label: 'home',
+                  ),
                   BottomNavigationBarItem(
-                      icon: Icon(
-                        Icons.chat,
-                      ),
-                      label: 'home'),
+                    icon: Icon(
+                      Icons.chat,
+                    ),
+                    label: 'chat',
+                  ),
                   BottomNavigationBarItem(
-                      icon: Icon(
-                        Icons.settings,
-                      ),
-                      label: 'home'),
+                    icon: Icon(
+                      Icons.settings,
+                    ),
+                    label: 'setting',
+                  ),
                 ],
               ),
             ),

@@ -5,24 +5,22 @@ import 'package:flutter/material.dart';
 class SettingPage extends StatelessWidget {
   void _logout(BuildContext context) {
     context.bloc<AuthenticationBloc>().add(AuthenticationOut());
-    // Navigator.popUntil(
-    //   context,
-    //   ModalRoute.withName('/'),
-    // );
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      width: MediaQuery.of(context).size.width,
+      color: Colors.green,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            width: MediaQuery.of(context).size.width,
+            width: 100,
             child: RaisedButton(
               onPressed: () => _logout(context),
-              child: Text('로그아웃'),
+              color: Colors.white,
+              child: const Text('로그아웃'),
             ),
           ),
         ],

@@ -5,9 +5,9 @@ class AmusePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      child: const Center(
-        child: const Text(
-          'home',
+      child: Center(
+        child: Text(
+          'home ${MediaQuery.of(context).size}',
         ),
       ),
     );
