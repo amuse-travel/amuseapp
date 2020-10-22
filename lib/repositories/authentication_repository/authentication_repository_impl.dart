@@ -54,7 +54,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
     try {
       final GoogleSignInAccount _googleSignInAccount = await _googleSignIn.signIn();
       final GoogleSignInAuthentication _googleSignInAuthentication = await _googleSignInAccount.authentication;
-      //
+
       final AuthCredential _authCredential = GoogleAuthProvider.credential(
         idToken: _googleSignInAuthentication.idToken,
         accessToken: _googleSignInAuthentication.accessToken,
