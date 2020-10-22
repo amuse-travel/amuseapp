@@ -1,5 +1,5 @@
 import 'package:amuse_app/blocs/authentication/authentication_bloc.dart';
-import 'package:amuse_app/pages/app_screens.dart';
+import 'package:amuse_app/pages/main_page.dart';
 import 'package:amuse_app/pages/splash_screen.dart';
 import 'package:amuse_app/repositories/authentication_repository/authentication_repository.dart';
 import 'package:amuse_app/repositories/authentication_repository/authentication_repository_impl.dart';
@@ -26,19 +26,19 @@ Future<void> main() async {
           final AuthenticationRepository _authenticationRepository = RepositoryProvider.of<AuthenticationRepository>(context);
           return AuthenticationBloc(authenticationRepository: _authenticationRepository)..add(AuthenticationTried());
         },
-        child: MainPage(),
+        child: AmuseApp(),
       ),
     ),
   );
 }
 
-class MainPage extends StatelessWidget {
+class AmuseApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Amuse App',
       theme: ThemeData(
-        primaryColor: Colors.white,
+        primaryColor: Colors.redAccent,
         pageTransitionsTheme: const PageTransitionsTheme(
           builders: <TargetPlatform, PageTransitionsBuilder>{
             TargetPlatform.android: CupertinoPageTransitionsBuilder(),
@@ -49,7 +49,7 @@ class MainPage extends StatelessWidget {
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (BuildContext buildContext, AuthenticationState state) {
           if (state is AuthenticationTrySuccess) {
-            return AppScreens();
+            return MainPage();
           }
           if (state is AuthenticationRequired) {
             return LoginPage();

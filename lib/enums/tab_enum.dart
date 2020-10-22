@@ -1,0 +1,1 @@
+enum TabEnum {amuse, chat, settings}

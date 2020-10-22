@@ -6,12 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ChatPage extends StatelessWidget {
-  const ChatPage({
-    @required this.userName,
-  }) : assert(userName != null);
-
-  final String userName;
-
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider<ChatRepository>(
@@ -24,8 +18,8 @@ class ChatPage extends StatelessWidget {
           final ChatRepository _chatRepository = RepositoryProvider.of<ChatRepository>(context);
           return ChatBloc(chatRepository: _chatRepository);
         },
-        child: ChatForm(
-          userName: userName,
+        child: Container(
+          color: Colors.yellow,
         ),
       ),
     );
