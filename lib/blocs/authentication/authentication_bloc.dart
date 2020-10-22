@@ -4,7 +4,7 @@ import 'package:amuse_app/repositories/authentication_repository/authentication_
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:meta/meta.dart';
 
 part 'authentication_event.dart';
 
@@ -29,10 +29,9 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   }
 
   Stream<AuthenticationState> _mapAuthenticationTriedToState(AuthenticationTried event) async* {
+    await Future<dynamic>.delayed(const Duration(seconds: 1));
     yield AuthenticationInProgress();
     try {
-      await Future<dynamic>.delayed(const Duration(seconds: 1));
-
       final User user = await authenticationRepository.authenticate();
       if (user != null) {
         yield AuthenticationTrySuccess();

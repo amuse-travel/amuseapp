@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 
-class AmusePage extends StatelessWidget {
+class AmusePage extends StatefulWidget {
+  @override
+  _AmusePageState createState() => _AmusePageState();
+}
+
+class _AmusePageState extends State<AmusePage> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
-      child: Center(
-        child: Text(
-          'home ${MediaQuery.of(context).size}',
-        ),
-      ),
+      height: MediaQuery.of(context).size.height,
+      color: Colors.blue,
     );
   }
 }
