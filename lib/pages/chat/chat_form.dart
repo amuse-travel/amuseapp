@@ -1,4 +1,3 @@
-import 'package:amuse_app/blocs/authentication/authentication_bloc.dart';
 import 'package:amuse_app/blocs/chat/chat_bloc.dart';
 import 'package:amuse_app/model/custom_chat_message.dart';
 import 'package:amuse_app/model/singleton_user.dart';
@@ -277,12 +276,6 @@ class _ChatFormState extends State<ChatForm> {
               ),
             );
           }
-
-          // _chatViewKey.currentState.scrollController.animateTo(
-          //   0,
-          //   duration: const Duration(milliseconds: 300),
-          //   curve: Curves.easeOutQuint,
-          // );
         }
         if (state is ChatMessageSendTrySuccess) {
           _messages.add(state.chatMessage);
@@ -292,19 +285,6 @@ class _ChatFormState extends State<ChatForm> {
             duration: const Duration(milliseconds: 100),
             curve: Curves.easeOutQuint,
           );
-        }
-        if (state is ChatMessageIncomingListenSuccess) {
-          print(state.chatMessage);
-
-          _messages.add(ChatMessage(
-            text: state.chatMessage.text,
-            id: state.chatMessage.msId,
-            user: ChatUser(
-              name: state.chatMessage.username,
-              // avatar: _customChatMassage.avatar,
-            ),
-            createdAt: DateTime.fromMillisecondsSinceEpoch(state.chatMessage.time),
-          ));
         }
         if (state is ChatFailure) {
           CustomToast(message: '메시지 전송 실패').show();

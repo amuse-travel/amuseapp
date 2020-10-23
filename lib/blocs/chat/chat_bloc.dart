@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:amuse_app/model/chat_message_list.dart';
-import 'package:amuse_app/model/custom_chat_message.dart';
 import 'package:amuse_app/repositories/chat_repository/chat_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dash_chat/dash_chat.dart';
@@ -31,9 +30,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     }
     if (event is ChatMessageSendTried) {
       yield* _mapChatMessageSendTriedToState(event);
-    }
-    if(event is ChatMessageIncomingListened){
-      yield* _mapChatMessageIncomingListenedToState(event);
     }
   }
 
@@ -73,21 +69,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       final bool _isSent = await chatRepository.sendMessage(userName: event.userName, message: event.chatMessage.text);
       if (_isSent) {
         yield ChatMessageSendTrySuccess(chatMessage: event.chatMessage);
-      } else {
-        yield ChatFailure();
-      }
-    } catch (e) {
-      log('===| _mapChatMessageSendTriedToState |=======[ ${e.toString}');
-      yield ChatFailure();
-    }
-  }
-
-  Stream<ChatState> _mapChatMessageIncomingListenedToState(ChatMessageIncomingListened event) async* {
-    yield ChatInProgress();
-    try {
-      final CustomChatMessage _chatMessage = await chatRepository.incomingMessage(userName: event.userName);
-      if (_chatMessage !=null) {
-        yield ChatMessageIncomingListenSuccess(chatMessage: _chatMessage);
       } else {
         yield ChatFailure();
       }

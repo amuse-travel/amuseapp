@@ -36,11 +36,3 @@ class ChatMessageSendTried extends ChatEvent {
   final String userName;
   final ChatMessage chatMessage;
 }
-
-class ChatMessageIncomingListened extends ChatEvent {
-  const ChatMessageIncomingListened({
-    @required this.userName,
-  }) : assert(userName != null);
-
-  final String userName;
-}
