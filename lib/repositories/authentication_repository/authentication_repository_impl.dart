@@ -34,7 +34,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
         // final SingletonUser singletonUser = SingletonUser();
         // singletonUser.user = _user;
 
-        final Socket _socket = _socketIo.socket(userName: _user.displayName);
+        final Socket _socket = _socketIo.socket;
         await Future<dynamic>.delayed(const Duration(milliseconds: 500));
 
         if (_socket.connected) {

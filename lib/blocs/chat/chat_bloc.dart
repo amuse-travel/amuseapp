@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:amuse_app/model/chat_message_list.dart';
 import 'package:amuse_app/model/custom_chat_message.dart';
@@ -46,7 +47,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         yield ChatFailure();
       }
     } catch (e) {
-      print('===| _mapChatMessagesFetchTriedToState |=======[ ${e.toString}');
+      log('===| _mapChatMessagesFetchTriedToState |=======[ ${e.toString}');
       yield ChatFailure();
     }
   }
@@ -76,7 +77,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         yield ChatFailure();
       }
     } catch (e) {
-      print('===| _mapChatMessageSendTriedToState |=======[ ${e.toString}');
+      log('===| _mapChatMessageSendTriedToState |=======[ ${e.toString}');
       yield ChatFailure();
     }
   }
@@ -91,7 +92,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         yield ChatFailure();
       }
     } catch (e) {
-      print('===| _mapChatMessageSendTriedToState |=======[ ${e.toString}');
+      log('===| _mapChatMessageSendTriedToState |=======[ ${e.toString}');
       yield ChatFailure();
     }
   }

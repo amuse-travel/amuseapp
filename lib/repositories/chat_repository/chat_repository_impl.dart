@@ -11,7 +11,7 @@ class ChatRepositoryImpl extends ChatRepository {
     try {
       ChatMessageList _chatMessages;
 
-      _socketIo.socket(userName: userName).emitWithAck(
+      _socketIo.socket.emitWithAck(
         'messages',
         <String, dynamic>{
           'room': 'general',
@@ -40,7 +40,7 @@ class ChatRepositoryImpl extends ChatRepository {
     try {
       ChatMessageList _chatMessages;
 
-      _socketIo.socket(userName: userName).emitWithAck(
+      _socketIo.socket.emitWithAck(
         'messages',
         <String, dynamic>{
           'room': 'general',
@@ -68,14 +68,14 @@ class ChatRepositoryImpl extends ChatRepository {
   @override
   Future<bool> sendMessage({String userName, String message}) async {
     try {
-      _socketIo.socket(userName: userName).emitWithAck(
+      _socketIo.socket.emitWithAck(
         'input',
         <String, String>{
           'room': 'general',
           'message': message,
         },
         ack: (dynamic data) {
-          // print(data);
+          print(data);
         },
       );
       return true;
@@ -90,34 +90,23 @@ class ChatRepositoryImpl extends ChatRepository {
     try {
       CustomChatMessage _customChatMessage;
 
-      _socketIo.socket(userName: userName).on(
-        'incomingMessage',
-        (dynamic data) {
-          print(data);
-          final List<dynamic> jsonResponse = data as List<dynamic>;
-          print(jsonResponse);
-          _customChatMessage = CustomChatMessage.fromJson(jsonResponse as Map<String, dynamic>);
-        },
-      );
-
-      // _socketIo.socket(userName: userName).emitWithAck(
+      // _socketIo.socket.on(
       //   'incomingMessage',
-      //   <String, String>{
-      //     'room': 'general',
-      //   },
-      //   ack: (dynamic data) {
+      //   (dynamic data) {
       //     print(data);
-      //     final List<dynamic> jsonResponse = data as List<dynamic>;
+      //     final Map<String, dynamic> jsonResponse = data as Map<String, dynamic>;
       //     print(jsonResponse);
-      //     _customChatMessage = CustomChatMessage.fromJson(jsonResponse as Map<String, dynamic>);
+      //     _customChatMessage = CustomChatMessage.fromJson(jsonResponse);
       //   },
       // );
 
       await Future<dynamic>.delayed(const Duration(milliseconds: 500));
 
       if (_customChatMessage != null) {
+        print('ccc');
         return _customChatMessage;
       } else {
+        print('===| incomingMessage |=======');
         return null;
       }
     } catch (e) {

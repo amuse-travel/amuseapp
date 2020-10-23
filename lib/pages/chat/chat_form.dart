@@ -4,6 +4,7 @@ import 'package:amuse_app/model/custom_chat_message.dart';
 import 'package:amuse_app/model/singleton_user.dart';
 import 'package:amuse_app/pages/common/common_widgets/custom_toast/custom_toast.dart';
 import 'package:amuse_app/pages/common/common_widgets/loading_indicator/loading_indicator.dart';
+import 'package:amuse_app/services/socket_io.dart';
 import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +17,8 @@ class ChatForm extends StatefulWidget {
 
 class _ChatFormState extends State<ChatForm> {
   SingletonUser _singletonUser;
+
+  final SocketIo _socketIo = SocketIo();
 
   String _userName;
 
@@ -39,22 +42,15 @@ class _ChatFormState extends State<ChatForm> {
 
     _chatBloc = BlocProvider.of<ChatBloc>(context);
 
-    _chatBloc.add(const ChatMessagesFetchTried(userName: 'tester'));
+    _chatBloc.add(const ChatMessagesFetchTried(userName: '야야야'));
 
     _textEditingController = TextEditingController();
 
     _chatUser = ChatUser(
-      name: 'tester',
+      name: '야야야',
     );
 
-    // _messages.insert(
-    //   0,
-    //   ChatMessage(
-    //     text: 'Welcome to Amuse world!\n$_userName!',
-    //     createdAt: DateTime(2020, 9, 7),
-    //     user: _otherUser,
-    //   ),
-    // );
+    _listenMessages();
   }
 
   Color _senderColor() {
@@ -65,13 +61,39 @@ class _ChatFormState extends State<ChatForm> {
     }
   }
 
+  void _listenMessages() {
+    CustomChatMessage _customChatMessage;
+
+    _socketIo.socket.on(
+      'incomingMessage',
+          (dynamic data) {
+        final Map<String, dynamic> jsonResponse = data as Map<String, dynamic>;
+        _customChatMessage = CustomChatMessage.fromJson(jsonResponse);
+        setState(
+              () {
+            _messages.add(
+              ChatMessage(
+                text: _customChatMessage.text ?? '',
+                id: _customChatMessage.msId,
+                user: ChatUser(
+                  name: _customChatMessage.username,
+                ),
+                createdAt: DateTime.fromMillisecondsSinceEpoch(_customChatMessage.time),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
   void _onSendMessage(ChatMessage chatMessage) {
-    _chatBloc.add(ChatMessageSendTried(userName: 'tester', chatMessage: chatMessage));
+    _chatBloc.add(ChatMessageSendTried(userName: '야야야', chatMessage: chatMessage));
   }
 
   void _onFetchMoreMessages() {
     print('on top');
-    _chatBloc.add(ChatMessagesFetchMoreTried(userName: 'tester', lastMsId: _messages[0].id));
+    _chatBloc.add(ChatMessagesFetchMoreTried(userName: '야야야', lastMsId: _messages[0].id));
   }
 
   Widget _loadMoreProgressIndicator(ChatState state) {
@@ -89,7 +111,7 @@ class _ChatFormState extends State<ChatForm> {
   }
 
   Widget _avatarBuilder(ChatUser chatUser) {
-    if (chatUser.name == 'tester') {
+    if (chatUser.name == '야야야') {
       return Container();
     }
     return Container(
@@ -118,7 +140,7 @@ class _ChatFormState extends State<ChatForm> {
 
   Widget _messageBuilder(ChatMessage chatMessage) {
     bool _isMyMessage;
-    if (chatMessage.user.name == 'tester') {
+    if (chatMessage.user.name == '야야야') {
       _isMyMessage = true;
     } else {
       _isMyMessage = false;
@@ -218,23 +240,7 @@ class _ChatFormState extends State<ChatForm> {
             _messages.insert(
               0,
               ChatMessage(
-                text: _customChatMessage.text,
-                id: _customChatMessage.msId,
-                user: ChatUser(
-                  name: _customChatMessage.username,
-                  // avatar: _customChatMassage.avatar,
-                ),
-                createdAt: DateTime.fromMillisecondsSinceEpoch(_customChatMessage.time),
-              ),
-            );
-          }
-        }
-        if (state is ChatMessagesFetchMoreTrySuccess) {
-          for (final CustomChatMessage _customChatMessage in state.chatMessageList.messages) {
-            _messages.insert(
-              0,
-              ChatMessage(
-                text: _customChatMessage.text,
+                text: _customChatMessage.text ?? '',
                 id: _customChatMessage.msId,
                 user: ChatUser(
                   name: _customChatMessage.username,
@@ -245,11 +251,35 @@ class _ChatFormState extends State<ChatForm> {
             );
           }
 
-          _chatViewKey.currentState.scrollController.animateTo(
-            0,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeOutQuint,
-          );
+          // _chatBloc.add(ChatMessageIncomingListened(userName: 'tester'));
+
+          // _chatViewKey.currentState.scrollController.animateTo(
+          //   _chatViewKey.currentState.scrollController.position.maxScrollExtent + 48,
+          //   duration: const Duration(milliseconds: 100),
+          //   curve: Curves.easeOutQuint,
+          // );
+        }
+        if (state is ChatMessagesFetchMoreTrySuccess) {
+          for (final CustomChatMessage _customChatMessage in state.chatMessageList.messages) {
+            _messages.insert(
+              0,
+              ChatMessage(
+                text: _customChatMessage.text ?? '',
+                id: _customChatMessage.msId,
+                user: ChatUser(
+                  name: _customChatMessage.username,
+                  // avatar: _customChatMassage.avatar,
+                ),
+                createdAt: DateTime.fromMillisecondsSinceEpoch(_customChatMessage.time),
+              ),
+            );
+          }
+
+          // _chatViewKey.currentState.scrollController.animateTo(
+          //   0,
+          //   duration: const Duration(milliseconds: 300),
+          //   curve: Curves.easeOutQuint,
+          // );
         }
         if (state is ChatMessageSendTrySuccess) {
           _messages.add(state.chatMessage);
@@ -259,8 +289,6 @@ class _ChatFormState extends State<ChatForm> {
             duration: const Duration(milliseconds: 100),
             curve: Curves.easeOutQuint,
           );
-
-          _chatBloc.add(ChatMessageIncomingListened(userName: 'tester'));
         }
         if (state is ChatMessageIncomingListenSuccess) {
           print(state.chatMessage);
