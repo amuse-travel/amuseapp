@@ -76,7 +76,11 @@ class _ChatFormState extends State<ChatForm> {
 
   Widget _loadMoreProgressIndicator(ChatState state) {
     if (state is ChatInProgress) {
-      return LoadingIndicator();
+      return Container(
+        width: 100,
+        height: 200,
+        child: LoadingIndicator(),
+      );
     } else {
       return const SizedBox(
         height: 0,
@@ -179,10 +183,10 @@ class _ChatFormState extends State<ChatForm> {
             onSend: _onSendMessage,
             sendOnEnter: true,
             textInputAction: TextInputAction.send,
-            scrollToBottom: true,
-            scrollToBottomStyle: ScrollToBottomStyle(
-              backgroundColor: Colors.lightBlue.withOpacity(0.9),
-            ),
+            scrollToBottom: false,
+            // scrollToBottomStyle: ScrollToBottomStyle(
+            //   backgroundColor: Colors.lightBlue.withOpacity(0.9),
+            // ),
             shouldShowLoadEarlier: false,
             showLoadEarlierWidget: () => _loadMoreProgressIndicator(state),
             onLoadEarlier: _onFetchMoreMessages,
@@ -240,6 +244,12 @@ class _ChatFormState extends State<ChatForm> {
               ),
             );
           }
+
+          _chatViewKey.currentState.scrollController.animateTo(
+            0,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOutQuint,
+          );
         }
         if (state is ChatMessageSendTrySuccess) {
           _messages.add(state.chatMessage);
@@ -249,6 +259,21 @@ class _ChatFormState extends State<ChatForm> {
             duration: const Duration(milliseconds: 100),
             curve: Curves.easeOutQuint,
           );
+
+          _chatBloc.add(ChatMessageIncomingListened(userName: 'tester'));
+        }
+        if (state is ChatMessageIncomingListenSuccess) {
+          print(state.chatMessage);
+
+          _messages.add(ChatMessage(
+            text: state.chatMessage.text,
+            id: state.chatMessage.msId,
+            user: ChatUser(
+              name: state.chatMessage.username,
+              // avatar: _customChatMassage.avatar,
+            ),
+            createdAt: DateTime.fromMillisecondsSinceEpoch(state.chatMessage.time),
+          ));
         }
         if (state is ChatFailure) {
           CustomToast(message: '메시지 전송 실패').show();

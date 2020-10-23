@@ -1,4 +1,5 @@
 import 'package:amuse_app/model/chat_message_list.dart';
+import 'package:amuse_app/model/custom_chat_message.dart';
 import 'package:amuse_app/repositories/chat_repository/chat_repository.dart';
 import 'package:amuse_app/services/socket_io.dart';
 
@@ -74,13 +75,54 @@ class ChatRepositoryImpl extends ChatRepository {
           'message': message,
         },
         ack: (dynamic data) {
-          print(data);
+          // print(data);
         },
       );
       return true;
     } catch (e) {
       print('===| sendMessage |=======[ ${e.toString()}');
       return false;
+    }
+  }
+
+  @override
+  Future<CustomChatMessage> incomingMessage({String userName}) async {
+    try {
+      CustomChatMessage _customChatMessage;
+
+      _socketIo.socket(userName: userName).on(
+        'incomingMessage',
+        (dynamic data) {
+          print(data);
+          final List<dynamic> jsonResponse = data as List<dynamic>;
+          print(jsonResponse);
+          _customChatMessage = CustomChatMessage.fromJson(jsonResponse as Map<String, dynamic>);
+        },
+      );
+
+      // _socketIo.socket(userName: userName).emitWithAck(
+      //   'incomingMessage',
+      //   <String, String>{
+      //     'room': 'general',
+      //   },
+      //   ack: (dynamic data) {
+      //     print(data);
+      //     final List<dynamic> jsonResponse = data as List<dynamic>;
+      //     print(jsonResponse);
+      //     _customChatMessage = CustomChatMessage.fromJson(jsonResponse as Map<String, dynamic>);
+      //   },
+      // );
+
+      await Future<dynamic>.delayed(const Duration(milliseconds: 500));
+
+      if (_customChatMessage != null) {
+        return _customChatMessage;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print('===| incomingMessage |=======[ ${e.toString()}');
+      return null;
     }
   }
 }

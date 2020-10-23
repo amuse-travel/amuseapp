@@ -45,3 +45,14 @@ class ChatMessageSendTrySuccess extends ChatState {
   @override
   List<Object> get props => <Object>[chatMessage];
 }
+
+class ChatMessageIncomingListenSuccess extends ChatState {
+  const ChatMessageIncomingListenSuccess({
+    @required this.chatMessage,
+  }) : assert(chatMessage != null);
+
+  final CustomChatMessage chatMessage;
+
+  @override
+  List<Object> get props => <Object>[chatMessage];
+}
