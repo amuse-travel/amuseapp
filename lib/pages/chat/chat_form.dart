@@ -66,11 +66,11 @@ class _ChatFormState extends State<ChatForm> {
 
     _socketIo.socket.on(
       'incomingMessage',
-          (dynamic data) {
+      (dynamic data) {
         final Map<String, dynamic> jsonResponse = data as Map<String, dynamic>;
         _customChatMessage = CustomChatMessage.fromJson(jsonResponse);
         setState(
-              () {
+          () {
             _messages.add(
               ChatMessage(
                 text: _customChatMessage.text ?? '',
@@ -80,6 +80,11 @@ class _ChatFormState extends State<ChatForm> {
                 ),
                 createdAt: DateTime.fromMillisecondsSinceEpoch(_customChatMessage.time),
               ),
+            );
+            _chatViewKey.currentState.scrollController.animateTo(
+              _chatViewKey.currentState.scrollController.position.maxScrollExtent + 120,
+              duration: const Duration(milliseconds: 100),
+              curve: Curves.easeOutQuint,
             );
           },
         );
@@ -251,13 +256,11 @@ class _ChatFormState extends State<ChatForm> {
             );
           }
 
-          // _chatBloc.add(ChatMessageIncomingListened(userName: 'tester'));
-
-          // _chatViewKey.currentState.scrollController.animateTo(
-          //   _chatViewKey.currentState.scrollController.position.maxScrollExtent + 48,
-          //   duration: const Duration(milliseconds: 100),
-          //   curve: Curves.easeOutQuint,
-          // );
+          _chatViewKey.currentState.scrollController.animateTo(
+            _chatViewKey.currentState.scrollController.position.maxScrollExtent + 208,
+            duration: const Duration(milliseconds: 100),
+            curve: Curves.easeOutQuint,
+          );
         }
         if (state is ChatMessagesFetchMoreTrySuccess) {
           for (final CustomChatMessage _customChatMessage in state.chatMessageList.messages) {
