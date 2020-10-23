@@ -43,6 +43,8 @@ class _ChatFormState extends State<ChatForm> {
 
     _chatBloc = BlocProvider.of<ChatBloc>(context);
 
+    _chatBloc.add(ChatMessagesFetchTried(userName: 'tester'));
+
     _authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
 
     _textEditingController = TextEditingController();
@@ -98,55 +100,67 @@ class _ChatFormState extends State<ChatForm> {
       child: Container(
         width: _sizeWidth,
         height: _sizeHeight,
-        child: DashChat(
-          key: _chatViewKey,
-          user: _chatUser,
-          messages: _messages,
-          textController: _textEditingController,
-          inputMaxLines: 3,
-          onSend: _onSendMessage,
-          sendOnEnter: true,
-          textInputAction: TextInputAction.send,
-          scrollToBottom: true,
-          scrollToBottomStyle: ScrollToBottomStyle(
-            backgroundColor: Colors.lightBlue.withOpacity(0.9),
-          ),
-          shouldShowLoadEarlier: false,
-          onLoadEarlier: () {
-            print('reached top');
-          },
-          showUserAvatar: false,
-          showAvatarForEveryMessage: false,
-          inputContainerStyle: const BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                width: 0.5,
-                color: Colors.grey,
+        child: Column(
+          children: [
+            RaisedButton(
+              onPressed: () {
+                _chatBloc.add(ChatMessagesFetchTried(userName: 'tester'));
+
+              },
+              child: Text('fetch'),
+            ),
+            DashChat(
+              height: 300,
+              key: _chatViewKey,
+              user: _chatUser,
+              messages: _messages,
+              textController: _textEditingController,
+              inputMaxLines: 3,
+              onSend: _onSendMessage,
+              sendOnEnter: true,
+              textInputAction: TextInputAction.send,
+              scrollToBottom: true,
+              scrollToBottomStyle: ScrollToBottomStyle(
+                backgroundColor: Colors.lightBlue.withOpacity(0.9),
               ),
+              shouldShowLoadEarlier: false,
+              onLoadEarlier: () {
+                print('reached top');
+              },
+              showUserAvatar: false,
+              showAvatarForEveryMessage: false,
+              inputContainerStyle: const BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    width: 0.5,
+                    color: Colors.grey,
+                  ),
+                ),
+                color: Colors.white,
+              ),
+              sendButtonBuilder: (Function sendMessage) => IconButton(
+                onPressed: () => sendMessage(),
+                icon: Icon(
+                  Icons.send,
+                  color: _senderColor(),
+                ),
+              ),
+              messageDecorationBuilder: (ChatMessage chatMessage, bool isUser) {
+                if (isUser) {
+                  return BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    color: Colors.blue[400],
+                  );
+                } else {
+                  return BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    color: Colors.grey[200],
+                  );
+                }
+              },
+              dateFormat: DateFormat('yyyy.MM.dd'),
             ),
-            color: Colors.white,
-          ),
-          sendButtonBuilder: (Function sendMessage) => IconButton(
-            onPressed: () => sendMessage(),
-            icon: Icon(
-              Icons.send,
-              color: _senderColor(),
-            ),
-          ),
-          messageDecorationBuilder: (ChatMessage chatMessage, bool isUser) {
-            if (isUser) {
-              return BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                color: Colors.blue[400],
-              );
-            } else {
-              return BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                color: Colors.grey[200],
-              );
-            }
-          },
-          dateFormat: DateFormat('yyyy.MM.dd'),
+          ],
         ),
       ),
     );

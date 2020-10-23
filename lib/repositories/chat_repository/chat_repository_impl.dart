@@ -6,19 +6,24 @@ class ChatRepositoryImpl extends ChatRepository {
   final SocketIo _socketIo = SocketIo();
 
   @override
-  Future<void> fetchMessages() {
+  Future<void> fetchMessages({String userName}) {
     try {
-      _socketIo.socket().emitWithAck(
+      dynamic _fetchedData;
+
+      _socketIo.socket(userName: userName).emitWithAck(
         'messages',
         <String, dynamic>{
           'room': 'general',
         },
-        ack: (dynamic data) => print(data),
+        ack: (dynamic data) {
+          print(data);
+          _fetchedData = data;
+        },
       );
 
+      print(_fetchedData.toString());
     } catch (e) {
       print('===| fetchMessages |=======[ ${e.toString()}');
-
     }
   }
 

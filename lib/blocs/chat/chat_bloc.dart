@@ -20,8 +20,22 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   @override
   Stream<ChatState> mapEventToState(ChatEvent event) async* {
+    if(event is ChatMessagesFetchTried) {
+      yield* _mapChatMessagesFetchTriedToState(event);
+    }
     if (event is ChatMessageSendTried) {
       yield* _mapChatMessageSendTriedToState(event);
+    }
+  }
+
+  Stream<ChatState> _mapChatMessagesFetchTriedToState(ChatMessagesFetchTried event) async* {
+    yield ChatInProgress();
+    try {
+      await chatRepository.fetchMessages(userName: event.userName);
+      yield ChatMessagesFetchTrySuccess();
+    } catch (e) {
+      print('===| _mapChatMessagesFetchTriedToState |=======[ ${e.toString}');
+      yield ChatFailure();
     }
   }
 
@@ -35,7 +49,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         yield ChatFailure();
       }
     } catch (e) {
-      print(']-----] _mapChatMessageSendTriedToState [-----[ ${e.toString}');
+      print('===| _mapChatMessageSendTriedToState |=======[ ${e.toString}');
       yield ChatFailure();
     }
   }

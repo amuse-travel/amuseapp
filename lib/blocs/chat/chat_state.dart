@@ -13,6 +13,8 @@ class ChatInProgress extends ChatState {}
 
 class ChatFailure extends ChatState {}
 
+class ChatMessagesFetchTrySuccess extends ChatState {}
+
 class ChatMessageSendTrySuccess extends ChatState {
   const ChatMessageSendTrySuccess({
     @required this.chatMessage,

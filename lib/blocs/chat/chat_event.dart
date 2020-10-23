@@ -7,6 +7,14 @@ abstract class ChatEvent extends Equatable {
   List<Object> get props => <Object>[];
 }
 
+class ChatMessagesFetchTried extends ChatEvent {
+  const ChatMessagesFetchTried({
+    @required this.userName,
+  }) : assert(userName != null);
+
+  final String userName;
+}
+
 class ChatMessageSendTried extends ChatEvent {
   const ChatMessageSendTried({
     @required this.userName,
