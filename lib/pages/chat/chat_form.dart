@@ -3,6 +3,7 @@ import 'package:amuse_app/blocs/chat/chat_bloc.dart';
 import 'package:amuse_app/model/custom_chat_message.dart';
 import 'package:amuse_app/model/singleton_user.dart';
 import 'package:amuse_app/pages/common/common_widgets/custom_toast/custom_toast.dart';
+import 'package:amuse_app/pages/common/common_widgets/loading_indicator/loading_indicator.dart';
 import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,8 +52,17 @@ class _ChatFormState extends State<ChatForm> {
     _textEditingController = TextEditingController();
 
     _chatUser = ChatUser(
-      name: _userName,
+      name: 'tester',
     );
+
+    // _messages.insert(
+    //   0,
+    //   ChatMessage(
+    //     text: 'Welcome to Amuse world!\n$_userName!',
+    //     createdAt: DateTime(2020, 9, 7),
+    //     user: _otherUser,
+    //   ),
+    // );
   }
 
   Color _senderColor() {
@@ -64,7 +74,100 @@ class _ChatFormState extends State<ChatForm> {
   }
 
   void _onSendMessage(ChatMessage chatMessage) {
+    print(chatMessage.user.name);
     _chatBloc.add(ChatMessageSendTried(userName: 'tester', chatMessage: chatMessage));
+  }
+
+  void _onFetchMoreMessages() {
+    print('on top');
+    _chatBloc.add(ChatMessagesFetchMoreTried(userName: 'tester', lastMsId: _messages[0].id));
+  }
+
+  Widget _loadMoreProgressIndicator(ChatState state) {
+    if (state is ChatInProgress) {
+      return LoadingIndicator();
+    } else {
+      return const SizedBox(
+        height: 0,
+      );
+    }
+  }
+
+  Widget _avatarBuilder(ChatUser chatUser) {
+    if (chatUser.name == 'tester') {
+      return Container();
+    }
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      child: Card(
+        shape: const CircleBorder(),
+        child: Container(
+          padding: const EdgeInsets.all(3),
+          alignment: Alignment.center,
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: Colors.white,
+          ),
+          child: CircleAvatar(
+            radius: 20,
+            // backgroundImage: NetworkImage(
+            //   chatUser.avatar,
+            // ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _messageBuilder(ChatMessage chatMessage) {
+    bool _isMyMessage;
+    if (chatMessage.user.name == 'tester') {
+      _isMyMessage = true;
+    } else {
+      _isMyMessage = false;
+    }
+
+    return Column(
+      children: <Widget>[
+        Container(
+          margin: const EdgeInsets.only(top: 16),
+          alignment: _isMyMessage ? Alignment.centerRight : Alignment.centerLeft,
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: _isMyMessage
+                  ? null
+                  : Border.all(
+                      width: 1,
+                      color: Colors.grey,
+                    ),
+              color: _isMyMessage ? const Color(0xFFD1D5DB) : Colors.white,
+            ),
+            child: Text(
+              chatMessage.text,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(left: 10),
+          alignment: _isMyMessage ? Alignment.centerRight : Alignment.centerLeft,
+          child: Text(
+            DateFormat('M월 dd일 a hh:mm').format(chatMessage.createdAt),
+            style: const TextStyle(
+              fontSize: 11,
+              color: Colors.grey,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   @override
@@ -90,21 +193,8 @@ class _ChatFormState extends State<ChatForm> {
               backgroundColor: Colors.lightBlue.withOpacity(0.9),
             ),
             shouldShowLoadEarlier: false,
-            onLoadEarlier: () {
-              print('reached top');
-              setState(() {
-                _messages.insert(
-                  0,
-                  ChatMessage(
-                    text: 'Welcome to Amuse world!\n$_userName!',
-                    createdAt: DateTime(2020, 9, 7),
-                    user: _otherUser,
-                  ),
-                );
-              });
-            },
-            showUserAvatar: false,
-            showAvatarForEveryMessage: false,
+            showLoadEarlierWidget: () => _loadMoreProgressIndicator(state),
+            onLoadEarlier: _onFetchMoreMessages,
             inputContainerStyle: const BoxDecoration(
               border: Border(
                 top: BorderSide(
@@ -121,35 +211,41 @@ class _ChatFormState extends State<ChatForm> {
                 color: _senderColor(),
               ),
             ),
-            messageDecorationBuilder: (ChatMessage chatMessage, bool isUser) {
-              if (isUser) {
-                return BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  color: Colors.blue[400],
-                );
-              } else {
-                return BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  color: Colors.grey[200],
-                );
-              }
-            },
+            avatarBuilder: (ChatUser chatUser) => _avatarBuilder(chatUser),
+            messageBuilder: (ChatMessage chatMessage) => _messageBuilder(chatMessage),
             dateFormat: DateFormat('yyyy.MM.dd'),
           ),
         );
       },
       listener: (BuildContext buildContext, ChatState state) {
         if (state is ChatMessagesFetchTrySuccess) {
-          for (final CustomChatMessage _customChatMassage in state.chatMessageList.messages) {
+          for (final CustomChatMessage _customChatMessage in state.chatMessageList.messages) {
             _messages.insert(
               0,
               ChatMessage(
-                text: _customChatMassage.text,
+                text: _customChatMessage.text,
+                id: _customChatMessage.msId,
                 user: ChatUser(
-                  name: _customChatMassage.username,
+                  name: _customChatMessage.username,
                   // avatar: _customChatMassage.avatar,
                 ),
-                createdAt: DateTime.fromMillisecondsSinceEpoch(_customChatMassage.time),
+                createdAt: DateTime.fromMillisecondsSinceEpoch(_customChatMessage.time),
+              ),
+            );
+          }
+        }
+        if (state is ChatMessagesFetchMoreTrySuccess) {
+          for (final CustomChatMessage _customChatMessage in state.chatMessageList.messages) {
+            _messages.insert(
+              0,
+              ChatMessage(
+                text: _customChatMessage.text,
+                id: _customChatMessage.msId,
+                user: ChatUser(
+                  name: _customChatMessage.username,
+                  // avatar: _customChatMassage.avatar,
+                ),
+                createdAt: DateTime.fromMillisecondsSinceEpoch(_customChatMessage.time),
               ),
             );
           }

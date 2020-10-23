@@ -15,6 +15,17 @@ class ChatMessagesFetchTried extends ChatEvent {
   final String userName;
 }
 
+class ChatMessagesFetchMoreTried extends ChatEvent {
+  const ChatMessagesFetchMoreTried({
+    @required this.userName,
+    @required this.lastMsId,
+  })  : assert(userName != null),
+        assert(lastMsId != null);
+
+  final String userName;
+  final String lastMsId;
+}
+
 class ChatMessageSendTried extends ChatEvent {
   const ChatMessageSendTried({
     @required this.userName,

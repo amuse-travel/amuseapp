@@ -24,6 +24,17 @@ class ChatMessagesFetchTrySuccess extends ChatState {
   List<Object> get props => <Object>[chatMessageList];
 }
 
+class ChatMessagesFetchMoreTrySuccess extends ChatState {
+  const ChatMessagesFetchMoreTrySuccess({
+    @required this.chatMessageList,
+  }) : assert(chatMessageList != null);
+
+  final ChatMessageList chatMessageList;
+
+  @override
+  List<Object> get props => <Object>[chatMessageList];
+}
+
 class ChatMessageSendTrySuccess extends ChatState {
   const ChatMessageSendTrySuccess({
     @required this.chatMessage,
