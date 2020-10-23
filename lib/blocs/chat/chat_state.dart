@@ -13,7 +13,16 @@ class ChatInProgress extends ChatState {}
 
 class ChatFailure extends ChatState {}
 
-class ChatMessagesFetchTrySuccess extends ChatState {}
+class ChatMessagesFetchTrySuccess extends ChatState {
+  const ChatMessagesFetchTrySuccess({
+    @required this.chatMessageList,
+  }) : assert(chatMessageList != null);
+
+  final ChatMessageList chatMessageList;
+
+  @override
+  List<Object> get props => <Object>[chatMessageList];
+}
 
 class ChatMessageSendTrySuccess extends ChatState {
   const ChatMessageSendTrySuccess({

@@ -1,5 +1,6 @@
 import 'package:amuse_app/blocs/authentication/authentication_bloc.dart';
 import 'package:amuse_app/blocs/chat/chat_bloc.dart';
+import 'package:amuse_app/model/custom_chat_message.dart';
 import 'package:amuse_app/model/singleton_user.dart';
 import 'package:amuse_app/pages/common/common_widgets/custom_toast/custom_toast.dart';
 import 'package:dash_chat/dash_chat.dart';
@@ -52,14 +53,6 @@ class _ChatFormState extends State<ChatForm> {
     _chatUser = ChatUser(
       name: _userName,
     );
-
-    _messages.add(
-      ChatMessage(
-        text: 'Welcome to Amuse world!\n$_userName!',
-        createdAt: DateTime.now(),
-        user: _otherUser,
-      ),
-    );
   }
 
   Color _senderColor() {
@@ -78,91 +71,102 @@ class _ChatFormState extends State<ChatForm> {
   Widget build(BuildContext context) {
     final double _sizeWidth = MediaQuery.of(context).size.width;
     final double _sizeHeight = MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
-    return MultiBlocListener(
-      listeners: <BlocListener<dynamic, dynamic>>[
-        BlocListener<ChatBloc, ChatState>(
-          listener: (BuildContext context, ChatState state) {
-            if (state is ChatMessageSendTrySuccess) {
-              _messages.add(state.chatMessage);
-
-              _chatViewKey.currentState.scrollController.animateTo(
-                _chatViewKey.currentState.scrollController.position.maxScrollExtent + 48,
-                duration: const Duration(milliseconds: 100),
-                curve: Curves.easeOutQuint,
-              );
-            }
-            if (state is ChatFailure) {
-              CustomToast(message: '메시지 전송 실패').show();
-            }
-          },
-        ),
-      ],
-      child: Container(
-        width: _sizeWidth,
-        height: _sizeHeight,
-        child: Column(
-          children: [
-            RaisedButton(
-              onPressed: () {
-                _chatBloc.add(ChatMessagesFetchTried(userName: 'tester'));
-
-              },
-              child: Text('fetch'),
+    return BlocConsumer<ChatBloc, ChatState>(
+      builder: (BuildContext buildContext, ChatState state) {
+        return Container(
+          width: _sizeWidth,
+          height: _sizeHeight,
+          child: DashChat(
+            key: _chatViewKey,
+            user: _chatUser,
+            messages: _messages,
+            textController: _textEditingController,
+            inputMaxLines: 3,
+            onSend: _onSendMessage,
+            sendOnEnter: true,
+            textInputAction: TextInputAction.send,
+            scrollToBottom: true,
+            scrollToBottomStyle: ScrollToBottomStyle(
+              backgroundColor: Colors.lightBlue.withOpacity(0.9),
             ),
-            DashChat(
-              height: 300,
-              key: _chatViewKey,
-              user: _chatUser,
-              messages: _messages,
-              textController: _textEditingController,
-              inputMaxLines: 3,
-              onSend: _onSendMessage,
-              sendOnEnter: true,
-              textInputAction: TextInputAction.send,
-              scrollToBottom: true,
-              scrollToBottomStyle: ScrollToBottomStyle(
-                backgroundColor: Colors.lightBlue.withOpacity(0.9),
-              ),
-              shouldShowLoadEarlier: false,
-              onLoadEarlier: () {
-                print('reached top');
-              },
-              showUserAvatar: false,
-              showAvatarForEveryMessage: false,
-              inputContainerStyle: const BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    width: 0.5,
-                    color: Colors.grey,
+            shouldShowLoadEarlier: false,
+            onLoadEarlier: () {
+              print('reached top');
+              setState(() {
+                _messages.insert(
+                  0,
+                  ChatMessage(
+                    text: 'Welcome to Amuse world!\n$_userName!',
+                    createdAt: DateTime(2020, 9, 7),
+                    user: _otherUser,
                   ),
+                );
+              });
+            },
+            showUserAvatar: false,
+            showAvatarForEveryMessage: false,
+            inputContainerStyle: const BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                  width: 0.5,
+                  color: Colors.grey,
                 ),
-                color: Colors.white,
               ),
-              sendButtonBuilder: (Function sendMessage) => IconButton(
-                onPressed: () => sendMessage(),
-                icon: Icon(
-                  Icons.send,
-                  color: _senderColor(),
-                ),
-              ),
-              messageDecorationBuilder: (ChatMessage chatMessage, bool isUser) {
-                if (isUser) {
-                  return BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    color: Colors.blue[400],
-                  );
-                } else {
-                  return BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    color: Colors.grey[200],
-                  );
-                }
-              },
-              dateFormat: DateFormat('yyyy.MM.dd'),
+              color: Colors.white,
             ),
-          ],
-        ),
-      ),
+            sendButtonBuilder: (Function sendMessage) => IconButton(
+              onPressed: () => sendMessage(),
+              icon: Icon(
+                Icons.send,
+                color: _senderColor(),
+              ),
+            ),
+            messageDecorationBuilder: (ChatMessage chatMessage, bool isUser) {
+              if (isUser) {
+                return BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  color: Colors.blue[400],
+                );
+              } else {
+                return BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  color: Colors.grey[200],
+                );
+              }
+            },
+            dateFormat: DateFormat('yyyy.MM.dd'),
+          ),
+        );
+      },
+      listener: (BuildContext buildContext, ChatState state) {
+        if (state is ChatMessagesFetchTrySuccess) {
+          for (final CustomChatMessage _customChatMassage in state.chatMessageList.messages) {
+            _messages.insert(
+              0,
+              ChatMessage(
+                text: _customChatMassage.text,
+                user: ChatUser(
+                  name: _customChatMassage.username,
+                  // avatar: _customChatMassage.avatar,
+                ),
+                createdAt: DateTime.fromMillisecondsSinceEpoch(_customChatMassage.time),
+              ),
+            );
+          }
+        }
+        if (state is ChatMessageSendTrySuccess) {
+          _messages.add(state.chatMessage);
+
+          _chatViewKey.currentState.scrollController.animateTo(
+            _chatViewKey.currentState.scrollController.position.maxScrollExtent + 48,
+            duration: const Duration(milliseconds: 100),
+            curve: Curves.easeOutQuint,
+          );
+        }
+        if (state is ChatFailure) {
+          CustomToast(message: '메시지 전송 실패').show();
+        }
+      },
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:amuse_app/model/chat_message_list.dart';
 import 'package:amuse_app/repositories/chat_repository/chat_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dash_chat/dash_chat.dart';
@@ -20,7 +21,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   @override
   Stream<ChatState> mapEventToState(ChatEvent event) async* {
-    if(event is ChatMessagesFetchTried) {
+    if (event is ChatMessagesFetchTried) {
       yield* _mapChatMessagesFetchTriedToState(event);
     }
     if (event is ChatMessageSendTried) {
@@ -31,8 +32,12 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   Stream<ChatState> _mapChatMessagesFetchTriedToState(ChatMessagesFetchTried event) async* {
     yield ChatInProgress();
     try {
-      await chatRepository.fetchMessages(userName: event.userName);
-      yield ChatMessagesFetchTrySuccess();
+      final ChatMessageList _chatMessages = await chatRepository.fetchMessages(userName: event.userName);
+      if (_chatMessages != null) {
+        yield ChatMessagesFetchTrySuccess(chatMessageList: _chatMessages);
+      } else {
+        yield ChatFailure();
+      }
     } catch (e) {
       print('===| _mapChatMessagesFetchTriedToState |=======[ ${e.toString}');
       yield ChatFailure();
