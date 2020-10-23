@@ -39,7 +39,7 @@ class _ChatFormState extends State<ChatForm> {
 
     _singletonUser = SingletonUser();
 
-    _userName = 'tester';
+    _userName = _singletonUser.user.displayName;
 
     _chatBloc = BlocProvider.of<ChatBloc>(context);
 
@@ -68,12 +68,8 @@ class _ChatFormState extends State<ChatForm> {
     }
   }
 
-  void _onSend(ChatMessage chatMessage) {
-    _chatBloc.add(ChatMessageSendTried(userName: _userName, chatMessage: chatMessage));
-  }
-
-  void _onBackButtonPressed() {
-    _authenticationBloc.add(AuthenticationOut());
+  void _onSendMessage(ChatMessage chatMessage) {
+    _chatBloc.add(ChatMessageSendTried(userName: 'tester', chatMessage: chatMessage));
   }
 
   @override
@@ -108,7 +104,7 @@ class _ChatFormState extends State<ChatForm> {
           messages: _messages,
           textController: _textEditingController,
           inputMaxLines: 3,
-          onSend: _onSend,
+          onSend: _onSendMessage,
           sendOnEnter: true,
           textInputAction: TextInputAction.send,
           scrollToBottom: true,
@@ -140,12 +136,12 @@ class _ChatFormState extends State<ChatForm> {
           messageDecorationBuilder: (ChatMessage chatMessage, bool isUser) {
             if (isUser) {
               return BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
                 color: Colors.blue[400],
               );
             } else {
               return BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
                 color: Colors.grey[200],
               );
             }

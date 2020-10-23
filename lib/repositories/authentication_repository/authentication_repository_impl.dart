@@ -1,3 +1,4 @@
+import 'package:amuse_app/model/singleton_user.dart';
 import 'package:amuse_app/repositories/authentication_repository/authentication_repository.dart';
 import 'package:amuse_app/services/socket_io.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,6 +31,8 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
 
       if (_userCredential != null) {
         final User _user = _userCredential.user;
+        // final SingletonUser singletonUser = SingletonUser();
+        // singletonUser.user = _user;
 
         final Socket _socket = _socketIo.socket(userName: _user.displayName);
         await Future<dynamic>.delayed(const Duration(milliseconds: 500));
