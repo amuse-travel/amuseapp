@@ -1,9 +1,9 @@
 import 'package:amuse_app/repositories/authentication_repository/authentication_repository.dart';
 import 'package:amuse_app/services/socket_io.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 
 class AuthenticationRepositoryImpl extends AuthenticationRepository {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -30,7 +30,16 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
 
       if (_userCredential != null) {
         final User _user = _userCredential.user;
-        return _user;
+
+        final Socket _socket = _socketIo.socket(userName: _user.displayName);
+        await Future<dynamic>.delayed(const Duration(milliseconds: 500));
+
+        if (_socket.connected) {
+          return _user;
+        } else {
+          print('=====| authenticate |==========[ SocketIO connection is failed.');
+          return null;
+        }
       } else {
         return null;
       }
@@ -39,7 +48,6 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
       return null;
     }
   }
-
 
   @override
   void disprove() {
@@ -69,5 +77,4 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
       return null;
     }
   }
-
 }

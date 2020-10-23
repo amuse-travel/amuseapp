@@ -6,10 +6,27 @@ class ChatRepositoryImpl extends ChatRepository {
   final SocketIo _socketIo = SocketIo();
 
   @override
-  Future<void> sendMessage({@required String message}) async {
+  Future<void> fetchMessages() {
     try {
-      _socketIo.socket.emitWithAck(
-        'newMessage',
+      _socketIo.socket().emitWithAck(
+        'messages',
+        <String, dynamic>{
+          'room': 'general',
+        },
+        ack: (dynamic data) => print(data),
+      );
+
+    } catch (e) {
+      print('===| fetchMessages |=======[ ${e.toString()}');
+
+    }
+  }
+
+  @override
+  Future<bool> sendMessage({String userName, String message}) async {
+    try {
+      _socketIo.socket(userName: userName).emitWithAck(
+        'input',
         <String, String>{
           'room': 'general',
           'message': message,
@@ -18,8 +35,10 @@ class ChatRepositoryImpl extends ChatRepository {
           print(data);
         },
       );
+      return true;
     } catch (e) {
-      print(']-----] sendMessage [-----[ ${e.toString()}');
+      print('===| sendMessage |=======[ ${e.toString()}');
+      return false;
     }
   }
 }

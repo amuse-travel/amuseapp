@@ -11,8 +11,9 @@ part 'chat_event.dart';
 part 'chat_state.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
-  ChatBloc({@required this.chatRepository})
-      : assert(chatRepository != null),
+  ChatBloc({
+    @required this.chatRepository,
+  })  : assert(chatRepository != null),
         super(ChatInitial());
 
   final ChatRepository chatRepository;
@@ -27,8 +28,12 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   Stream<ChatState> _mapChatMessageSendTriedToState(ChatMessageSendTried event) async* {
     yield ChatInProgress();
     try {
-      await chatRepository.sendMessage(message: event.chatMessage.text);
-      yield ChatMessageSendTrySuccess(chatMessage: event.chatMessage);
+      final bool _isSent = await chatRepository.sendMessage(userName: event.userName, message: event.chatMessage.text);
+      if (_isSent) {
+        yield ChatMessageSendTrySuccess(chatMessage: event.chatMessage);
+      } else {
+        yield ChatFailure();
+      }
     } catch (e) {
       print(']-----] _mapChatMessageSendTriedToState [-----[ ${e.toString}');
       yield ChatFailure();

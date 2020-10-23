@@ -1,5 +1,6 @@
 import 'package:amuse_app/blocs/authentication/authentication_bloc.dart';
 import 'package:amuse_app/blocs/login/login_bloc.dart';
+import 'package:amuse_app/pages/common/common_widgets/custom_toast/custom_toast.dart';
 import 'package:amuse_app/pages/common/common_widgets/loading_indicator/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -113,6 +114,10 @@ class _LoginFormState extends State<LoginForm> {
       listener: (BuildContext buildContext, LoginState state) {
         if (state is LoginInProgress) {
           _shouldIgnore = true;
+        }
+        if (state is LoginFailure){
+          _shouldIgnore = false;
+          CustomToast(message: '로그인에 실패하였습니다.').show();
         }
         if (state is LoginWithGoogleTrySuccess) {
           context.bloc<AuthenticationBloc>().add(AuthenticationTried());

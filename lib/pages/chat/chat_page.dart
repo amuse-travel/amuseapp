@@ -18,9 +18,7 @@ class ChatPage extends StatelessWidget {
           final ChatRepository _chatRepository = RepositoryProvider.of<ChatRepository>(context);
           return ChatBloc(chatRepository: _chatRepository);
         },
-        child: Container(
-          color: Colors.yellow,
-        ),
+        child: ChatForm(),
       ),
     );
   }

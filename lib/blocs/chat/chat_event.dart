@@ -9,8 +9,11 @@ abstract class ChatEvent extends Equatable {
 
 class ChatMessageSendTried extends ChatEvent {
   const ChatMessageSendTried({
+    @required this.userName,
     @required this.chatMessage,
-  }) : assert(chatMessage != null);
+  })  : assert(userName != null),
+        assert(chatMessage != null);
 
+  final String userName;
   final ChatMessage chatMessage;
 }

@@ -1,22 +1,20 @@
 import 'package:amuse_app/blocs/authentication/authentication_bloc.dart';
 import 'package:amuse_app/blocs/chat/chat_bloc.dart';
+import 'package:amuse_app/model/singleton_user.dart';
+import 'package:amuse_app/pages/common/common_widgets/custom_toast/custom_toast.dart';
 import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class ChatForm extends StatefulWidget {
-  const ChatForm({
-    @required this.userName,
-  }) : assert(userName != null);
-
-  final String userName;
-
   @override
   _ChatFormState createState() => _ChatFormState();
 }
 
 class _ChatFormState extends State<ChatForm> {
+  SingletonUser _singletonUser;
+
   String _userName;
 
   ChatBloc _chatBloc;
@@ -33,17 +31,15 @@ class _ChatFormState extends State<ChatForm> {
     name: 'Other',
   );
 
-  final ChatUser _otherUser2 = ChatUser(
-    name: 'D',
-  );
-
   final List<ChatMessage> _messages = <ChatMessage>[];
 
   @override
   void initState() {
     super.initState();
 
-    _userName = widget.userName;
+    _singletonUser = SingletonUser();
+
+    _userName = 'tester';
 
     _chatBloc = BlocProvider.of<ChatBloc>(context);
 
@@ -58,16 +54,8 @@ class _ChatFormState extends State<ChatForm> {
     _messages.add(
       ChatMessage(
         text: 'Welcome to Amuse world!\n$_userName!',
-        createdAt: DateTime(2020, 10, 1),
-        user: _otherUser,
-      ),
-    );
-
-    _messages.add(
-      ChatMessage(
-        text: 'hello world',
         createdAt: DateTime.now(),
-        user: _otherUser2,
+        user: _otherUser,
       ),
     );
   }
@@ -81,7 +69,7 @@ class _ChatFormState extends State<ChatForm> {
   }
 
   void _onSend(ChatMessage chatMessage) {
-    _chatBloc.add(ChatMessageSendTried(chatMessage: chatMessage));
+    _chatBloc.add(ChatMessageSendTried(userName: _userName, chatMessage: chatMessage));
   }
 
   void _onBackButtonPressed() {
@@ -94,13 +82,6 @@ class _ChatFormState extends State<ChatForm> {
     final double _sizeHeight = MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     return MultiBlocListener(
       listeners: <BlocListener<dynamic, dynamic>>[
-        BlocListener<AuthenticationBloc, AuthenticationState>(
-          listener: (BuildContext context, AuthenticationState state) {
-            if (state is AuthenticationFinishSuccess) {
-              Navigator.pop(context);
-            }
-          },
-        ),
         BlocListener<ChatBloc, ChatState>(
           listener: (BuildContext context, ChatState state) {
             if (state is ChatMessageSendTrySuccess) {
@@ -112,76 +93,64 @@ class _ChatFormState extends State<ChatForm> {
                 curve: Curves.easeOutQuint,
               );
             }
+            if (state is ChatFailure) {
+              CustomToast(message: '메시지 전송 실패').show();
+            }
           },
         ),
       ],
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: const Text('Chat'),
-          centerTitle: true,
-          leading: IconButton(
-            onPressed: _onBackButtonPressed,
-            icon: const Icon(
-              Icons.arrow_back_ios,
+      child: Container(
+        width: _sizeWidth,
+        height: _sizeHeight,
+        child: DashChat(
+          key: _chatViewKey,
+          user: _chatUser,
+          messages: _messages,
+          textController: _textEditingController,
+          inputMaxLines: 3,
+          onSend: _onSend,
+          sendOnEnter: true,
+          textInputAction: TextInputAction.send,
+          scrollToBottom: true,
+          scrollToBottomStyle: ScrollToBottomStyle(
+            backgroundColor: Colors.lightBlue.withOpacity(0.9),
+          ),
+          shouldShowLoadEarlier: false,
+          onLoadEarlier: () {
+            print('reached top');
+          },
+          showUserAvatar: false,
+          showAvatarForEveryMessage: false,
+          inputContainerStyle: const BoxDecoration(
+            border: Border(
+              top: BorderSide(
+                width: 0.5,
+                color: Colors.grey,
+              ),
+            ),
+            color: Colors.white,
+          ),
+          sendButtonBuilder: (Function sendMessage) => IconButton(
+            onPressed: () => sendMessage(),
+            icon: Icon(
+              Icons.send,
+              color: _senderColor(),
             ),
           ),
-        ),
-        body: SafeArea(
-          child: Container(
-            width: _sizeWidth,
-            height: _sizeHeight,
-            child: DashChat(
-              key: _chatViewKey,
-              user: _chatUser,
-              messages: _messages,
-              textController: _textEditingController,
-              inputMaxLines: 3,
-              onSend: _onSend,
-              sendOnEnter: true,
-              textInputAction: TextInputAction.send,
-              scrollToBottom: true,
-              scrollToBottomStyle: ScrollToBottomStyle(
-                backgroundColor: Colors.lightBlue.withOpacity(0.9),
-              ),
-              shouldShowLoadEarlier: false,
-              onLoadEarlier: () {
-                print('reached top');
-              },
-              showUserAvatar: false,
-              showAvatarForEveryMessage: false,
-              inputContainerStyle: const BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    width: 0.5,
-                    color: Colors.grey,
-                  ),
-                ),
-                color: Colors.white,
-              ),
-              sendButtonBuilder: (Function sendMessage) => IconButton(
-                onPressed: () => sendMessage(),
-                icon: Icon(
-                  Icons.send,
-                  color: _senderColor(),
-                ),
-              ),
-              messageDecorationBuilder: (ChatMessage chatMessage, bool isUser) {
-                if (isUser) {
-                  return BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    color: Colors.blue[400],
-                  );
-                } else {
-                  return BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    color: Colors.grey[200],
-                  );
-                }
-              },
-              dateFormat: DateFormat('yyyy.MM.dd'),
-            ),
-          ),
+          messageDecorationBuilder: (ChatMessage chatMessage, bool isUser) {
+            if (isUser) {
+              return BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.blue[400],
+              );
+            } else {
+              return BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.grey[200],
+              );
+            }
+          },
+          dateFormat: DateFormat('yyyy.MM.dd'),
         ),
       ),
     );

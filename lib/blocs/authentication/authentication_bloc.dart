@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:amuse_app/model/singleton_user.dart';
 import 'package:amuse_app/repositories/authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -34,6 +35,8 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     try {
       final User user = await authenticationRepository.authenticate();
       if (user != null) {
+        final SingletonUser _singletonUser = SingletonUser();
+        _singletonUser.user = user;
         yield AuthenticationTrySuccess();
       } else {
         yield AuthenticationRequired();
