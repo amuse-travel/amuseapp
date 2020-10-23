@@ -9,7 +9,7 @@ class SocketIo {
         'transports': <String>['websocket'],
         'query': <String, dynamic>{
           'username': 'tester',
-          'avatar': 'https://www.tinygraphs.com/squares/tester?theme=frogideas&numcolors=4'
+          'avatar': 'https://www.tinygraphs.com/squares/test?theme=frogideas&numcolors=4'
         }
       },
     );

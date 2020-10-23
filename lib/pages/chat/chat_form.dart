@@ -21,17 +21,11 @@ class _ChatFormState extends State<ChatForm> {
 
   ChatBloc _chatBloc;
 
-  AuthenticationBloc _authenticationBloc;
-
   final GlobalKey<DashChatState> _chatViewKey = GlobalKey<DashChatState>();
 
   TextEditingController _textEditingController;
 
   ChatUser _chatUser;
-
-  final ChatUser _otherUser = ChatUser(
-    name: 'Other',
-  );
 
   final List<ChatMessage> _messages = <ChatMessage>[];
 
@@ -45,9 +39,7 @@ class _ChatFormState extends State<ChatForm> {
 
     _chatBloc = BlocProvider.of<ChatBloc>(context);
 
-    _chatBloc.add(ChatMessagesFetchTried(userName: 'tester'));
-
-    _authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
+    _chatBloc.add(const ChatMessagesFetchTried(userName: 'tester'));
 
     _textEditingController = TextEditingController();
 
@@ -74,7 +66,6 @@ class _ChatFormState extends State<ChatForm> {
   }
 
   void _onSendMessage(ChatMessage chatMessage) {
-    print(chatMessage.user.name);
     _chatBloc.add(ChatMessageSendTried(userName: 'tester', chatMessage: chatMessage));
   }
 
