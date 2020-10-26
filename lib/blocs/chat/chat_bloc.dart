@@ -40,11 +40,15 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       if (_chatMessages != null) {
         yield ChatMessagesFetchTrySuccess(chatMessageList: _chatMessages);
       } else {
-        yield ChatFailure();
+        yield const ChatFailure(
+          message: '메세지 불러오기 실패',
+        );
       }
     } catch (e) {
       log('===| _mapChatMessagesFetchTriedToState |=======[ ${e.toString}');
-      yield ChatFailure();
+      yield const ChatFailure(
+        message: '메세지 불러오기 실패',
+      );
     }
   }
 
@@ -55,11 +59,15 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       if (_chatMessages != null) {
         yield ChatMessagesFetchMoreTrySuccess(chatMessageList: _chatMessages);
       } else {
-        yield ChatFailure();
+        yield const ChatFailure(
+          message: '메세지 불러오기 실패',
+        );
       }
     } catch (e) {
       print('===| _mapChatMessagesFetchMoreTriedToState |=======[ ${e.toString}');
-      yield ChatFailure();
+      yield const ChatFailure(
+        message: '메세지 불러오기 실패',
+      );
     }
   }
 
@@ -70,11 +78,15 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       if (_isSent) {
         yield ChatMessageSendTrySuccess(chatMessage: event.chatMessage);
       } else {
-        yield ChatFailure();
+        yield const ChatFailure(
+          message: '메세지 전송 실패',
+        );
       }
     } catch (e) {
       log('===| _mapChatMessageSendTriedToState |=======[ ${e.toString}');
-      yield ChatFailure();
+      yield const ChatFailure(
+        message: '메세지 전송 실패',
+      );
     }
   }
 }

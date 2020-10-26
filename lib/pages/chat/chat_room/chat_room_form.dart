@@ -169,6 +169,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
 
   Widget _messageBuilder(ChatMessage chatMessage) {
     bool _isMyMessage;
+
     if (chatMessage.user.name == _userName) {
       _isMyMessage = true;
     } else {
@@ -312,7 +313,9 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
           );
         }
         if (state is ChatFailure) {
-          // CustomToast(message: '메시지 전송 실패').show();
+          CustomToast(
+            message: state.message,
+          ).show();
         }
       },
     );
