@@ -17,8 +17,10 @@ class ChatRepositoryImpl extends ChatRepository {
           'room': 'general',
         },
         ack: (dynamic data) {
-          final List<dynamic> jsonResponse = data as List<dynamic>;
-          _chatMessages = ChatMessageList.fromJson(jsonResponse[1] as Map<String, dynamic>);
+          if (data != null) {
+            final List<dynamic> jsonResponse = data as List<dynamic>;
+            // _chatMessages = ChatMessageList.fromJson(jsonResponse[1] as Map<String, dynamic>);
+          }
         },
       );
 

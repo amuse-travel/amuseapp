@@ -47,7 +47,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   Stream<AuthenticationState> _mapAuthenticationFinishedToState(AuthenticationOut event) async* {
     yield AuthenticationInProgress();
     try {
-      authenticationRepository.disprove();
+      await authenticationRepository.disprove();
       yield AuthenticationRequired();
     } catch (e) {
       yield AuthenticationFailure(errorCode: 'AuthenticationFinished ${e.toString()}');

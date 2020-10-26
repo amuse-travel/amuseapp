@@ -19,9 +19,11 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   Future<User> authenticate() async {
     UserCredential _userCredential;
     try {
-      final String _idToken = await _secureStorage.read(key: 'idToken');
-      final String _accessToken = await _secureStorage.read(key: 'accessToken');
-      final String _userName = await _secureStorage.read(key: 'userName');
+      final String _idToken = await _secureStorage.read(key: 'id_token');
+      final String _accessToken = await _secureStorage.read(key: 'access_token');
+      final String _userName = await _secureStorage.read(key: 'user_name');
+
+      print('userName : $_userName');
 
       if (_idToken != null && _accessToken != null) {
         final AuthCredential _authCredential = GoogleAuthProvider.credential(
@@ -59,8 +61,8 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  void disprove() {
-    _secureStorage.deleteAll();
+  Future<void> disprove() async {
+    await _secureStorage.deleteAll();
     print('=====| disprove |==========[');
   }
 
@@ -77,8 +79,8 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
         accessToken: _googleSignInAuthentication.accessToken,
       );
 
-      _secureStorage.write(key: 'idToken', value: _googleSignInAuthentication.idToken);
-      _secureStorage.write(key: 'accessToken', value: _googleSignInAuthentication.accessToken);
+      await _secureStorage.write(key: 'id_token', value: _googleSignInAuthentication.idToken.toString());
+      await _secureStorage.write(key: 'access_token', value: _googleSignInAuthentication.accessToken.toString());
 
       return _authCredential;
     } catch (e) {

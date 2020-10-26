@@ -17,7 +17,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = CustomBlocObserver();
   await Firebase.initializeApp();
-  await DotEnv().load('.env');
+  await DotEnv().load('assets/.env');
 
   runApp(
     RepositoryProvider<AuthenticationRepository>(

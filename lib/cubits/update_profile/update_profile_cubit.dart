@@ -12,10 +12,13 @@ class UpdateProfileCubit extends Cubit<UpdateProfileState> {
 
   final SingletonUser _singletonUser = SingletonUser();
 
-  void updateUserName({String userName}) {
+  Future<void> updateUserName({String userName}) async {
     emit(UpdateProfileInProgress());
     _singletonUser.userName = userName;
-    _secureStorage.write(key: 'userName', value: _singletonUser.userName);
+    await _secureStorage.delete(key: 'user_name');
+    await _secureStorage.write(key: 'user_name', value: userName);
+
+    print('write done');
     emit(UpdateProfileUserName());
   }
 }

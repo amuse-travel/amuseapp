@@ -40,7 +40,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
 
     _singletonUser = SingletonUser();
 
-    if( _singletonUser.userName != null) {
+    if (_singletonUser.userName != null) {
       _userName = _singletonUser.userName;
     } else {
       _userName = 'tester';
@@ -75,27 +75,29 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
       'incomingMessage',
       (dynamic data) {
         final Map<String, dynamic> jsonResponse = data as Map<String, dynamic>;
-        _customChatMessage = CustomChatMessage.fromJson(jsonResponse);
-        setState(
-          () {
-            _messages.add(
-              ChatMessage(
-                text: _customChatMessage.text ?? '',
-                id: _customChatMessage.msId,
-                user: ChatUser(
-                  name: _customChatMessage.username,
-                  avatar: _customChatMessage.avatar,
+        if (jsonResponse != null) {
+          _customChatMessage = CustomChatMessage.fromJson(jsonResponse);
+          setState(
+            () {
+              _messages.add(
+                ChatMessage(
+                  text: _customChatMessage.text ?? '',
+                  id: _customChatMessage.msId,
+                  user: ChatUser(
+                    name: _customChatMessage.username,
+                    avatar: _customChatMessage.avatar,
+                  ),
+                  createdAt: DateTime.fromMillisecondsSinceEpoch(_customChatMessage.time),
                 ),
-                createdAt: DateTime.fromMillisecondsSinceEpoch(_customChatMessage.time),
-              ),
-            );
-            _chatViewKey.currentState.scrollController.animateTo(
-              _chatViewKey.currentState.scrollController.position.maxScrollExtent + 120,
-              duration: const Duration(milliseconds: 100),
-              curve: Curves.easeOutQuint,
-            );
-          },
-        );
+              );
+              _chatViewKey.currentState.scrollController.animateTo(
+                _chatViewKey.currentState.scrollController.position.maxScrollExtent + 120,
+                duration: const Duration(milliseconds: 100),
+                curve: Curves.easeOutQuint,
+              );
+            },
+          );
+        }
       },
     );
   }
