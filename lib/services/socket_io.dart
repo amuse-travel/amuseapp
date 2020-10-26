@@ -12,7 +12,6 @@ class SocketIo {
 
     if (_singletonUser.userName != null) {
       _userName = _singletonUser.userName;
-      print(_userName);
     } else {
       _userName = 'tester';
     }

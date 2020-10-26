@@ -7,6 +7,4 @@ abstract class ChatRepository {
   Future<ChatMessageList> fetchMoreMessages({String userName, String lastMsId});
 
   Future<bool> sendMessage({String userName, String message});
-
-  Future<CustomChatMessage> incomingMessage({String userName});
 }

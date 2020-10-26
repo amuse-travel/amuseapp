@@ -21,7 +21,6 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void _onGoogleLoginButtonPressed(BuildContext context) {
-    print('touched');
     context.bloc<LoginBloc>().add(LoginWithGoogleTried());
   }
 

@@ -46,8 +46,6 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
       _userName = 'tester';
     }
 
-    // _userName = '야야야';
-
     _chatBloc = BlocProvider.of<ChatBloc>(context);
 
     _chatBloc.add(ChatMessagesFetchTried(userName: _userName));

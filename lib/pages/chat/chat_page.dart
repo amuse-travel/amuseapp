@@ -1,4 +1,5 @@
 import 'package:amuse_app/model/singleton_user.dart';
+import 'package:amuse_app/pages/setting/update_user_name/update_user_name_page.dart';
 import 'package:flutter/material.dart';
 
 import 'chat_room/chat_room_page.dart';
@@ -15,7 +16,12 @@ class ChatPage extends StatelessWidget {
         ),
       );
     } else {
-      print('require user name');
+      Navigator.push(
+        context,
+        MaterialPageRoute<Widget>(
+          builder: (BuildContext buildContext) => UpdateUserNamePage(),
+        ),
+      );
     }
   }
 

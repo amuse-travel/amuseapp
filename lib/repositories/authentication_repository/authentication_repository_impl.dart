@@ -13,12 +13,15 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
 
   final SocketIo _socketIo = SocketIo();
 
+  final SingletonUser _singletonUser = SingletonUser();
+
   @override
   Future<User> authenticate() async {
     UserCredential _userCredential;
     try {
       final String _idToken = await _secureStorage.read(key: 'idToken');
       final String _accessToken = await _secureStorage.read(key: 'accessToken');
+      final String _userName = await _secureStorage.read(key: 'userName');
 
       if (_idToken != null && _accessToken != null) {
         final AuthCredential _authCredential = GoogleAuthProvider.credential(
@@ -32,17 +35,20 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
       if (_userCredential != null) {
         final User _user = _userCredential.user;
 
-        // final Socket _socket = _socketIo.socketConnection();
-        // await Future<dynamic>.delayed(const Duration(milliseconds: 500));
+        if (_userName != null) {
+          _singletonUser.userName = _userName;
 
-        // if (_socket.connected) {
-        //   return _user;
-        // } else {
-        //   print('=====| authenticate |==========[ SocketIO connection is failed.');
-        //   return null;
+          final Socket _socket = _socketIo.socketConnection();
+          await Future<dynamic>.delayed(const Duration(milliseconds: 500));
+
+          if (_socket.connected) {
+            print('=====| authenticate |==========[ SocketIO connection complete.');
+          }
+        } else {
+          print('=====| authenticate |==========[ SocketIO connection failure.');
+        }
 
         return _user;
-        // }
       } else {
         return null;
       }

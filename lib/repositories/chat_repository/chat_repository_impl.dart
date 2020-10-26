@@ -84,34 +84,4 @@ class ChatRepositoryImpl extends ChatRepository {
       return false;
     }
   }
-
-  @override
-  Future<CustomChatMessage> incomingMessage({String userName}) async {
-    try {
-      CustomChatMessage _customChatMessage;
-
-      // _socketIo.socket.on(
-      //   'incomingMessage',
-      //   (dynamic data) {
-      //     print(data);
-      //     final Map<String, dynamic> jsonResponse = data as Map<String, dynamic>;
-      //     print(jsonResponse);
-      //     _customChatMessage = CustomChatMessage.fromJson(jsonResponse);
-      //   },
-      // );
-
-      await Future<dynamic>.delayed(const Duration(milliseconds: 500));
-
-      if (_customChatMessage != null) {
-        print('ccc');
-        return _customChatMessage;
-      } else {
-        print('===| incomingMessage |=======');
-        return null;
-      }
-    } catch (e) {
-      print('===| incomingMessage |=======[ ${e.toString()}');
-      return null;
-    }
-  }
 }
