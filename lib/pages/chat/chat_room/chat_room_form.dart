@@ -10,12 +10,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-class ChatForm extends StatefulWidget {
+class ChatRoomForm extends StatefulWidget {
   @override
-  _ChatFormState createState() => _ChatFormState();
+  _ChatRoomFormState createState() => _ChatRoomFormState();
 }
 
-class _ChatFormState extends State<ChatForm> {
+class _ChatRoomFormState extends State<ChatRoomForm> {
   SingletonUser _singletonUser;
 
   final SocketIo _socketIo = SocketIo();
