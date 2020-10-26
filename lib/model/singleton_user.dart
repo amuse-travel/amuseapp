@@ -6,10 +6,10 @@ class SingletonUser {
   }
 
   SingletonUser._internal() {
-    user = null;
+    userName = null;
   }
 
   static final SingletonUser _singletonUser = SingletonUser._internal();
 
-  User user;
+  String userName;
 }

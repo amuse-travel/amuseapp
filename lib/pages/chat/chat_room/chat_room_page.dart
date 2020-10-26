@@ -18,7 +18,15 @@ class ChatRoomPage extends StatelessWidget {
           final ChatRepository _chatRepository = RepositoryProvider.of<ChatRepository>(context);
           return ChatBloc(chatRepository: _chatRepository);
         },
-        child: ChatRoomForm(),
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('채팅'),
+            centerTitle: true,
+          ),
+          body: SafeArea(
+            child: ChatRoomForm(),
+          ),
+        ),
       ),
     );
   }

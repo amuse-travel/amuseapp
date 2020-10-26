@@ -31,19 +31,18 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
 
       if (_userCredential != null) {
         final User _user = _userCredential.user;
-        // _user.displayName = 'tester2';
-        // final SingletonUser singletonUser = SingletonUser();
-        // singletonUser.user = _user;
 
-        final Socket _socket = _socketIo.socketConnection();
-        await Future<dynamic>.delayed(const Duration(milliseconds: 500));
+        // final Socket _socket = _socketIo.socketConnection();
+        // await Future<dynamic>.delayed(const Duration(milliseconds: 500));
 
-        if (_socket.connected) {
-          return _user;
-        } else {
-          print('=====| authenticate |==========[ SocketIO connection is failed.');
-          return null;
-        }
+        // if (_socket.connected) {
+        //   return _user;
+        // } else {
+        //   print('=====| authenticate |==========[ SocketIO connection is failed.');
+        //   return null;
+
+        return _user;
+        // }
       } else {
         return null;
       }

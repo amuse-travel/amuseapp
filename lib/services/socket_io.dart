@@ -10,16 +10,15 @@ class SocketIo {
   Socket socketConnection() {
     String _userName;
 
-    // if (_singletonUser.user != null) {
-    //   _userName = _singletonUser.user.displayName;
-    // } else {
-    //   _userName = 'tester2';
-    // }
+    if (_singletonUser.userName != null) {
+      _userName = _singletonUser.userName;
+      print(_userName);
+    } else {
+      _userName = 'tester';
+    }
 
     final String localHost = Platform.isAndroid ? 'http://10.0.2.2:3210' : 'http://localhost:3210';
     final String chatApi = DotEnv().env['CHAT_API'];
-
-    _userName = '야야야';
 
     final Socket _socket = io(
       localHost,

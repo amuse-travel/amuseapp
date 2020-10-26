@@ -1,6 +1,24 @@
+import 'package:amuse_app/model/singleton_user.dart';
 import 'package:flutter/material.dart';
 
+import 'chat_room/chat_room_page.dart';
+
 class ChatPage extends StatelessWidget {
+  final SingletonUser _singletonUser = SingletonUser();
+
+  void _onEnterChatRoom(BuildContext context) {
+    if (_singletonUser.userName != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute<Widget>(
+          builder: (BuildContext buildContext) => ChatRoomPage(),
+        ),
+      );
+    } else {
+      print('require user name');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final double _sizeWidth = MediaQuery.of(context).size.width;
@@ -18,7 +36,7 @@ class ChatPage extends StatelessWidget {
             width: _sizeWidth,
             height: 100,
             child: RaisedButton(
-              onPressed: () {},
+              onPressed: () => _onEnterChatRoom(context),
               color: Colors.grey,
               child: Text('입장'),
             ),

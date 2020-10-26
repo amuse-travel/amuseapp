@@ -1,5 +1,5 @@
 import 'package:amuse_app/blocs/authentication/authentication_bloc.dart';
-import 'package:amuse_app/pages/setting/update_nickname/update_nickname_page.dart';
+import 'package:amuse_app/pages/setting/update_user_name/update_user_name_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +8,7 @@ class SettingPage extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute<Widget>(
-        builder: (BuildContext buildContext) => UpdateNicknamePage(),
+        builder: (BuildContext buildContext) => UpdateUserNamePage(),
       ),
     );
   }

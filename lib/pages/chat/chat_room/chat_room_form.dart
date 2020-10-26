@@ -40,13 +40,13 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
 
     _singletonUser = SingletonUser();
 
-    // if( _singletonUser.user != null) {
-    //   _userName = _singletonUser.user.displayName;
-    // } else {
-    //   _userName = 'tester';
-    // }
+    if( _singletonUser.userName != null) {
+      _userName = _singletonUser.userName;
+    } else {
+      _userName = 'tester';
+    }
 
-    _userName = '야야야';
+    // _userName = '야야야';
 
     _chatBloc = BlocProvider.of<ChatBloc>(context);
 

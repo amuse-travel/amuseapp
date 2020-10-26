@@ -35,8 +35,6 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     try {
       final User user = await authenticationRepository.authenticate();
       if (user != null) {
-        final SingletonUser _singletonUser = SingletonUser();
-        _singletonUser.user = user;
         yield AuthenticationTrySuccess();
       } else {
         yield AuthenticationRequired();
