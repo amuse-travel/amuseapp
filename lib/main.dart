@@ -8,6 +8,7 @@ import 'package:amuse_app/repositories/authentication_repository/authentication_
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'blocs/bloc_observer/custom_bloc_observer.dart';
 import 'pages/login/login_page.dart';
@@ -16,6 +17,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = CustomBlocObserver();
   await Firebase.initializeApp();
+  await DotEnv().load('.env');
 
   runApp(
     RepositoryProvider<AuthenticationRepository>(
