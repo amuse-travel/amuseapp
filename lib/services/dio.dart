@@ -8,6 +8,8 @@ class HttpDio {
     final Dio _dio = Dio();
 
     _dio.options.baseUrl = amuseApi;
+    _dio.options.headers['Accept'] = 'application/json';
+    _dio.options.headers['Content-Type'] = 'application/json';
 
     return _dio;
   }
