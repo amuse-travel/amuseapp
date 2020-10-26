@@ -45,7 +45,6 @@ class _ChatFormState extends State<ChatForm> {
 
     _userName = '야야야';
 
-
     _chatBloc = BlocProvider.of<ChatBloc>(context);
 
     _chatBloc.add(ChatMessagesFetchTried(userName: _userName));
@@ -54,6 +53,7 @@ class _ChatFormState extends State<ChatForm> {
 
     _chatUser = ChatUser(
       name: _userName,
+      avatar: 'https://www.tinygraphs.com/squares/$_userName?theme=frogideas&numcolors=4',
     );
 
     _listenMessages();
@@ -83,6 +83,7 @@ class _ChatFormState extends State<ChatForm> {
                 id: _customChatMessage.msId,
                 user: ChatUser(
                   name: _customChatMessage.username,
+                  avatar: _customChatMessage.avatar,
                 ),
                 createdAt: DateTime.fromMillisecondsSinceEpoch(_customChatMessage.time),
               ),
@@ -140,9 +141,9 @@ class _ChatFormState extends State<ChatForm> {
           ),
           child: CircleAvatar(
             radius: 20,
-            // backgroundImage: NetworkImage(
-            //   chatUser.avatar,
-            // ),
+            backgroundImage: NetworkImage(
+              chatUser.avatar ?? 'https://www.travelcontinuously.com/wp-content/uploads/2018/04/empty-avatar.png',
+            ),
           ),
         ),
       ),
@@ -255,7 +256,7 @@ class _ChatFormState extends State<ChatForm> {
                 id: _customChatMessage.msId,
                 user: ChatUser(
                   name: _customChatMessage.username,
-                  // avatar: _customChatMassage.avatar,
+                  avatar: _customChatMessage.avatar,
                 ),
                 createdAt: DateTime.fromMillisecondsSinceEpoch(_customChatMessage.time),
               ),
@@ -277,7 +278,7 @@ class _ChatFormState extends State<ChatForm> {
                 id: _customChatMessage.msId,
                 user: ChatUser(
                   name: _customChatMessage.username,
-                  // avatar: _customChatMassage.avatar,
+                  avatar: _customChatMessage.avatar,
                 ),
                 createdAt: DateTime.fromMillisecondsSinceEpoch(_customChatMessage.time),
               ),
@@ -288,7 +289,7 @@ class _ChatFormState extends State<ChatForm> {
           _messages.add(state.chatMessage);
 
           _chatViewKey.currentState.scrollController.animateTo(
-            _chatViewKey.currentState.scrollController.position.maxScrollExtent + 48,
+            _chatViewKey.currentState.scrollController.position.maxScrollExtent + 108,
             duration: const Duration(milliseconds: 100),
             curve: Curves.easeOutQuint,
           );
