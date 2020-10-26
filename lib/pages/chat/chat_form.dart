@@ -37,16 +37,23 @@ class _ChatFormState extends State<ChatForm> {
 
     _singletonUser = SingletonUser();
 
-    _userName = _singletonUser.user.displayName;
+    // if( _singletonUser.user != null) {
+    //   _userName = _singletonUser.user.displayName;
+    // } else {
+    //   _userName = 'tester';
+    // }
+
+    _userName = '야야야';
+
 
     _chatBloc = BlocProvider.of<ChatBloc>(context);
 
-    _chatBloc.add(const ChatMessagesFetchTried(userName: '야야야'));
+    _chatBloc.add(ChatMessagesFetchTried(userName: _userName));
 
     _textEditingController = TextEditingController();
 
     _chatUser = ChatUser(
-      name: '야야야',
+      name: _userName,
     );
 
     _listenMessages();
@@ -63,7 +70,7 @@ class _ChatFormState extends State<ChatForm> {
   void _listenMessages() {
     CustomChatMessage _customChatMessage;
 
-    _socketIo.socket.on(
+    _socketIo.socketConnection().on(
       'incomingMessage',
       (dynamic data) {
         final Map<String, dynamic> jsonResponse = data as Map<String, dynamic>;
@@ -92,12 +99,12 @@ class _ChatFormState extends State<ChatForm> {
   }
 
   void _onSendMessage(ChatMessage chatMessage) {
-    _chatBloc.add(ChatMessageSendTried(userName: '야야야', chatMessage: chatMessage));
+    _chatBloc.add(ChatMessageSendTried(userName: _userName, chatMessage: chatMessage));
   }
 
   void _onFetchMoreMessages() {
     print('on top');
-    _chatBloc.add(ChatMessagesFetchMoreTried(userName: '야야야', lastMsId: _messages[0].id));
+    _chatBloc.add(ChatMessagesFetchMoreTried(userName: _userName, lastMsId: _messages[0].id));
   }
 
   Widget _loadMoreProgressIndicator(ChatState state) {
@@ -115,7 +122,7 @@ class _ChatFormState extends State<ChatForm> {
   }
 
   Widget _avatarBuilder(ChatUser chatUser) {
-    if (chatUser.name == '야야야') {
+    if (chatUser.name == _userName) {
       return Container();
     }
     return Container(
@@ -144,7 +151,7 @@ class _ChatFormState extends State<ChatForm> {
 
   Widget _messageBuilder(ChatMessage chatMessage) {
     bool _isMyMessage;
-    if (chatMessage.user.name == '야야야') {
+    if (chatMessage.user.name == _userName) {
       _isMyMessage = true;
     } else {
       _isMyMessage = false;
@@ -287,7 +294,7 @@ class _ChatFormState extends State<ChatForm> {
           );
         }
         if (state is ChatFailure) {
-          CustomToast(message: '메시지 전송 실패').show();
+          // CustomToast(message: '메시지 전송 실패').show();
         }
       },
     );

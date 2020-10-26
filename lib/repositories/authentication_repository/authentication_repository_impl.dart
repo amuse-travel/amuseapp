@@ -31,10 +31,11 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
 
       if (_userCredential != null) {
         final User _user = _userCredential.user;
+        // _user.displayName = 'tester2';
         // final SingletonUser singletonUser = SingletonUser();
         // singletonUser.user = _user;
 
-        final Socket _socket = _socketIo.socket;
+        final Socket _socket = _socketIo.socketConnection();
         await Future<dynamic>.delayed(const Duration(milliseconds: 500));
 
         if (_socket.connected) {

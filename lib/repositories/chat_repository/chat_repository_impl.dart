@@ -11,7 +11,7 @@ class ChatRepositoryImpl extends ChatRepository {
     try {
       ChatMessageList _chatMessages;
 
-      _socketIo.socket.emitWithAck(
+      _socketIo.socketConnection().emitWithAck(
         'messages',
         <String, dynamic>{
           'room': 'general',
@@ -40,7 +40,7 @@ class ChatRepositoryImpl extends ChatRepository {
     try {
       ChatMessageList _chatMessages;
 
-      _socketIo.socket.emitWithAck(
+      _socketIo.socketConnection().emitWithAck(
         'messages',
         <String, dynamic>{
           'room': 'general',
@@ -68,7 +68,7 @@ class ChatRepositoryImpl extends ChatRepository {
   @override
   Future<bool> sendMessage({String userName, String message}) async {
     try {
-      _socketIo.socket.emitWithAck(
+      _socketIo.socketConnection().emitWithAck(
         'input',
         <String, String>{
           'room': 'general',
