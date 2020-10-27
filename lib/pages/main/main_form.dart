@@ -52,8 +52,10 @@ class _MainFormState extends State<MainForm> {
               appBar: AppBar(
                 title: Container(
                   alignment: Alignment.centerLeft,
+                  height: 16,
                   child: Image.asset(
-                    'assets/icons/amuse.png',
+                    'assets/icons/amuse-logo.png',
+                    fit: BoxFit.cover,
                   ),
                 ),
                 backgroundColor: Colors.white,

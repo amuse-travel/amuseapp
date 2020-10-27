@@ -1,4 +1,5 @@
 import 'package:amuse_app/blocs/product/product_bloc.dart';
+import 'package:amuse_app/main.dart';
 import 'package:amuse_app/model/product/product.dart';
 import 'package:amuse_app/pages/common/common_widgets/loading_indicator/loading_indicator.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -72,17 +73,19 @@ class _AmuseFormState extends State<AmuseForm> {
         children: <Widget>[
           Text(
             _productList[index].shortCategories[0],
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 12,
-              color: Colors.grey,
+              fontWeight: REGULAR,
+              color: Theme.of(context).primaryColorDark,
             ),
           ),
           for (String shortCategory in _productList[index].shortCategories)
             Text(
               '/$shortCategory',
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 12,
-                color: Colors.grey,
+                fontWeight: REGULAR,
+                color: Theme.of(context).primaryColorDark,
               ),
             ),
         ],
@@ -90,9 +93,10 @@ class _AmuseFormState extends State<AmuseForm> {
     } else {
       return Text(
         _productList[index].shortCategories[0],
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 12,
-          color: Colors.grey,
+          fontWeight: REGULAR,
+          color: Theme.of(context).primaryColorDark,
         ),
       );
     }
@@ -114,12 +118,13 @@ class _AmuseFormState extends State<AmuseForm> {
                 height: 20,
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 20),
+                margin: const EdgeInsets.symmetric(horizontal: 20),
                 alignment: Alignment.centerLeft,
                 child: const Text(
                   '관광약자를 위한 여행‍',
                   style: TextStyle(
                     fontSize: 20,
+                    fontWeight: MEDIUM,
                     color: Colors.black,
                   ),
                 ),
@@ -172,7 +177,7 @@ class _AmuseFormState extends State<AmuseForm> {
                                 width: _sizeWidth,
                                 height: 200,
                                 child: CachedNetworkImage(
-                                  imageUrl: _productList[index].image.thumb,
+                                  imageUrl: _productList[index].image.src,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -195,6 +200,7 @@ class _AmuseFormState extends State<AmuseForm> {
                                 _productList[index].title,
                                 style: const TextStyle(
                                   fontSize: 16,
+                                  fontWeight: BOLD,
                                   color: Colors.black,
                                 ),
                               ),
@@ -205,9 +211,9 @@ class _AmuseFormState extends State<AmuseForm> {
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 '${_productList[index].basePrice.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match match) => '${match[1]},')}원 ~',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 18,
-                                  color: Colors.red,
+                                  color: Theme.of(context).primaryColor,
                                 ),
                               ),
                             ),
