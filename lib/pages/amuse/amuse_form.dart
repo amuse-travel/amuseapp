@@ -102,7 +102,7 @@ class _AmuseFormState extends State<AmuseForm> {
           child: Column(
             children: <Widget>[
               const SizedBox(
-                height: 20,
+                height: 22,
               ),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),
