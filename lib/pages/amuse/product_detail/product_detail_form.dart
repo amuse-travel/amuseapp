@@ -338,9 +338,11 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                           child: Container(
                             width: 100,
                             height: 100,
-                            child: CachedNetworkImage(
-                              imageUrl: _productDetail.programs[day].items[index].image.thumb,
-                            ),
+                            child: _productDetail.programs[day].items[index].image != null
+                                ? CachedNetworkImage(
+                                    imageUrl: _productDetail.programs[day].items[index].image.thumb,
+                                  )
+                                : null,
                           ),
                         ),
                         const SizedBox(

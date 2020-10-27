@@ -8,7 +8,7 @@ class ProductItem {
 
   ProductItem.fromJson(Map<String, dynamic> json) {
     title = json['title'] as String;
-    image = CustomImage.fromJson(json['image'] as Map<String, dynamic>);
+    image = json['image'] != null ? CustomImage.fromJson(json['image'] as Map<String, dynamic>) : null;
   }
 
   String title;
