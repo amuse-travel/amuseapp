@@ -50,35 +50,14 @@ class _MainFormState extends State<MainForm> {
             child: Scaffold(
               backgroundColor: Colors.white,
               appBar: AppBar(
-                title: IndexedStack(
-                  index: _tabIndex,
-                  children: const <Widget>[
-                    Text(
-                      '메인',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                      ),
-                    ),
-                    Text(
-                      '채팅',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                      ),
-                    ),
-                    Text(
-                      '설정',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
+                title: Container(
+                  alignment: Alignment.centerLeft,
+                  child: Image.asset(
+                    'assets/icons/amuse.png',
+                  ),
                 ),
                 backgroundColor: Colors.white,
                 elevation: 1,
-                centerTitle: true,
               ),
               body: IndexedStack(
                 index: _tabIndex,
@@ -105,7 +84,7 @@ class _MainFormState extends State<MainForm> {
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(
-                      Icons.chat,
+                      Icons.chat_bubble,
                     ),
                     label: 'chat',
                   ),

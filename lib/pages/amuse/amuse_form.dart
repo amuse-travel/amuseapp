@@ -18,7 +18,7 @@ class _AmuseFormState extends State<AmuseForm> {
 
   List<Product> _productList;
 
-  int _page = 0;
+  int _page = 1;
 
   @override
   void initState() {
@@ -28,7 +28,7 @@ class _AmuseFormState extends State<AmuseForm> {
 
     _productList = <Product>[];
 
-    _productBloc.add(ProductListLoaded());
+    _productBloc.add(ProductListLoaded(page: _page));
 
     _refreshController = RefreshController();
   }
@@ -44,9 +44,9 @@ class _AmuseFormState extends State<AmuseForm> {
     await Future<dynamic>.delayed(const Duration(milliseconds: 1000));
     setState(() {
       _productList.clear();
-      _page = 0;
+      _page = 1;
     });
-    _productBloc.add(ProductListLoaded());
+    _productBloc.add(ProductListLoaded(page: _page));
     _refreshController.refreshCompleted();
   }
 
@@ -55,7 +55,7 @@ class _AmuseFormState extends State<AmuseForm> {
       await Future<dynamic>.delayed(const Duration(milliseconds: 200));
       setState(() {
         _page++;
-        _productBloc.add(ProductListLoaded());
+        _productBloc.add(ProductListLoaded(page: _page));
       });
     }
   }
@@ -105,7 +105,6 @@ class _AmuseFormState extends State<AmuseForm> {
     return BlocConsumer<ProductBloc, ProductState>(
       builder: (BuildContext buildContext, ProductState state) {
         return Container(
-          // margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
           width: _sizeWidth,
           height: _sizeHeight,
           color: Colors.white,
@@ -126,7 +125,7 @@ class _AmuseFormState extends State<AmuseForm> {
                 ),
               ),
               const SizedBox(
-                height: 32,
+                height: 16,
               ),
               Expanded(
                 child: SmartRefresher(

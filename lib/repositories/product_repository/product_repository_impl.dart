@@ -10,10 +10,10 @@ class ProductRepositoryImpl extends ProductRepository {
   final HttpDio _httpDio = HttpDio();
 
   @override
-  Future<List<Product>> getProductList() async {
+  Future<List<Product>> getProductList({int page}) async {
     try {
       final Response<dynamic> response = await _httpDio.dio().get<dynamic>(
-            '/api/products',
+            '/api/products?page=$page',
           );
 
       if (response.statusCode == 200) {

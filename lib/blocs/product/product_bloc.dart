@@ -29,7 +29,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   Stream<ProductState> _mapProductListLoadedToState(ProductListLoaded event) async* {
     yield ProductInProgress();
     try {
-      final List<Product> _products = await _productRepository.getProductList();
+      final List<Product> _products = await _productRepository.getProductList(page: event.page);
       if (_products != null) {
         yield ProductListLoadSuccess(products: _products);
       } else {
