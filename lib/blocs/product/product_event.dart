@@ -14,3 +14,11 @@ class ProductListLoaded extends ProductEvent {
 
   final int page;
 }
+
+class ProductDetailLoaded extends ProductEvent {
+  const ProductDetailLoaded({
+    @required this.productId,
+  }) : assert(productId != null);
+
+  final int productId;
+}

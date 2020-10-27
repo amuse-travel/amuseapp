@@ -1,6 +1,7 @@
 import 'package:amuse_app/blocs/product/product_bloc.dart';
 import 'package:amuse_app/main.dart';
 import 'package:amuse_app/model/product/product.dart';
+import 'package:amuse_app/pages/amuse/product_detail/product_detail_page.dart';
 import 'package:amuse_app/pages/common/common_widgets/loading_indicator/loading_indicator.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,10 @@ class _AmuseFormState extends State<AmuseForm> {
     _refreshController.dispose();
 
     super.dispose();
+  }
+
+  void _onProductDetailLoad(int productId) {
+    _productBloc.add(ProductDetailLoaded(productId: productId));
   }
 
   Future<void> _onRefresh() async {
@@ -162,7 +167,7 @@ class _AmuseFormState extends State<AmuseForm> {
                       width: _sizeWidth,
                       height: 320,
                       child: RaisedButton(
-                        onPressed: () {},
+                        onPressed: () => _onProductDetailLoad(_productList[index].id),
                         padding: const EdgeInsets.all(0),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                         color: Colors.white,
@@ -231,6 +236,16 @@ class _AmuseFormState extends State<AmuseForm> {
       listener: (BuildContext buildContext, ProductState state) {
         if (state is ProductListLoadSuccess) {
           _productList.addAll(state.products);
+        }
+        if (state is ProductDetailLoadSuccess) {
+          Navigator.push(
+            context,
+            MaterialPageRoute<Widget>(
+              builder: (BuildContext buildContext) => ProductDetailPage(
+                productDetail: state.productDetail,
+              ),
+            ),
+          );
         }
       },
     );

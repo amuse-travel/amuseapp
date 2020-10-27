@@ -25,18 +25,6 @@ class Product {
     shortCategories = json['shortCategories'] != null ? List<String>.from(json['shortCategories'] as List<dynamic>) : null;
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['title'] = title;
-    data['subtitle'] = subtitle;
-    data['basePrice'] = basePrice;
-    data['duration'] = duration;
-    data['departure'] = departure;
-    data['image'] = image;
-    data['shortCategories'] = shortCategories;
-  }
-
   int id;
   String title;
   String subtitle;

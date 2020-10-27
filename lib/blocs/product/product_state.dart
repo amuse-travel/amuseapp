@@ -23,3 +23,14 @@ class ProductListLoadSuccess extends ProductState {
   @override
   List<Object> get props => <Object>[products];
 }
+
+class ProductDetailLoadSuccess extends ProductState {
+  const ProductDetailLoadSuccess({
+    @required this.productDetail,
+  }) : assert(productDetail != null);
+
+  final ProductDetail productDetail;
+
+  @override
+  List<Object> get props => <Object>[productDetail];
+}
