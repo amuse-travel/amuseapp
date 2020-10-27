@@ -153,6 +153,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
 
     return GridView.count(
       physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
       crossAxisCount: 3,
       crossAxisSpacing: 10,
       mainAxisSpacing: 10,
@@ -495,12 +496,18 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                 Divider(
                   color: Theme.of(context).primaryColorDark,
                 ),
+                const SizedBox(
+                  height: 30,
+                ),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   alignment: Alignment.topCenter,
                   width: _sizeWidth,
-                  height: 280,
+                  // height: 280,
                   child: _informationGrid(),
+                ),
+                const SizedBox(
+                  height: 30,
                 ),
                 Divider(
                   color: Theme.of(context).primaryColorDark,
@@ -554,6 +561,12 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                   alignment: Alignment.centerLeft,
                   width: _sizeWidth,
                   child: _servicesDetail(),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Divider(
+                  color: Theme.of(context).primaryColorDark,
                 ),
                 const SizedBox(
                   height: 30,

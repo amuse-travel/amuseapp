@@ -36,8 +36,7 @@ class _ChatPageState extends State<ChatPage> {
   Widget _chatRoom({String title, String image, VoidCallback onPressed}) {
     final double _sizeWidth = MediaQuery.of(context).size.width;
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
-      width: _sizeWidth,
+      width: 335,
       height: 158,
       child: RaisedButton(
         onPressed: onPressed,
@@ -51,7 +50,7 @@ class _ChatPageState extends State<ChatPage> {
             children: <Widget>[
               Image.asset(
                 image,
-                fit: BoxFit.cover,
+                fit: BoxFit.fitWidth,
               ),
               Container(
                 margin: const EdgeInsets.all(12),
