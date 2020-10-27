@@ -7,7 +7,7 @@ class SplashScreen extends StatelessWidget {
       body: Container(
         width:  MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        color: Colors.redAccent,
+        color: Theme.of(context).primaryColor,
         child: const Center(
           child: Text(
             'Welcome To Amuse',
