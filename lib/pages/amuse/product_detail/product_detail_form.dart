@@ -2,10 +2,12 @@ import 'package:amuse_app/main.dart';
 import 'package:amuse_app/model/product/product_detail.dart';
 import 'package:amuse_app/model/product/product_keyword.dart';
 import 'package:amuse_app/model/product/product_service.dart';
+import 'package:amuse_app/pages/common/common_widgets/custom_toast/custom_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProductDetailForm extends StatefulWidget {
   const ProductDetailForm({
@@ -57,6 +59,14 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
 
   void _onBackButtonPressed() {
     Navigator.pop(context);
+  }
+
+  Future<void> _onMakePhoneCall() async {
+    if (await canLaunch('tel://02-719-6814')) {
+      launch('tel://02-719-6814');
+    } else {
+      CustomToast(message: '전화를 걸 수 없습니다.').show();
+    }
   }
 
   Widget _imageSlider() {
@@ -671,7 +681,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                   width: _sizeWidth,
                   height: 54,
                   child: RaisedButton(
-                    onPressed: () {},
+                    onPressed: _onMakePhoneCall,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                     padding: const EdgeInsets.all(0),
                     elevation: 0,
