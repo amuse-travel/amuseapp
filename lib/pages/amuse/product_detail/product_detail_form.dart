@@ -342,7 +342,12 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                                 ? CachedNetworkImage(
                                     imageUrl: _productDetail.programs[day].items[index].image.thumb,
                                   )
-                                : null,
+                                : Container(
+                                    color: Theme.of(context).primaryColor,
+                                    child: Image.asset(
+                                      'assets/icons/amuse-mark.png',
+                                    ),
+                                  ),
                           ),
                         ),
                         const SizedBox(
