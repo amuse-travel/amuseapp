@@ -73,38 +73,20 @@ class _AmuseFormState extends State<AmuseForm> {
   }
 
   Widget _shortCategories(int index) {
+    String _shortCategory = _productList[index].shortCategories[0];
     if (_productList[index].shortCategories.length > 1) {
-      return Row(
-        children: <Widget>[
-          Text(
-            _productList[index].shortCategories[0],
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: REGULAR,
-              color: Theme.of(context).primaryColorDark,
-            ),
-          ),
-          for (String shortCategory in _productList[index].shortCategories)
-            Text(
-              '/$shortCategory',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: REGULAR,
-                color: Theme.of(context).primaryColorDark,
-              ),
-            ),
-        ],
-      );
-    } else {
-      return Text(
-        _productList[index].shortCategories[0],
-        style: TextStyle(
-          fontSize: 12,
-          fontWeight: REGULAR,
-          color: Theme.of(context).primaryColorDark,
-        ),
-      );
+      for (int i = 1; i < _productList[index].shortCategories.length; i++) {
+        _shortCategory += '/' + _productList[index].shortCategories[i];
+      }
     }
+    return Text(
+      _shortCategory,
+      style: TextStyle(
+        fontSize: 12,
+        fontWeight: REGULAR,
+        color: Theme.of(context).primaryColorDark,
+      ),
+    );
   }
 
   @override

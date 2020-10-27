@@ -3,7 +3,9 @@ import 'package:amuse_app/model/product/product_detail.dart';
 import 'package:amuse_app/model/product/product_keyword.dart';
 import 'package:amuse_app/model/product/product_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ProductDetailForm extends StatefulWidget {
   const ProductDetailForm({
@@ -44,6 +46,8 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
     ),
   };
 
+  int _currentIndex = 0;
+
   @override
   void initState() {
     super.initState();
@@ -53,6 +57,47 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
 
   void _onBackButtonPressed() {
     Navigator.pop(context);
+  }
+
+  Widget _imageSlider() {
+    return Stack(
+      children: <Widget>[
+        CarouselSlider.builder(
+          itemCount: _productDetail.images.length,
+          itemBuilder: (BuildContext buildContext, int index) {
+            return CachedNetworkImage(
+              imageUrl: _productDetail.images[index].src,
+              fit: BoxFit.cover,
+            );
+          },
+          options: CarouselOptions(
+            initialPage: 0,
+            viewportFraction: 1,
+            aspectRatio: 1,
+            enableInfiniteScroll: true,
+            onPageChanged: (int index, CarouselPageChangedReason reason) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(bottom: 20),
+          alignment: Alignment.bottomCenter,
+          child: AnimatedSmoothIndicator(
+            activeIndex: _currentIndex,
+            count: _productDetail.images.length,
+            effect: ScrollingDotsEffect(
+              dotHeight: 8,
+              dotWidth: 8,
+              dotColor: Theme.of(context).secondaryHeaderColor,
+              activeDotColor: Theme.of(context).primaryColor,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _location() {
@@ -396,7 +441,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                 Container(
                   width: _sizeWidth,
                   height: _sizeWidth,
-                  color: Colors.grey,
+                  child: _imageSlider(),
                 ),
                 const SizedBox(
                   height: 22,
