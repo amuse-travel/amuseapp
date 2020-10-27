@@ -21,6 +21,7 @@ dependencies:
   cached_network_image: ^2.3.3
   flutter_dotenv: ^2.1.0
   dio: ^3.0.10
+  pull_to_refresh: ^1.6.2
 
 dev_dependencies:
   flutter_test:
