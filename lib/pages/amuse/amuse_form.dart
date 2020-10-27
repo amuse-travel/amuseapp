@@ -185,6 +185,8 @@ class _AmuseFormState extends State<AmuseForm> {
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 _productList[index].title,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: BOLD,
