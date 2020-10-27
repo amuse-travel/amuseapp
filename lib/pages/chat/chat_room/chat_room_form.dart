@@ -1,4 +1,5 @@
 import 'package:amuse_app/blocs/chat/chat_bloc.dart';
+import 'package:amuse_app/main.dart';
 import 'package:amuse_app/model/custom_chat_message.dart';
 import 'package:amuse_app/model/singleton_user.dart';
 import 'package:amuse_app/pages/common/common_widgets/custom_toast/custom_toast.dart';
@@ -74,7 +75,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
 
   Color _senderColor() {
     if (_textEditingController.text.isNotEmpty) {
-      return Colors.blue;
+      return Theme.of(context).primaryColor;
     } else {
       return Colors.grey;
     }
@@ -182,34 +183,39 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
           margin: const EdgeInsets.only(top: 16),
           alignment: _isMyMessage ? Alignment.centerRight : Alignment.centerLeft,
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: _isMyMessage
                   ? null
                   : Border.all(
                       width: 1,
-                      color: Colors.grey,
+                      color: Theme.of(context).secondaryHeaderColor,
                     ),
               color: _isMyMessage ? const Color(0xFFD1D5DB) : Colors.white,
             ),
             child: Text(
               chatMessage.text,
               style: const TextStyle(
-                fontSize: 16,
+                fontSize: 14,
+                fontWeight: MEDIUM,
                 color: Colors.black,
               ),
             ),
           ),
+        ),
+        const SizedBox(
+          height: 4,
         ),
         Container(
           margin: const EdgeInsets.only(left: 10),
           alignment: _isMyMessage ? Alignment.centerRight : Alignment.centerLeft,
           child: Text(
             DateFormat('M월 dd일 a hh:mm').format(chatMessage.createdAt),
-            style: const TextStyle(
-              fontSize: 11,
-              color: Colors.grey,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: REGULAR,
+              color: Theme.of(context).primaryColorDark,
             ),
           ),
         ),

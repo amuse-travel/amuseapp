@@ -13,12 +13,14 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   final SingletonUser _singletonUser = SingletonUser();
 
-  void _onEnterChatRoom() {
+  void _onEnterChatRoom(String category) {
     if (_singletonUser.userName != null) {
       Navigator.push(
         context,
         MaterialPageRoute<Widget>(
-          builder: (BuildContext buildContext) => ChatRoomPage(),
+          builder: (BuildContext buildContext) => ChatRoomPage(
+            category: category,
+          ),
         ),
       );
     } else {
@@ -111,7 +113,11 @@ class _ChatPageState extends State<ChatPage> {
             const SizedBox(
               height: 22,
             ),
-            _chatRoom(title: '휠체어 사용자와\n함께하기', image: 'assets/icons/wheel.png', onPressed: _onEnterChatRoom),
+            _chatRoom(
+              title: '휠체어 사용자와\n함께하기',
+              image: 'assets/icons/wheel.png',
+              onPressed: () => _onEnterChatRoom('휠체어 사용자와 함께하기'),
+            ),
             const SizedBox(
               height: 32,
             ),

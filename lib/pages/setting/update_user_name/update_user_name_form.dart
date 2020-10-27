@@ -68,8 +68,20 @@ class _UpdateUserNameFormState extends State<UpdateUserNameForm> {
                 margin: const EdgeInsets.symmetric(horizontal: 40),
                 child: TextFormField(
                   controller: _textEditingController,
-                  decoration: underlineTextFieldDecoration(
+                  decoration: InputDecoration(
                     hintText: '닉네임을 입력해주세요.',
+                    enabledBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 0.8,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 0.8,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
                   ),
                 ),
               ),
