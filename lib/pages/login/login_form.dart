@@ -1,5 +1,6 @@
 import 'package:amuse_app/blocs/authentication/authentication_bloc.dart';
 import 'package:amuse_app/blocs/login/login_bloc.dart';
+import 'package:amuse_app/main.dart';
 import 'package:amuse_app/pages/common/common_widgets/custom_toast/custom_toast.dart';
 import 'package:amuse_app/pages/common/common_widgets/loading_indicator/loading_indicator.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class _LoginFormState extends State<LoginForm> {
     _shouldIgnore = false;
   }
 
-  void _onGoogleLoginButtonPressed(BuildContext context) {
+  void _onGoogleLoginButtonPressed() {
     context.bloc<LoginBloc>().add(LoginWithGoogleTried());
   }
 
@@ -35,71 +36,168 @@ class _LoginFormState extends State<LoginForm> {
         return Scaffold(
           backgroundColor: Colors.white,
           body: SafeArea(
+            top: false,
+            bottom: false,
             child: Container(
               width: _sizeWidth,
               height: _sizeHeight,
               child: Stack(
                 children: <Widget>[
+                  Container(
+                    width: _sizeWidth,
+                    height: _sizeHeight,
+                    child: Image.asset(
+                      'assets/icons/login-background.jpg',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                   IgnorePointer(
                     ignoring: _shouldIgnore,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
+                        const SizedBox(
+                          height: 120,
+                        ),
                         Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          alignment: Alignment.centerLeft,
                           child: const Text(
-                            '어뮤즈',
+                            '우리 모두가 떠나는 여행\n관광약자를 위한 여행',
                             style: TextStyle(
                               fontSize: 20,
+                              fontWeight: MEDIUM,
                               color: Colors.black,
                             ),
                           ),
                         ),
                         const SizedBox(
-                          height: 40,
+                          height: 20,
                         ),
-                        const Divider(
-                          height: 1,
-                          color: Colors.grey,
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          alignment: Alignment.centerLeft,
+                          height: 18,
+                          child: Image.asset(
+                            'assets/icons/amuse-travel-logo.png',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        const Spacer(),
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          width: _sizeWidth,
+                          height: 50,
+                          child: RaisedButton(
+                            onPressed: _onGoogleLoginButtonPressed,
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                color: Theme.of(context).secondaryHeaderColor,
+                              ),
+                              borderRadius: BorderRadius.circular(7),
+                            ),
+                            elevation: 0,
+                            color: Colors.white,
+                            child: Stack(
+                              children: <Widget>[
+                                Container(
+                                  width: 24,
+                                  alignment: Alignment.centerLeft,
+                                  child: Image.asset(
+                                    'assets/icons/google-logo.png',
+                                  ),
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    '구글 로그인',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: MEDIUM,
+                                      color: Theme.of(context).primaryColorDark,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                         const SizedBox(
-                          height: 40,
+                          height: 8,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Container(
-                              alignment: Alignment.center,
-                              width: 50,
-                              height: 50,
-                              child: RaisedButton(
-                                onPressed: () => _onGoogleLoginButtonPressed(context),
-                                shape: const CircleBorder(),
-                                padding: const EdgeInsets.all(0),
-                                elevation: 0,
-                                color: Colors.white,
-                                child: Image.asset(
-                                  'assets/icons/google-logo.png',
-                                ),
-                              ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          width: _sizeWidth,
+                          height: 50,
+                          child: RaisedButton(
+                            onPressed: _onAppleLoginButtonPressed,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(7),
                             ),
-                            Container(
-                              alignment: Alignment.center,
-                              width: 50,
-                              height: 50,
-                              child: RaisedButton(
-                                onPressed: () => _onAppleLoginButtonPressed(),
-                                shape: const CircleBorder(),
-                                padding: const EdgeInsets.all(0),
-                                elevation: 0,
-                                color: Colors.white,
-                                child: Image.asset(
-                                  'assets/icons/apple-logo.png',
-                                  fit: BoxFit.cover,
+                            elevation: 0,
+                            color: Colors.black,
+                            child: Stack(
+                              children: <Widget>[
+                                Container(
+                                  width: 28,
+                                  alignment: Alignment.centerLeft,
+                                  child: Image.asset(
+                                    'assets/icons/apple-logo.png',
+                                  ),
                                 ),
-                              ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: const Text(
+                                    '애플 로그인',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: MEDIUM,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
+                        const SizedBox(
+                          height: 60,
+                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //   children: <Widget>[
+                        //     Container(
+                        //       alignment: Alignment.center,
+                        //       width: 50,
+                        //       height: 50,
+                        //       child: RaisedButton(
+                        //         onPressed: () => _onGoogleLoginButtonPressed(context),
+                        //         shape: const CircleBorder(),
+                        //         padding: const EdgeInsets.all(0),
+                        //         elevation: 0,
+                        //         color: Colors.white,
+                        //         child: Image.asset(
+                        //           'assets/icons/google-logo.png',
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     Container(
+                        //       alignment: Alignment.center,
+                        //       width: 50,
+                        //       height: 50,
+                        //       child: RaisedButton(
+                        //         onPressed: () => _onAppleLoginButtonPressed(),
+                        //         shape: const CircleBorder(),
+                        //         padding: const EdgeInsets.all(0),
+                        //         elevation: 0,
+                        //         color: Colors.white,
+                        //         child: Image.asset(
+                        //           'assets/icons/apple-logo.png',
+                        //           fit: BoxFit.cover,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),
@@ -114,7 +212,7 @@ class _LoginFormState extends State<LoginForm> {
         if (state is LoginInProgress) {
           _shouldIgnore = true;
         }
-        if (state is LoginFailure){
+        if (state is LoginFailure) {
           _shouldIgnore = false;
           CustomToast(message: '로그인에 실패하였습니다.').show();
         }
