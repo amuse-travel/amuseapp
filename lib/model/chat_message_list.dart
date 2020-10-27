@@ -14,7 +14,7 @@ class ChatMessageList {
     }
     if (json['messages'] != null) {
       final List<dynamic> messageList = json['messages'] as List<dynamic>;
-      messages = messageList.map((dynamic index) => CustomChatMessage.fromJson(index as Map<String, dynamic>)).toList();
+      messages = messageList.map((dynamic parsedJson) => CustomChatMessage.fromJson(parsedJson as Map<String, dynamic>)).toList();
     }
   }
 

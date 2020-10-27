@@ -167,7 +167,7 @@ class _AmuseFormState extends State<AmuseForm> {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                         color: Colors.white,
                         child: Column(
-                          children: [
+                          children: <Widget>[
                             ClipRRect(
                               borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(14),
