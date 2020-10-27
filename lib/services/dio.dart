@@ -9,7 +9,8 @@ class HttpDio {
 
     _dio.options.baseUrl = amuseApi;
     _dio.options.headers['Accept'] = 'application/json';
-    _dio.options.headers['Content-Type'] = 'application/json';
+    _dio.options.headers['content-type'] = 'application/json';
+    _dio.options.headers['x-locale'] = 'ko';
 
     return _dio;
   }

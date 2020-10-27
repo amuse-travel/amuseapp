@@ -15,16 +15,17 @@ class _AmuseFormState extends State<AmuseForm> {
 
     context.bloc<ProductBloc>().add(ProductListLoaded());
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<ProductBloc, ProductState>(
       listener: (BuildContext buildContext, ProductState state) {
         if(state is ProductListLoadSuccess) {
-          print('ddd');
+
         }
       },
       child: Container(
-        color: Colors.red,
+        color: Colors.white,
       ),
     );
   }

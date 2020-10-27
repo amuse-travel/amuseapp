@@ -15,11 +15,11 @@ class ProductFailure extends ProductState {}
 
 class ProductListLoadSuccess extends ProductState {
   const ProductListLoadSuccess({
-    @required this.productCurations,
-  }) : assert(productCurations != null);
+    @required this.products,
+  }) : assert(products != null);
 
-  final List<ProductCuration> productCurations;
+  final List<Product> products;
 
   @override
-  List<Object> get props => <Object>[productCurations];
+  List<Object> get props => <Object>[products];
 }

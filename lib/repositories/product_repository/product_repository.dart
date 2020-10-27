@@ -1,5 +1,5 @@
-import 'package:amuse_app/model/product/product_curation.dart';
+import 'package:amuse_app/model/product/product.dart';
 
 abstract class ProductRepository {
-  Future<List<ProductCuration>> getProductList();
+  Future<List<Product>> getProductList();
 }

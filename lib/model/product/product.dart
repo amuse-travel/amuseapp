@@ -13,7 +13,7 @@ class Product {
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'] as int;
     title = json['title'] as String;
-    title = json['subtitle'] as String;
+    subtitle = json['subtitle'] as String;
     basePrice = json['base_price'] as int;
     image = CustomImage.fromJson(json['image'] as Map<String, dynamic>);
     shortCategories = json['shortCategories'] != null ? List<String>.from(json['shortCategories'] as List<dynamic>) : null;
