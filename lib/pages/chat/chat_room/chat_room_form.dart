@@ -41,6 +41,8 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
 
     _singletonUser = SingletonUser();
 
+    print(_singletonUser.userName);
+
     if (_singletonUser.userName != null) {
       _userName = _singletonUser.userName;
     } else {
@@ -122,7 +124,6 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
   }
 
   void _onFetchMoreMessages() {
-    print('on top');
     _chatBloc.add(ChatMessagesFetchMoreTried(userName: _userName, lastMsId: _messages[0].id));
   }
 

@@ -62,35 +62,35 @@ class SettingPage extends StatelessWidget {
           const SizedBox(
             height: 56,
           ),
-          Container(
-            width: _sizeWidth,
-            height: 56,
-            color: Colors.white,
-            child: RaisedButton(
-              onPressed: () => _updateNickname(context),
-              color: Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 40),
-              elevation: 1,
-              child: Row(
-                children: <Widget>[
-                  const Text(
-                    '닉네임 변경',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: MEDIUM,
-                      color: Colors.black,
-                    ),
-                  ),
-                  const Spacer(),
-                  Container(
-                    child: const Icon(
-                      Icons.arrow_forward_ios,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          // Container(
+          //   width: _sizeWidth,
+          //   height: 56,
+          //   color: Colors.white,
+          //   child: RaisedButton(
+          //     onPressed: () => _updateNickname(context),
+          //     color: Colors.white,
+          //     padding: const EdgeInsets.symmetric(horizontal: 40),
+          //     elevation: 1,
+          //     child: Row(
+          //       children: <Widget>[
+          //         const Text(
+          //           '닉네임 변경',
+          //           style: TextStyle(
+          //             fontSize: 20,
+          //             fontWeight: MEDIUM,
+          //             color: Colors.black,
+          //           ),
+          //         ),
+          //         const Spacer(),
+          //         Container(
+          //           child: const Icon(
+          //             Icons.arrow_forward_ios,
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
           Container(
             width: _sizeWidth,
             height: 56,

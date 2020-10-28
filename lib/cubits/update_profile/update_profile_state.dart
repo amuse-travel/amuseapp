@@ -11,4 +11,6 @@ class UpdateProfileInitial extends UpdateProfileState {}
 
 class UpdateProfileInProgress extends UpdateProfileState {}
 
+class UpdateProfileFailure extends UpdateProfileState {}
+
 class UpdateProfileUserName extends UpdateProfileState {}

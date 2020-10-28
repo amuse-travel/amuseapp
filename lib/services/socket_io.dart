@@ -26,7 +26,7 @@ class SocketIo {
         'query': <String, dynamic>{
           'username': _userName,
           'avatar': 'https://www.tinygraphs.com/squares/$_userName?theme=frogideas&numcolors=4',
-        }
+        },
       },
     );
     return _socket;

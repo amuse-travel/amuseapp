@@ -34,7 +34,6 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   Widget _chatRoom({String title, String image, VoidCallback onPressed}) {
-    final double _sizeWidth = MediaQuery.of(context).size.width;
     return Container(
       width: 335,
       height: 158,
