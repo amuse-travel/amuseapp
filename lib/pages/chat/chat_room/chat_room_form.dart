@@ -105,7 +105,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
                   ),
                 );
                 _chatViewKey.currentState.scrollController.animateTo(
-                  _chatViewKey.currentState.scrollController.position.maxScrollExtent + 120,
+                  _chatViewKey.currentState.scrollController.position.maxScrollExtent + 48,
                   duration: const Duration(milliseconds: 100),
                   curve: Curves.easeOutQuint,
                 );
@@ -179,8 +179,24 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
 
     return Column(
       children: <Widget>[
+        if (_isMyMessage)
+          const SizedBox(
+            height: 18,
+          )
+        else
+          Container(
+            margin: const EdgeInsets.only(top: 18),
+            alignment: Alignment.bottomLeft,
+            child: Text(
+              chatMessage.user.name,
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: REGULAR,
+                color: Colors.black,
+              ),
+            ),
+          ),
         Container(
-          margin: const EdgeInsets.only(top: 16),
           alignment: _isMyMessage ? Alignment.centerRight : Alignment.centerLeft,
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
@@ -242,9 +258,6 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
             sendOnEnter: true,
             textInputAction: TextInputAction.send,
             scrollToBottom: false,
-            // scrollToBottomStyle: ScrollToBottomStyle(
-            //   backgroundColor: Colors.lightBlue.withOpacity(0.9),
-            // ),
             shouldShowLoadEarlier: false,
             showLoadEarlierWidget: () => _loadMoreProgressIndicator(state),
             onLoadEarlier: _onFetchMoreMessages,
@@ -288,7 +301,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
           }
 
           _chatViewKey.currentState.scrollController.animateTo(
-            _chatViewKey.currentState.scrollController.position.maxScrollExtent + 208,
+            _chatViewKey.currentState.scrollController.position.maxScrollExtent,
             duration: const Duration(milliseconds: 100),
             curve: Curves.easeOutQuint,
           );
@@ -313,7 +326,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
           _messages.add(state.chatMessage);
 
           _chatViewKey.currentState.scrollController.animateTo(
-            _chatViewKey.currentState.scrollController.position.maxScrollExtent + 108,
+            _chatViewKey.currentState.scrollController.position.maxScrollExtent,
             duration: const Duration(milliseconds: 100),
             curve: Curves.easeOutQuint,
           );
