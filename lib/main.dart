@@ -75,9 +75,9 @@ class AmuseApp extends StatelessWidget {
           },
         ),
       ),
-      builder: (BuildContext buildContext, Widget child) => DismissKeyboardListener(
-        child: child,
-      ),
+      // builder: (BuildContext buildContext, Widget child) => DismissKeyboardListener(
+      //   child: child,
+      // ),
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (BuildContext buildContext, AuthenticationState state) {
           if (state is AuthenticationTrySuccess) {

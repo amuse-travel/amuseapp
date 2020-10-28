@@ -181,11 +181,11 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
       children: <Widget>[
         if (_isMyMessage)
           const SizedBox(
-            height: 18,
+            height: 16,
           )
         else
           Container(
-            margin: const EdgeInsets.only(top: 18),
+            margin: const EdgeInsets.only(top: 16),
             alignment: Alignment.bottomLeft,
             child: Text(
               chatMessage.user.name,
@@ -299,14 +299,14 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
               ),
             );
           }
-
           _chatViewKey.currentState.scrollController.animateTo(
-            _chatViewKey.currentState.scrollController.position.maxScrollExtent,
+            450,
             duration: const Duration(milliseconds: 100),
             curve: Curves.easeOutQuint,
           );
         }
         if (state is ChatMessagesFetchMoreTrySuccess) {
+
           for (final CustomChatMessage _customChatMessage in state.chatMessageList.messages) {
             _messages.insert(
               0,
@@ -326,7 +326,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
           _messages.add(state.chatMessage);
 
           _chatViewKey.currentState.scrollController.animateTo(
-            _chatViewKey.currentState.scrollController.position.maxScrollExtent,
+            _chatViewKey.currentState.scrollController.position.maxScrollExtent + 80,
             duration: const Duration(milliseconds: 100),
             curve: Curves.easeOutQuint,
           );
