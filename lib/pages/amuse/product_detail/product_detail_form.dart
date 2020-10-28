@@ -453,6 +453,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
         child: Container(
           width: _sizeWidth,
           child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
