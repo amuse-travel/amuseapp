@@ -13,13 +13,14 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   final SingletonUser _singletonUser = SingletonUser();
 
-  void _onEnterChatRoom(String category) {
+  void _onEnterChatRoom({String category, String room}) {
     if (_singletonUser.userName != null) {
       Navigator.push(
         context,
         MaterialPageRoute<Widget>(
           builder: (BuildContext buildContext) => ChatRoomPage(
             category: category,
+            room: room,
           ),
         ),
       );
@@ -114,24 +115,55 @@ class _ChatPageState extends State<ChatPage> {
             _chatRoom(
               title: '휠체어 사용자와\n함께하기',
               image: 'assets/icons/wheel.png',
-              onPressed: () => _onEnterChatRoom('휠체어 사용자와 함께하기'),
+              onPressed: () => _onEnterChatRoom(
+                category: '휠체어 사용자와 함께하기',
+                room: 'wheel',
+              ),
             ),
             const SizedBox(
               height: 32,
             ),
-            _chatRoom(title: '발달 장애인과\n함께하기', image: 'assets/icons/pdd.png', onPressed: () {}),
+            _chatRoom(
+              title: '발달 장애인과\n함께하기',
+              image: 'assets/icons/pdd.png',
+              onPressed: () => _onEnterChatRoom(
+                category: '발달 장애인과 함께하기',
+                room: 'pdd',
+              ),
+            ),
             const SizedBox(
               height: 32,
             ),
-            _chatRoom(title: '시각 장애인과\n함께하기', image: 'assets/icons/blind.png', onPressed: () {}),
+            _chatRoom(
+              title: '시각 장애인과\n함께하기',
+              image: 'assets/icons/blind.png',
+              onPressed: () => _onEnterChatRoom(
+                category: '시각 장애인과 함께하기',
+                room: 'blind',
+              ),
+            ),
             const SizedBox(
               height: 32,
             ),
-            _chatRoom(title: '청각 장애인과\n함께하기', image: 'assets/icons/deaf.png', onPressed: () {}),
+            _chatRoom(
+              title: '청각 장애인과\n함께하기',
+              image: 'assets/icons/deaf.png',
+              onPressed: () => _onEnterChatRoom(
+                category: '청각 장애인과 함께하기',
+                room: 'deaf',
+              ),
+            ),
             const SizedBox(
               height: 32,
             ),
-            _chatRoom(title: '시니어와\n함께하기', image: 'assets/icons/senior.png', onPressed: () {}),
+            _chatRoom(
+              title: '시니어와\n함께하기',
+              image: 'assets/icons/senior.png',
+              onPressed: () => _onEnterChatRoom(
+                category: '시니어와 함께하기',
+                room: 'senior',
+              ),
+            ),
             const SizedBox(
               height: 32,
             ),

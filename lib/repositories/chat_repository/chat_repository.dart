@@ -2,9 +2,11 @@ import 'package:amuse_app/model/chat_message_list.dart';
 import 'package:amuse_app/model/custom_chat_message.dart';
 
 abstract class ChatRepository {
-  Future<ChatMessageList> fetchMessages({String userName});
+  Future<bool> enrollChatUser({String userName});
 
-  Future<ChatMessageList> fetchMoreMessages({String userName, String lastMsId});
+  Future<ChatMessageList> fetchMessages({String userName, String room});
 
-  Future<bool> sendMessage({String userName, String message});
+  Future<ChatMessageList> fetchMoreMessages({String userName, String room, String lastMsId});
+
+  Future<bool> sendMessage({String userName, String room, String message});
 }

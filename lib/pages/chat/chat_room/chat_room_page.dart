@@ -10,10 +10,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ChatRoomPage extends StatefulWidget {
   const ChatRoomPage({
     @required String category,
+    @required String room,
   })  : assert(category != null),
-        _category = category;
+        assert(room != null),
+        _category = category,
+        _room = room;
 
   final String _category;
+  final String _room;
 
   @override
   _ChatRoomPageState createState() => _ChatRoomPageState();
@@ -21,6 +25,8 @@ class ChatRoomPage extends StatefulWidget {
 
 class _ChatRoomPageState extends State<ChatRoomPage> {
   String _category;
+
+  String _room;
 
   SingletonUser _singletonUser;
 
@@ -31,6 +37,8 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
     super.initState();
 
     _category = widget._category;
+
+    _room = widget._room;
 
     _singletonUser = SingletonUser();
 
@@ -98,7 +106,9 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
             ),
           ),
           body: SafeArea(
-            child: ChatRoomForm(),
+            child: ChatRoomForm(
+              room: _room,
+            ),
           ),
         ),
       ),

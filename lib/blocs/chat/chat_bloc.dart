@@ -36,7 +36,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   Stream<ChatState> _mapChatMessagesFetchTriedToState(ChatMessagesFetchTried event) async* {
     yield ChatInProgress();
     try {
-      final ChatMessageList _chatMessages = await chatRepository.fetchMessages(userName: event.userName);
+      final ChatMessageList _chatMessages = await chatRepository.fetchMessages(userName: event.userName, );
       if (_chatMessages != null) {
         yield ChatMessagesFetchTrySuccess(chatMessageList: _chatMessages);
       } else {

@@ -45,6 +45,8 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
 
           if (_socket.connected) {
             print('=====| authenticate |==========[ SocketIO connection complete.');
+          } else {
+            print('=====| authenticate |==========[ SocketIO connection failure.');
           }
         } else {
           print('=====| authenticate |==========[ SocketIO connection failure.');

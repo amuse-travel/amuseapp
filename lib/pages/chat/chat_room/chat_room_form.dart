@@ -12,11 +12,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class ChatRoomForm extends StatefulWidget {
+  const ChatRoomForm({
+    @required String room,
+  })  : assert(room != null),
+        _room = room;
+
+  final String _room;
+
   @override
   _ChatRoomFormState createState() => _ChatRoomFormState();
 }
 
 class _ChatRoomFormState extends State<ChatRoomForm> {
+  String _room;
+
   SingletonUser _singletonUser;
 
   final SocketIo _socketIo = SocketIo();
@@ -39,6 +48,8 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
   void initState() {
     super.initState();
 
+    _room = widget._room;
+
     _singletonUser = SingletonUser();
 
     print(_singletonUser.userName);
@@ -51,7 +62,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
 
     _chatBloc = BlocProvider.of<ChatBloc>(context);
 
-    _chatBloc.add(ChatMessagesFetchTried(userName: _userName));
+    _chatBloc.add(ChatMessagesFetchTried(userName: _userName, room: _room));
 
     _textEditingController = TextEditingController();
 
@@ -120,11 +131,11 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
   }
 
   void _onSendMessage(ChatMessage chatMessage) {
-    _chatBloc.add(ChatMessageSendTried(userName: _userName, chatMessage: chatMessage));
+    _chatBloc.add(ChatMessageSendTried(userName: _userName, room: _room, chatMessage: chatMessage));
   }
 
   void _onFetchMoreMessages() {
-    _chatBloc.add(ChatMessagesFetchMoreTried(userName: _userName, lastMsId: _messages[0].id));
+    _chatBloc.add(ChatMessagesFetchMoreTried(userName: _userName, room: _room, lastMsId: _messages[0].id));
   }
 
   Widget _loadMoreProgressIndicator(ChatState state) {
