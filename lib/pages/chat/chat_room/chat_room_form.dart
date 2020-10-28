@@ -181,7 +181,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
       children: <Widget>[
         if (_isMyMessage)
           const SizedBox(
-            height: 16,
+            height: 32,
           )
         else
           Container(
@@ -277,6 +277,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
                 color: _senderColor(),
               ),
             ),
+            dateBuilder: (String dateTime) => Container(),
             avatarBuilder: (ChatUser chatUser) => _avatarBuilder(chatUser),
             messageBuilder: (ChatMessage chatMessage) => _messageBuilder(chatMessage),
             dateFormat: DateFormat('yyyy.MM.dd'),
@@ -299,14 +300,12 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
               ),
             );
           }
-          _chatViewKey.currentState.scrollController.animateTo(
+          _chatViewKey.currentState.scrollController.jumpTo(
             450,
-            duration: const Duration(milliseconds: 100),
-            curve: Curves.easeOutQuint,
           );
         }
         if (state is ChatMessagesFetchMoreTrySuccess) {
-
+          _chatViewKey.currentState.scrollController.jumpTo(_sizeHeight + 280);
           for (final CustomChatMessage _customChatMessage in state.chatMessageList.messages) {
             _messages.insert(
               0,
@@ -325,10 +324,8 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
         if (state is ChatMessageSendTrySuccess) {
           _messages.add(state.chatMessage);
 
-          _chatViewKey.currentState.scrollController.animateTo(
-            _chatViewKey.currentState.scrollController.position.maxScrollExtent + 80,
-            duration: const Duration(milliseconds: 100),
-            curve: Curves.easeOutQuint,
+          _chatViewKey.currentState.scrollController.jumpTo(
+            _chatViewKey.currentState.scrollController.position.maxScrollExtent + 200,
           );
         }
         if (state is ChatFailure) {
