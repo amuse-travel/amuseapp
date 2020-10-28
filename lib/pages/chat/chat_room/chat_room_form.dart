@@ -301,7 +301,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
             );
           }
           _chatViewKey.currentState.scrollController.jumpTo(
-            450,
+            _sizeHeight,
           );
         }
         if (state is ChatMessagesFetchMoreTrySuccess) {

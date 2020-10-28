@@ -520,7 +520,6 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   alignment: Alignment.topCenter,
                   width: _sizeWidth,
-                  // height: 280,
                   child: _informationGrid(),
                 ),
                 const SizedBox(
