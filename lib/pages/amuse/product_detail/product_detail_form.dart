@@ -336,6 +336,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
                 itemCount: _productDetail.programs[day].items.length,
                 itemBuilder: (BuildContext buildContext, int index) {
                   return Container(
@@ -435,6 +436,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
             color: Colors.black,
           ),
         ),
+        centerTitle: true,
         leading: IconButton(
           onPressed: _onBackButtonPressed,
           icon: const Icon(

@@ -92,6 +92,7 @@ class _ChatPageState extends State<ChatPage> {
       width: _sizeWidth,
       height: _sizeHeight,
       child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
           children: <Widget>[
             const SizedBox(

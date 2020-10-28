@@ -133,7 +133,7 @@ class _AmuseFormState extends State<AmuseForm> {
                         onRefresh: _onRefresh,
                         onLoading: _onLoading,
                         header: MaterialClassicHeader(
-                          color: Theme.of(context).primaryColorDark,
+                          color: Theme.of(context).primaryColor,
                           backgroundColor: Colors.white,
                           // offset: 100,
                         ),
@@ -149,6 +149,7 @@ class _AmuseFormState extends State<AmuseForm> {
                           },
                         ),
                         child: ListView.builder(
+                          physics: const BouncingScrollPhysics(),
                           itemCount: _productList.length,
                           itemBuilder: (BuildContext buildContext, int index) => Container(
                             margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),

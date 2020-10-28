@@ -70,24 +70,24 @@ class _MainFormState extends State<MainForm> {
       builder: (BuildContext buildContext, BottomTabState state) {
         return WillPopScope(
           onWillPop: _onAndroidWillPop,
-          child: SafeArea(
-            top: false,
-            bottom: false,
-            child: Scaffold(
-              backgroundColor: Colors.white,
-              appBar: AppBar(
-                title: Container(
-                  alignment: Alignment.centerLeft,
-                  height: 16,
-                  child: Image.asset(
-                    'assets/icons/amuse-logo.png',
-                    fit: BoxFit.cover,
-                  ),
+          child: Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              title: Container(
+                alignment: Alignment.centerLeft,
+                height: 16,
+                child: Image.asset(
+                  'assets/icons/amuse-logo.png',
+                  fit: BoxFit.cover,
                 ),
-                backgroundColor: Colors.white,
-                elevation: 1,
               ),
-              body: IndexedStack(
+              backgroundColor: Colors.white,
+              elevation: 1,
+            ),
+            body: SafeArea(
+              top: false,
+              bottom: false,
+              child: IndexedStack(
                 index: _tabIndex,
                 children: <Widget>[
                   AmusePage(),
@@ -95,35 +95,35 @@ class _MainFormState extends State<MainForm> {
                   SettingPage(),
                 ],
               ),
-              bottomNavigationBar: BottomNavigationBar(
-                backgroundColor: Colors.white,
-                currentIndex: _tabIndex,
-                onTap: (int index) => _onSelectTab(tabEnum: TabEnum.values[index]),
-                showSelectedLabels: false,
-                showUnselectedLabels: false,
-                type: BottomNavigationBarType.fixed,
-                elevation: 1,
-                items: const <BottomNavigationBarItem>[
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.home,
-                    ),
-                    label: 'home',
+            ),
+            bottomNavigationBar: BottomNavigationBar(
+              backgroundColor: Colors.white,
+              currentIndex: _tabIndex,
+              onTap: (int index) => _onSelectTab(tabEnum: TabEnum.values[index]),
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              type: BottomNavigationBarType.fixed,
+              elevation: 1,
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.home,
                   ),
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.chat_bubble,
-                    ),
-                    label: 'chat',
+                  label: 'home',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.chat_bubble,
                   ),
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.settings,
-                    ),
-                    label: 'setting',
+                  label: 'chat',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.settings,
                   ),
-                ],
-              ),
+                  label: 'setting',
+                ),
+              ],
             ),
           ),
         );

@@ -5,7 +5,102 @@ import 'package:flutter/material.dart';
 
 class SettingPage extends StatelessWidget {
   void _logout(BuildContext context) {
-    context.bloc<AuthenticationBloc>().add(AuthenticationOut());
+    showModalBottomSheet<void>(
+      context: context,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
+      isScrollControlled: true,
+      builder: (BuildContext buildContext) => Container(
+        width: MediaQuery.of(context).size.width,
+        height: 255,
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(17),
+            topLeft: Radius.circular(17),
+          ),
+          color: Colors.white,
+        ),
+        child: Column(
+          children: <Widget>[
+            const SizedBox(
+              height: 35,
+            ),
+            const Icon(
+              Icons.exit_to_app,
+              size: 38,
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            const Text(
+              '로그아웃 하시겠어요?',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: MEDIUM,
+                color: Colors.black,
+              ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Text(
+              '언제든 다시 와주세요!',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: REGULAR,
+                color: Theme.of(context).primaryColorDark,
+              ),
+            ),
+            const Spacer(),
+            Container(
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    width: 106,
+                    height: 75,
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.pop(buildContext);
+                      },
+                      color: Theme.of(context).secondaryHeaderColor,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
+                      ),
+                      child: const Text(
+                        '취소',
+                        style: TextStyle(fontSize: 18, fontWeight: MEDIUM, color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      height: 75,
+                      child: FlatButton(
+                        onPressed: () {
+                          Navigator.pop(buildContext);
+                          context.bloc<AuthenticationBloc>().add(AuthenticationOut());
+                        },
+                        color: Theme.of(context).primaryColor,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.zero,
+                        ),
+                        child: const Text(
+                          '로그아웃',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: MEDIUM,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
