@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:amuse_app/model/singleton_user.dart';
 import 'package:amuse_app/repositories/authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';

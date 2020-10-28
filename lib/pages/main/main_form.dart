@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:amuse_app/cubits/bottom_tab/bottom_tab_cubit.dart';
 import 'package:amuse_app/enums/tab_enum.dart';
 import 'package:amuse_app/pages/amuse/amuse_page.dart';
 import 'package:amuse_app/pages/chat/chat_page.dart';
 import 'package:amuse_app/pages/common/common_widgets/custom_toast/custom_toast.dart';
 import 'package:amuse_app/pages/setting/setting_page.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,11 +20,34 @@ class _MainFormState extends State<MainForm> {
 
   DateTime _currentTimePressedBack;
 
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
   @override
   void initState() {
     super.initState();
 
     _tabIndex = 0;
+
+    _firebaseMessaging.getToken().then((String value) => log(']-----] FCM Token [-----[ $value'));
+
+    _firebaseMessaging.requestNotificationPermissions(
+      const IosNotificationSettings(sound: true, badge: true, alert: true, provisional: true),
+    );
+
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print('onMessage: $message');
+        // print(message);
+        // final FcmMessage _fcmMessage = FcmMessage.fromJson(message);
+        // DefaultDialog(title: _fcmMessage.title, message: _fcmMessage.body).show();
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print('onLaunch: $message');
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print('onResume: $message');
+      },
+    );
   }
 
   void _onSelectTab({TabEnum tabEnum}) {

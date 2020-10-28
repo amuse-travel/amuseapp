@@ -9,7 +9,7 @@ InputDecoration underlineTextFieldDecoration({String hintText}) {
         color: Colors.grey,
       ),
     ),
-    focusedBorder: UnderlineInputBorder(
+    focusedBorder: const UnderlineInputBorder(
       borderSide: BorderSide(
         width: 0.8,
       ),

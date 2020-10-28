@@ -1,5 +1,4 @@
 import 'package:amuse_app/cubits/update_profile/update_profile_cubit.dart';
-import 'package:amuse_app/pages/common/common_decorations/underline_text_field_decoration.dart';
 import 'package:amuse_app/pages/common/common_widgets/custom_toast/custom_toast.dart';
 import 'package:amuse_app/pages/common/common_widgets/dismiss_keyboard_listener/dismiss_keyboard_listener.dart';
 import 'package:flutter/material.dart';
@@ -35,14 +34,17 @@ class _UpdateUserNameFormState extends State<UpdateUserNameForm> {
     return BlocListener<UpdateProfileCubit, UpdateProfileState>(
       listener: (BuildContext buildContext, UpdateProfileState state) {
         if (state is UpdateProfileUserName) {
-          CustomToast(message: '닉네임 변경 성공').show();
+          CustomToast(message: '닉네임 설정 완료').show();
+        }
+        if (state is UpdateProfileFailure) {
+          CustomToast(message: '실패').show();
         }
       },
       child: DismissKeyboardListener(
         child: Scaffold(
           appBar: AppBar(
             title: const Text(
-              '닉네임 변경',
+              '닉네임 설정',
               style: TextStyle(
                 fontSize: 20,
                 color: Colors.black,
@@ -95,7 +97,7 @@ class _UpdateUserNameFormState extends State<UpdateUserNameForm> {
                   height: 30,
                   child: RaisedButton(
                     onPressed: _onUpdateUserName,
-                    child: Text('변경'),
+                    child: const Text('설정하기'),
                   ),
                 ),
               ],

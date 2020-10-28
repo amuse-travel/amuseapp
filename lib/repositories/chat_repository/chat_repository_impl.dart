@@ -12,11 +12,9 @@ class ChatRepositoryImpl extends ChatRepository {
 
   final SocketIo _socketIo = SocketIo();
 
-
   @override
   Future<bool> enrollChatUser({String userName}) async {
     try {
-      log(_httpDio.dio().options.baseUrl);
       final Response<dynamic> response = await _httpDio.dio().post<dynamic>(
         '/users',
         data: <String, dynamic>{
@@ -31,7 +29,7 @@ class ChatRepositoryImpl extends ChatRepository {
         },
       );
 
-      if(response.statusCode == 200) {
+      if (response.statusCode == 200) {
         return true;
       } else {
         return false;

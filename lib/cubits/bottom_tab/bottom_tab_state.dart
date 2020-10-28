@@ -4,7 +4,7 @@ abstract class BottomTabState extends Equatable {
   const BottomTabState();
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => <Object>[];
 }
 
 class BottomTabInitial extends BottomTabState {}

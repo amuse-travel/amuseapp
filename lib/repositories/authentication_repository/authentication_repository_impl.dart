@@ -64,6 +64,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
 
   @override
   Future<void> disprove() async {
+    _singletonUser.userName = null;
     await _secureStorage.deleteAll();
     print('=====| disprove |==========[');
   }

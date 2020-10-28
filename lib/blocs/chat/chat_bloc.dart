@@ -36,7 +36,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   Stream<ChatState> _mapChatMessagesFetchTriedToState(ChatMessagesFetchTried event) async* {
     yield ChatInProgress();
     try {
-      final ChatMessageList _chatMessages = await chatRepository.fetchMessages(userName: event.userName, );
+      final ChatMessageList _chatMessages = await chatRepository.fetchMessages(userName: event.userName, room: event.room);
       if (_chatMessages != null) {
         yield ChatMessagesFetchTrySuccess(chatMessageList: _chatMessages);
       } else {
@@ -55,7 +55,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   Stream<ChatState> _mapChatMessagesFetchMoreTriedToState(ChatMessagesFetchMoreTried event) async* {
     yield ChatInProgress();
     try {
-      final ChatMessageList _chatMessages = await chatRepository.fetchMoreMessages(userName: event.userName, lastMsId: event.lastMsId);
+      final ChatMessageList _chatMessages = await chatRepository.fetchMoreMessages(userName: event.userName, room: event.room, lastMsId: event.lastMsId);
       if (_chatMessages != null) {
         yield ChatMessagesFetchMoreTrySuccess(chatMessageList: _chatMessages);
       } else {
@@ -74,7 +74,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   Stream<ChatState> _mapChatMessageSendTriedToState(ChatMessageSendTried event) async* {
     yield ChatInProgress();
     try {
-      final bool _isSent = await chatRepository.sendMessage(userName: event.userName, message: event.chatMessage.text);
+      final bool _isSent = await chatRepository.sendMessage(userName: event.userName, room: event.room, message: event.chatMessage.text);
       if (_isSent) {
         yield ChatMessageSendTrySuccess(chatMessage: event.chatMessage);
       } else {

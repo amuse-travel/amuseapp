@@ -1,7 +1,6 @@
 import 'package:amuse_app/main.dart';
 import 'package:amuse_app/model/product/product_detail.dart';
 import 'package:amuse_app/model/product/product_keyword.dart';
-import 'package:amuse_app/model/product/product_service.dart';
 import 'package:amuse_app/pages/common/common_widgets/custom_toast/custom_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -424,7 +423,6 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
   @override
   Widget build(BuildContext context) {
     final double _sizeWidth = MediaQuery.of(context).size.width;
-    final double _sizeHeight = MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -455,7 +453,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: [
+              children: <Widget>[
                 Container(
                   width: _sizeWidth,
                   height: _sizeWidth,

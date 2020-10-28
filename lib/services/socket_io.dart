@@ -16,7 +16,7 @@ class SocketIo {
       _userName = 'tester';
     }
 
-    final String localHost = Platform.isAndroid ? 'http://10.0.2.2:3210' : 'http://localhost:3210';
+    // final String localHost = Platform.isAndroid ? 'http://10.0.2.2:3210' : 'http://localhost:3210';
     final String chatApi = DotEnv().env['CHAT_API'];
 
     final Socket _socket = io(
