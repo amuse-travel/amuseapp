@@ -103,6 +103,8 @@ class SettingPage extends StatelessWidget {
     );
   }
 
+  void _deleteAccount(BuildContext context) {}
+
   @override
   Widget build(BuildContext context) {
     final double _sizeWidth = MediaQuery.of(context).size.width;
@@ -117,17 +119,57 @@ class SettingPage extends StatelessWidget {
           ),
           Container(
             width: _sizeWidth,
+            height: 112,
+            color: Theme.of(context).secondaryHeaderColor,
+            child: Column(
+              children: [
+                Container(
+                  width: _sizeWidth,
+                  height: 56,
+                  child: RaisedButton(
+                    onPressed: () {},
+                    color: Colors.white,
+                    padding: const EdgeInsets.only(left: 40, right: 20),
+                    elevation: 1,
+                    child: Row(
+                      children: <Widget>[
+                        const Text(
+                          '공지사항',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: MEDIUM,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const Spacer(),
+                        Container(
+                          child: const Icon(
+                            Icons.arrow_forward_ios,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 56,
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: _sizeWidth,
             height: 56,
             color: Colors.white,
             child: RaisedButton(
-              onPressed: () {},
+              onPressed: () => _logout(context),
               color: Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 40),
+              padding: const EdgeInsets.only(left: 40, right: 20),
               elevation: 1,
               child: Row(
                 children: <Widget>[
                   const Text(
-                    '공지사항',
+                    '로그아웃',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: MEDIUM,
@@ -145,21 +187,21 @@ class SettingPage extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 56,
+            height: 1,
           ),
           Container(
             width: _sizeWidth,
             height: 56,
             color: Colors.white,
             child: RaisedButton(
-              onPressed: () => _logout(context),
+              onPressed: () => _deleteAccount(context),
               color: Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 40),
+              padding: const EdgeInsets.only(left: 40, right: 20),
               elevation: 1,
               child: Row(
                 children: <Widget>[
                   const Text(
-                    '로그아웃',
+                    '계정 삭제',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: MEDIUM,
