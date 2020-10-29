@@ -26,6 +26,9 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     if (event is AuthenticationOut) {
       yield* _mapAuthenticationFinishedToState(event);
     }
+    if (event is AuthenticationUserDelete) {
+      yield* _mapAuthenticationUserDeleteToState(event);
+    }
   }
 
   Stream<AuthenticationState> _mapAuthenticationTriedToState(AuthenticationTried event) async* {
@@ -39,7 +42,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
         yield AuthenticationRequired();
       }
     } catch (e) {
-      yield AuthenticationFailure(errorCode: 'AuthenticationTried ${e.toString()}');
+      yield AuthenticationFailure(message: 'AuthenticationTried ${e.toString()}');
     }
   }
 
@@ -49,7 +52,17 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       await authenticationRepository.disprove();
       yield AuthenticationRequired();
     } catch (e) {
-      yield AuthenticationFailure(errorCode: 'AuthenticationFinished ${e.toString()}');
+      yield AuthenticationFailure(message: 'AuthenticationFinished ${e.toString()}');
+    }
+  }
+
+  Stream<AuthenticationState> _mapAuthenticationUserDeleteToState(AuthenticationUserDelete event) async* {
+    yield AuthenticationInProgress();
+    try {
+      await authenticationRepository.deleteUser();
+      yield AuthenticationRequired();
+    } catch (e) {
+      yield AuthenticationFailure(message: 'AuthenticationFinished ${e.toString()}');
     }
   }
 }

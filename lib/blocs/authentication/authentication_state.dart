@@ -13,13 +13,13 @@ class AuthenticationInProgress extends AuthenticationState {}
 
 class AuthenticationFailure extends AuthenticationState {
   const AuthenticationFailure({
-    @required this.errorCode,
-  }) : assert(errorCode != null);
+    @required this.message,
+  }) : assert(message != null);
 
-  final String errorCode;
+  final String message;
 
   @override
-  List<Object> get props => <Object>[errorCode];
+  List<Object> get props => <Object>[message];
 }
 
 class AuthenticationTrySuccess extends AuthenticationState {}

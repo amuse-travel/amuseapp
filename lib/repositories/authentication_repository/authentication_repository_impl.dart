@@ -70,6 +70,29 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
+  Future<void> deleteUser() async {
+    try {
+      final String _idToken = await _secureStorage.read(key: 'id_token');
+      final String _accessToken = await _secureStorage.read(key: 'access_token');
+      if (_idToken != null && _accessToken != null) {
+        final AuthCredential _authCredential = GoogleAuthProvider.credential(
+          idToken: _idToken,
+          accessToken: _accessToken,
+        );
+
+        await _auth.currentUser.reauthenticateWithCredential(_authCredential);
+      }
+
+      _singletonUser.userName = null;
+      await _secureStorage.deleteAll();
+
+      await _auth.currentUser.delete();
+    } catch (e) {
+      print('=====| deleteUser |==========[${e.toString()}');
+    }
+  }
+
+  @override
   Future<AuthCredential> googleSignIn() async {
     final GoogleSignIn _googleSignIn = GoogleSignIn();
 

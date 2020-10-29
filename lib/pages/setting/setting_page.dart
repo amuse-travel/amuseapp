@@ -103,7 +103,106 @@ class SettingPage extends StatelessWidget {
     );
   }
 
-  void _deleteAccount(BuildContext context) {}
+  void _deleteAccount(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
+      isScrollControlled: true,
+      builder: (BuildContext buildContext) => Container(
+        width: MediaQuery.of(context).size.width,
+        height: 255,
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(17),
+            topLeft: Radius.circular(17),
+          ),
+          color: Colors.white,
+        ),
+        child: Column(
+          children: <Widget>[
+            const SizedBox(
+              height: 35,
+            ),
+            const Text(
+              '🤦🏻‍♀️🤦🏻‍♂️💦',
+              style: TextStyle(
+                fontSize: 30,
+              ),
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            const Text(
+              '계정을 삭제하시겠어요?',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: MEDIUM,
+                color: Colors.black,
+              ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Text(
+              '여행이 그리우실 때 다시 오시길 바랄게요:)',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: REGULAR,
+                color: Theme.of(context).primaryColorDark,
+              ),
+            ),
+            const Spacer(),
+            Container(
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    width: 106,
+                    height: 75,
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.pop(buildContext);
+                      },
+                      color: Theme.of(context).secondaryHeaderColor,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
+                      ),
+                      child: const Text(
+                        '취소',
+                        style: TextStyle(fontSize: 18, fontWeight: MEDIUM, color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      height: 75,
+                      child: FlatButton(
+                        onPressed: () {
+                          Navigator.pop(buildContext);
+                          context.bloc<AuthenticationBloc>().add(AuthenticationUserDelete());
+                        },
+                        color: Theme.of(context).primaryColor,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.zero,
+                        ),
+                        child: const Text(
+                          '계정 삭제',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: MEDIUM,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

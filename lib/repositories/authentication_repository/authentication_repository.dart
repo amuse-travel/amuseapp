@@ -5,5 +5,7 @@ abstract class AuthenticationRepository {
 
   Future<void> disprove();
 
+  Future<void> deleteUser();
+
   Future<AuthCredential> googleSignIn();
 }
