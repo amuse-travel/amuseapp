@@ -579,9 +579,6 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                   width: _sizeWidth,
                   child: _servicesDetail(),
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
                 Divider(
                   color: Theme.of(context).primaryColorDark,
                 ),
