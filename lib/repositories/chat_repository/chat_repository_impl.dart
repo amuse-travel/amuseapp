@@ -20,6 +20,7 @@ class ChatRepositoryImpl extends ChatRepository {
         data: <String, dynamic>{
           'name': userName,
           'rooms': <String>[
+            // 'general',
             'wheel',
             'pdd',
             'blind',
@@ -48,6 +49,7 @@ class ChatRepositoryImpl extends ChatRepository {
       _socketIo.socketConnection().emitWithAck(
         'messages',
         <String, dynamic>{
+          // 'room': 'general',
           'room': room,
         },
         ack: (dynamic data) {
@@ -79,6 +81,7 @@ class ChatRepositoryImpl extends ChatRepository {
       _socketIo.socketConnection().emitWithAck(
         'messages',
         <String, dynamic>{
+          // 'room': 'general',
           'room': room,
           'msid': lastMsId,
         },
@@ -107,6 +110,7 @@ class ChatRepositoryImpl extends ChatRepository {
       _socketIo.socketConnection().emitWithAck(
         'input',
         <String, String>{
+          // 'room': 'general',
           'room': room,
           'message': message,
         },

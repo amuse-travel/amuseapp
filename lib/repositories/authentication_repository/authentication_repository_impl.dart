@@ -66,6 +66,8 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   Future<void> disprove() async {
     _singletonUser.userName = null;
     await _secureStorage.deleteAll();
+    _socketIo.socketConnection().close();
+    await Future<dynamic>.delayed(const Duration(milliseconds: 500));
     print('=====| disprove |==========[');
   }
 
@@ -85,8 +87,11 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
 
       _singletonUser.userName = null;
       await _secureStorage.deleteAll();
-
       await _auth.currentUser.delete();
+
+      _socketIo.socketConnection().close();
+      await Future<dynamic>.delayed(const Duration(milliseconds: 500));
+
     } catch (e) {
       print('=====| deleteUser |==========[${e.toString()}');
     }

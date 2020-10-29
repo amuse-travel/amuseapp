@@ -113,107 +113,118 @@ class _AmuseFormState extends State<AmuseForm> {
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 20),
                       alignment: Alignment.centerLeft,
-                      child: const Text(
-                        '관광약자를 위한 여행‍',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: MEDIUM,
-                          color: Colors.black,
-                        ),
+                      child: Row(
+                        children: <Widget>[
+                          const Text(
+                            '관광약자를 위한 여행‍',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: MEDIUM,
+                              color: Colors.black,
+                            ),
+                          ),
+                          Image.asset(
+                            'assets/icons/emoji.png',
+                            height: 20,
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(
                       height: 16,
                     ),
                     Expanded(
-                      child: SmartRefresher(
-                        controller: _refreshController,
-                        enablePullDown: true,
-                        enablePullUp: true,
-                        onRefresh: _onRefresh,
-                        onLoading: _onLoading,
-                        header: MaterialClassicHeader(
-                          color: Theme.of(context).primaryColor,
-                          backgroundColor: Colors.white,
-                          // offset: 100,
-                        ),
-                        footer: CustomFooter(
-                          builder: (BuildContext context, LoadStatus loadStatus) {
-                            if (loadStatus == LoadStatus.loading) {
-                              return LoadingIndicator();
-                            } else {
-                              return const SizedBox(
-                                height: 0,
-                              );
-                            }
-                          },
-                        ),
-                        child: ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          itemCount: _productList.length,
-                          itemBuilder: (BuildContext buildContext, int index) => Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
-                            child: Container(
-                              height: 320,
-                              child: RaisedButton(
-                                onPressed: () => _onProductDetailLoad(_productList[index].id),
-                                padding: const EdgeInsets.all(0),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                                color: Colors.white,
-                                child: Column(
-                                  children: <Widget>[
-                                    ClipRRect(
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(14),
-                                        topRight: Radius.circular(14),
-                                      ),
-                                      child: Container(
-                                        width: _sizeWidth,
-                                        height: 200,
-                                        child: CachedNetworkImage(
-                                          imageUrl: _productList[index].image.src,
-                                          fit: BoxFit.cover,
+                      child: Container(
+                        width: 375,
+                        child: SmartRefresher(
+                          controller: _refreshController,
+                          enablePullDown: true,
+                          enablePullUp: true,
+                          onRefresh: _onRefresh,
+                          onLoading: _onLoading,
+                          header: MaterialClassicHeader(
+                            color: Theme.of(context).primaryColor,
+                            backgroundColor: Colors.white,
+                            // offset: 100,
+                          ),
+                          footer: CustomFooter(
+                            builder: (BuildContext context, LoadStatus loadStatus) {
+                              if (loadStatus == LoadStatus.loading) {
+                                return LoadingIndicator();
+                              } else {
+                                return const SizedBox(
+                                  height: 0,
+                                );
+                              }
+                            },
+                          ),
+                          child: ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: _productList.length,
+                            itemBuilder: (BuildContext buildContext, int index) => Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                              child: Container(
+                                height: 320,
+                                child: RaisedButton(
+                                  onPressed: () => _onProductDetailLoad(_productList[index].id),
+                                  padding: const EdgeInsets.all(0),
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                                  color: Colors.white,
+                                  child: Column(
+                                    children: <Widget>[
+                                      ClipRRect(
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(14),
+                                          topRight: Radius.circular(14),
+                                        ),
+                                        child: Container(
+                                          width: _sizeWidth,
+                                          height: 200,
+                                          child: CachedNetworkImage(
+                                            imageUrl: _productList[index].image.src,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 12,
-                                    ),
-                                    Container(
-                                      margin: const EdgeInsets.symmetric(horizontal: 12),
-                                      alignment: Alignment.centerLeft,
-                                      child: _shortCategories(index),
-                                    ),
-                                    const SizedBox(
-                                      height: 6,
-                                    ),
-                                    Container(
-                                      margin: const EdgeInsets.symmetric(horizontal: 12),
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        _productList[index].title,
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: BOLD,
-                                          color: Colors.black,
+                                      const SizedBox(
+                                        height: 12,
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.symmetric(horizontal: 12),
+                                        alignment: Alignment.centerLeft,
+                                        child: _shortCategories(index),
+                                      ),
+                                      const SizedBox(
+                                        height: 6,
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.symmetric(horizontal: 12),
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          _productList[index].title,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: BOLD,
+                                            color: Colors.black,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const Spacer(),
-                                    Container(
-                                      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        '${_productList[index].basePrice.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match match) => '${match[1]},')}원 ~',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          color: Theme.of(context).primaryColor,
+                                      const Spacer(),
+                                      Container(
+                                        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          '${_productList[index].basePrice.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match match) => '${match[1]},')}원 ~',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            color: Theme.of(context).primaryColor,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
