@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:amuse_app/model/singleton_user.dart';
 import 'package:amuse_app/repositories/authentication_repository/authentication_repository.dart';
 import 'package:amuse_app/services/socket_io.dart';
@@ -33,8 +35,13 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
 
         _userCredential = await _auth.signInWithCredential(_authCredential);
       }
+      log(_userCredential.toString());
 
-      if (_userCredential != null) {
+
+
+      // log(await _userCredential.user.getIdToken());
+
+      if (_userCredential.user != null) {
         final User _user = _userCredential.user;
 
         if (_userName != null) {
@@ -91,12 +98,13 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
 
       _socketIo.socketConnection().close();
       await Future<dynamic>.delayed(const Duration(milliseconds: 500));
-
     } catch (e) {
       print('=====| deleteUser |==========[${e.toString()}');
     }
   }
 
+
+  // TODO(Red): user credential write!
   @override
   Future<AuthCredential> googleSignIn() async {
     final GoogleSignIn _googleSignIn = GoogleSignIn();
