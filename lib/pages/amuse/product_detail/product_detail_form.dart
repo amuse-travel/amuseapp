@@ -324,7 +324,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: BOLD,
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).primaryColorDark,
                 ),
               ),
             ),
@@ -353,7 +353,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                                     imageUrl: _productDetail.programs[day].items[index].image.thumb,
                                   )
                                 : Container(
-                                    color: Theme.of(context).primaryColor,
+                                    color: Theme.of(context).backgroundColor,
                                     child: Image.asset(
                                       'assets/icons/amuse-mark.png',
                                     ),
@@ -401,7 +401,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
             children: <Widget>[
               Icon(
                 _serviceIcons[_productDetail.services[index].name].icon,
-                color: Theme.of(context).secondaryHeaderColor,
+                color: Theme.of(context).textSelectionHandleColor,
               ),
               const SizedBox(
                 width: 20,
@@ -411,7 +411,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: REGULAR,
-                  color: Theme.of(context).primaryColorDark,
+                  color: Theme.of(context).textSelectionHandleColor,
                 ),
               ),
             ],
@@ -504,7 +504,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: BOLD,
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).primaryColorDark,
                     ),
                   ),
                 ),
@@ -512,7 +512,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                   height: 30,
                 ),
                 Divider(
-                  color: Theme.of(context).primaryColorDark,
+                  color: Theme.of(context).secondaryHeaderColor,
                 ),
                 const SizedBox(
                   height: 30,
@@ -527,7 +527,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                   height: 30,
                 ),
                 Divider(
-                  color: Theme.of(context).primaryColorDark,
+                  color: Theme.of(context).secondaryHeaderColor,
                 ),
                 const SizedBox(
                   height: 30,
@@ -553,7 +553,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                   child: _travelPrograms(),
                 ),
                 Divider(
-                  color: Theme.of(context).primaryColorDark,
+                  color: Theme.of(context).secondaryHeaderColor,
                 ),
                 const SizedBox(
                   height: 30,
@@ -580,7 +580,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                   child: _servicesDetail(),
                 ),
                 Divider(
-                  color: Theme.of(context).primaryColorDark,
+                  color: Theme.of(context).secondaryHeaderColor,
                 ),
                 const SizedBox(
                   height: 30,
@@ -611,7 +611,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: REGULAR,
-                          color: Theme.of(context).primaryColorDark,
+                          color: Theme.of(context).textSelectionHandleColor,
                         ),
                       ),
                     ),
@@ -627,7 +627,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: REGULAR,
-                          color: Theme.of(context).primaryColorDark,
+                          color: Theme.of(context).textSelectionHandleColor,
                         ),
                       ),
                     ),
@@ -643,7 +643,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: REGULAR,
-                          color: Theme.of(context).primaryColorDark,
+                          color: Theme.of(context).textSelectionHandleColor,
                         ),
                       ),
                     ),
@@ -653,7 +653,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                   height: 30,
                 ),
                 Divider(
-                  color: Theme.of(context).primaryColorDark,
+                  color: Theme.of(context).secondaryHeaderColor,
                 ),
                 const SizedBox(
                   height: 30,
@@ -682,13 +682,13 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                     padding: const EdgeInsets.all(0),
                     elevation: 0,
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).accentColor,
                     child: const Text(
                       '담당자와 전화 상담',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: REGULAR,
-                        color: Colors.white,
+                        color: Colors.black,
                       ),
                     ),
                   ),

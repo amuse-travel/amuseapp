@@ -42,7 +42,13 @@ class _UpdateUserNameFormState extends State<UpdateUserNameForm> {
 
   void _onUpdateUserName() {
     if (_textEditingController.text.isNotEmpty) {
-      context.bloc<UpdateProfileCubit>().updateUserName(userName: _textEditingController.text);
+      if (_textEditingController.text.length < 11) {
+        context.bloc<UpdateProfileCubit>().updateUserName(userName: _textEditingController.text);
+      } else {
+        CustomToast(message: '닉네임을 10자 이내로 정해주세요.').show();
+      }
+    } else {
+      CustomToast(message: '닉네임을 입력해주세요').show();
     }
   }
 
@@ -107,6 +113,7 @@ class _UpdateUserNameFormState extends State<UpdateUserNameForm> {
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   child: TextFormField(
                     controller: _textEditingController,
+                    autofocus: true,
                     onChanged: _onChangeText,
                     style: const TextStyle(
                       fontSize: 20,
@@ -147,17 +154,17 @@ class _UpdateUserNameFormState extends State<UpdateUserNameForm> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14),
                       side: BorderSide(
-                        color: _buttonActive ? Theme.of(context).primaryColor : Theme.of(context).secondaryHeaderColor,
+                        color: _buttonActive ? Theme.of(context).accentColor : Theme.of(context).secondaryHeaderColor,
                       ),
                     ),
                     elevation: 0,
-                    color: _buttonActive ? Theme.of(context).primaryColor : Colors.white,
+                    color: _buttonActive ? Theme.of(context).accentColor : Colors.white,
                     child: Text(
                       '채팅 시작하기',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: MEDIUM,
-                        color: _buttonActive ? Colors.white : Theme.of(context).secondaryHeaderColor,
+                        color: _buttonActive ? Colors.black : Theme.of(context).secondaryHeaderColor,
                       ),
                     ),
                   ),

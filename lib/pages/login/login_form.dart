@@ -92,6 +92,7 @@ class _LoginFormState extends State<LoginForm> {
                             shape: RoundedRectangleBorder(
                               side: BorderSide(
                                 color: Theme.of(context).secondaryHeaderColor,
+                                width: 0.5
                               ),
                               borderRadius: BorderRadius.circular(7),
                             ),
@@ -113,7 +114,7 @@ class _LoginFormState extends State<LoginForm> {
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: MEDIUM,
-                                      color: Theme.of(context).primaryColorDark,
+                                      color: Theme.of(context).textSelectionHandleColor,
                                     ),
                                   ),
                                 ),
@@ -162,42 +163,6 @@ class _LoginFormState extends State<LoginForm> {
                         const SizedBox(
                           height: 60,
                         ),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        //   children: <Widget>[
-                        //     Container(
-                        //       alignment: Alignment.center,
-                        //       width: 50,
-                        //       height: 50,
-                        //       child: RaisedButton(
-                        //         onPressed: () => _onGoogleLoginButtonPressed(context),
-                        //         shape: const CircleBorder(),
-                        //         padding: const EdgeInsets.all(0),
-                        //         elevation: 0,
-                        //         color: Colors.white,
-                        //         child: Image.asset(
-                        //           'assets/icons/google-logo.png',
-                        //         ),
-                        //       ),
-                        //     ),
-                        //     Container(
-                        //       alignment: Alignment.center,
-                        //       width: 50,
-                        //       height: 50,
-                        //       child: RaisedButton(
-                        //         onPressed: () => _onAppleLoginButtonPressed(),
-                        //         shape: const CircleBorder(),
-                        //         padding: const EdgeInsets.all(0),
-                        //         elevation: 0,
-                        //         color: Colors.white,
-                        //         child: Image.asset(
-                        //           'assets/icons/apple-logo.png',
-                        //           fit: BoxFit.cover,
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
                       ],
                     ),
                   ),

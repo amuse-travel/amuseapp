@@ -219,7 +219,7 @@ class _AmuseFormState extends State<AmuseForm> {
                                           '${_productList[index].basePrice.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match match) => '${match[1]},')}원 ~',
                                           style: TextStyle(
                                             fontSize: 18,
-                                            color: Theme.of(context).primaryColor,
+                                            color: Theme.of(context).primaryColorDark,
                                           ),
                                         ),
                                       ),
