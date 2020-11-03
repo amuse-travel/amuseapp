@@ -35,8 +35,8 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     await Future<dynamic>.delayed(const Duration(seconds: 1));
     yield AuthenticationInProgress();
     try {
-      final User user = await authenticationRepository.authenticate();
-      if (user != null) {
+      final bool _isAuthenticated = await authenticationRepository.authenticate();
+      if (_isAuthenticated) {
         yield AuthenticationTrySuccess();
       } else {
         yield AuthenticationRequired();

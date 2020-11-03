@@ -28,14 +28,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> _mapLoginWithGoogleTriedToState(LoginWithGoogleTried event) async* {
     yield LoginInProgress();
     try {
-      final AuthCredential _authCredential = await authenticationRepository.googleSignIn();
-      if (_authCredential != null) {
-        final User _user = await authenticationRepository.authenticate();
-        if (_user != null) {
-          yield LoginWithGoogleTrySuccess();
-        } else {
-          yield const LoginFailure(message: 'LoginWithGoogleTried');
-        }
+      final bool _isGoogleSignedIn = await authenticationRepository.googleSignIn();
+      if (_isGoogleSignedIn) {
+        yield LoginWithGoogleTrySuccess();
       } else {
         yield const LoginFailure(message: 'LoginWithGoogleTried');
       }

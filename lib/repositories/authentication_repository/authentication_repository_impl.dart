@@ -18,32 +18,14 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   final SingletonUser _singletonUser = SingletonUser();
 
   @override
-  Future<User> authenticate() async {
-    UserCredential _userCredential;
+  Future<bool> authenticate() async {
     try {
-      final String _idToken = await _secureStorage.read(key: 'id_token');
-      final String _accessToken = await _secureStorage.read(key: 'access_token');
+      final String _uid = await _secureStorage.read(key: 'uid');
       final String _userName = await _secureStorage.read(key: 'user_name');
 
       print('userName : $_userName');
 
-      if (_idToken != null && _accessToken != null) {
-        final AuthCredential _authCredential = GoogleAuthProvider.credential(
-          idToken: _idToken,
-          accessToken: _accessToken,
-        );
-
-        _userCredential = await _auth.signInWithCredential(_authCredential);
-      }
-      log(_userCredential.toString());
-
-
-
-      // log(await _userCredential.user.getIdToken());
-
-      if (_userCredential.user != null) {
-        final User _user = _userCredential.user;
-
+      if (_uid != null) {
         if (_userName != null) {
           _singletonUser.userName = _userName;
 
@@ -55,17 +37,14 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
           } else {
             print('=====| authenticate |==========[ SocketIO connection failure.');
           }
-        } else {
-          print('=====| authenticate |==========[ SocketIO connection failure.');
         }
-
-        return _user;
+        return true;
       } else {
-        return null;
+        return false;
       }
     } catch (e) {
       print('=====| authenticate |==========[ ${e.toString()}');
-      return null;
+      return false;
     }
   }
 
@@ -103,10 +82,8 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
     }
   }
 
-
-  // TODO(Red): user credential write!
   @override
-  Future<AuthCredential> googleSignIn() async {
+  Future<bool> googleSignIn() async {
     final GoogleSignIn _googleSignIn = GoogleSignIn();
 
     try {
@@ -118,13 +95,13 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
         accessToken: _googleSignInAuthentication.accessToken,
       );
 
-      await _secureStorage.write(key: 'id_token', value: _googleSignInAuthentication.idToken.toString());
-      await _secureStorage.write(key: 'access_token', value: _googleSignInAuthentication.accessToken.toString());
+      final UserCredential _userCredential = await _auth.signInWithCredential(_authCredential);
+      await _secureStorage.write(key: 'uid', value: _userCredential.user.uid);
 
-      return _authCredential;
+      return true;
     } catch (e) {
       print('=====| googleSignIn |==========[ ${e.toString()}');
-      return null;
+      return false;
     }
   }
 }
