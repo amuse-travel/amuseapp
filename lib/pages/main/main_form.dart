@@ -104,22 +104,37 @@ class _MainFormState extends State<MainForm> {
               showUnselectedLabels: false,
               type: BottomNavigationBarType.fixed,
               elevation: 1,
-              items: const <BottomNavigationBarItem>[
+              items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.home,
+                    color: Theme.of(context).primaryColorDark,
+                  ),
+                  activeIcon: Icon(
+                    Icons.home,
+                    color: Theme.of(context).accentColor,
                   ),
                   label: 'home',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.chat_bubble,
+                    color: Theme.of(context).primaryColorDark,
+                  ),
+                  activeIcon: Icon(
+                    Icons.chat_bubble,
+                    color: Theme.of(context).accentColor,
                   ),
                   label: 'chat',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.settings,
+                    color: Theme.of(context).primaryColorDark,
+                  ),
+                  activeIcon: Icon(
+                    Icons.settings,
+                    color: Theme.of(context).accentColor,
                   ),
                   label: 'setting',
                 ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../main.dart';
 
-class LicensePage extends StatelessWidget {
+class LicenseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +27,9 @@ class LicensePage extends StatelessWidget {
           ),
         ),
       ),
-      body: LicensePage(),
+      body: const LicensePage(
+
+      ),
     );
   }
 }

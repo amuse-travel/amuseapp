@@ -13,7 +13,7 @@ class SplashScreen extends StatelessWidget {
             width: 150,
             height: 150,
             child: Image.asset(
-              'assets/icons/amuse-mark.png',
+              'assets/icons/amuse-mark-red.png',
             ),
           ),
         ),

@@ -100,8 +100,8 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
             effect: ScrollingDotsEffect(
               dotHeight: 8,
               dotWidth: 8,
-              dotColor: Theme.of(context).secondaryHeaderColor,
-              activeDotColor: Theme.of(context).primaryColor,
+              dotColor: Theme.of(context).primaryColorDark,
+              activeDotColor: Theme.of(context).primaryColorLight,
             ),
           ),
         ),
@@ -146,7 +146,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
       style: TextStyle(
         fontSize: 14,
         fontWeight: REGULAR,
-        color: Theme.of(context).primaryColor,
+        color: Theme.of(context).toggleableActiveColor,
       ),
     );
   }
@@ -324,7 +324,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: BOLD,
-                  color: Theme.of(context).primaryColorDark,
+                  color: Theme.of(context).accentColor,
                 ),
               ),
             ),
@@ -411,7 +411,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: REGULAR,
-                  color: Theme.of(context).textSelectionHandleColor,
+                  color: Theme.of(context).primaryColorDark,
                 ),
               ),
             ],
@@ -504,7 +504,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: BOLD,
-                      color: Theme.of(context).primaryColorDark,
+                      color: Theme.of(context).textSelectionColor,
                     ),
                   ),
                 ),
@@ -611,7 +611,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: REGULAR,
-                          color: Theme.of(context).textSelectionHandleColor,
+                          color: Theme.of(context).primaryColorDark,
                         ),
                       ),
                     ),
@@ -627,7 +627,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: REGULAR,
-                          color: Theme.of(context).textSelectionHandleColor,
+                          color: Theme.of(context).primaryColorDark,
                         ),
                       ),
                     ),
@@ -643,7 +643,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: REGULAR,
-                          color: Theme.of(context).textSelectionHandleColor,
+                          color: Theme.of(context).primaryColorDark,
                         ),
                       ),
                     ),

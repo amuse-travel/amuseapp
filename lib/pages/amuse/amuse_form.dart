@@ -143,7 +143,7 @@ class _AmuseFormState extends State<AmuseForm> {
                           onRefresh: _onRefresh,
                           onLoading: _onLoading,
                           header: MaterialClassicHeader(
-                            color: Theme.of(context).primaryColor,
+                            color: Theme.of(context).accentColor,
                             backgroundColor: Colors.white,
                             // offset: 100,
                           ),
@@ -216,10 +216,10 @@ class _AmuseFormState extends State<AmuseForm> {
                                         margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                                         alignment: Alignment.centerLeft,
                                         child: Text(
-                                          '${_productList[index].basePrice.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match match) => '${match[1]},')}원 ~',
+                                          '${_productList[index].basePrice.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match match) => '${match[1]},')}원 부터~',
                                           style: TextStyle(
                                             fontSize: 18,
-                                            color: Theme.of(context).primaryColorDark,
+                                            color: Theme.of(context).textSelectionColor,
                                           ),
                                         ),
                                       ),

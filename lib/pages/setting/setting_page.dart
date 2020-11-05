@@ -1,5 +1,6 @@
 import 'package:amuse_app/blocs/authentication/authentication_bloc.dart';
 import 'package:amuse_app/main.dart';
+import 'package:amuse_app/pages/setting/license_page/license_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -326,7 +327,7 @@ class SettingPage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute<Widget>(
-                    builder: (BuildContext buildContext) => LicensePage(),
+                    builder: (BuildContext buildContext) => const LicensePage(),
                   ),
                 );
               },

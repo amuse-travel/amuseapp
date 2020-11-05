@@ -115,17 +115,19 @@ class _UpdateUserNameFormState extends State<UpdateUserNameForm> {
                     controller: _textEditingController,
                     autofocus: true,
                     onChanged: _onChangeText,
+                    autocorrect: false,
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: MEDIUM,
                       color: Colors.black,
                     ),
+                    cursorColor: Theme.of(context).accentColor,
                     decoration: InputDecoration(
                       hintText: '닉네임을 입력해주세요.',
                       hintStyle: TextStyle(
                         fontSize: 20,
                         fontWeight: REGULAR,
-                        color: Theme.of(context).secondaryHeaderColor,
+                        color: Theme.of(context).textSelectionHandleColor,
                       ),
                       enabledBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(
@@ -136,7 +138,7 @@ class _UpdateUserNameFormState extends State<UpdateUserNameForm> {
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
                           width: 0.8,
-                          color: Theme.of(context).primaryColor,
+                          color: Theme.of(context).textSelectionHandleColor,
                         ),
                       ),
                     ),
@@ -154,7 +156,7 @@ class _UpdateUserNameFormState extends State<UpdateUserNameForm> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14),
                       side: BorderSide(
-                        color: _buttonActive ? Theme.of(context).accentColor : Theme.of(context).secondaryHeaderColor,
+                        color: _buttonActive ? Theme.of(context).accentColor : Theme.of(context).textSelectionHandleColor,
                       ),
                     ),
                     elevation: 0,
@@ -164,7 +166,7 @@ class _UpdateUserNameFormState extends State<UpdateUserNameForm> {
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: MEDIUM,
-                        color: _buttonActive ? Colors.black : Theme.of(context).secondaryHeaderColor,
+                        color: _buttonActive ? Colors.black : Theme.of(context).textSelectionHandleColor,
                       ),
                     ),
                   ),
