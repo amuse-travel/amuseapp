@@ -92,7 +92,6 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
     }
   }
 
-  // TODO(red): parse room
   void _listenMessages() {
     CustomChatMessage _customChatMessage;
 
@@ -102,26 +101,27 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
         final Map<String, dynamic> jsonResponse = data as Map<String, dynamic>;
         if (jsonResponse != null) {
           _customChatMessage = CustomChatMessage.fromJson(jsonResponse);
-          if (mounted) {
-            setState(
-              () {
-                _messages.add(
-                  ChatMessage(
-                    text: _customChatMessage.text ?? '',
-                    id: _customChatMessage.msId,
-                    user: ChatUser(
-                      name: _customChatMessage.username,
-                      avatar: _customChatMessage.avatar,
+          if (_customChatMessage.room == _room) {
+            if (mounted) {
+              setState(
+                () {
+                  _messages.add(
+                    ChatMessage(
+                      text: _customChatMessage.text ?? '',
+                      id: _customChatMessage.msId,
+                      user: ChatUser(
+                        name: _customChatMessage.username,
+                        avatar: _customChatMessage.avatar,
+                      ),
+                      createdAt: DateTime.fromMillisecondsSinceEpoch(_customChatMessage.time),
                     ),
-                    createdAt: DateTime.fromMillisecondsSinceEpoch(_customChatMessage.time),
-                  ),
-                );
-
-              },
-            );
-            _chatViewKey.currentState.scrollController.jumpTo(
-              _chatViewKey.currentState.scrollController.position.maxScrollExtent + 120,
-            );
+                  );
+                },
+              );
+              _chatViewKey.currentState.scrollController.jumpTo(
+                _chatViewKey.currentState.scrollController.position.maxScrollExtent + 120,
+              );
+            }
           }
         }
       },

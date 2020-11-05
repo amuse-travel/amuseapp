@@ -131,7 +131,7 @@ class _ChatPageState extends State<ChatPage> {
               onPressed: () => _onEnterChatRoom(
                 category: '발달 장애인과 함께하기',
                 // room: 'pdd',
-                room: 'japan',
+                room: 'china',
               ),
             ),
             const SizedBox(
@@ -143,7 +143,7 @@ class _ChatPageState extends State<ChatPage> {
               onPressed: () => _onEnterChatRoom(
                 category: '시각 장애인과 함께하기',
                 // room: 'blind',
-                room: 'china',
+                room: 'japan',
               ),
             ),
             const SizedBox(
