@@ -116,12 +116,11 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
                     createdAt: DateTime.fromMillisecondsSinceEpoch(_customChatMessage.time),
                   ),
                 );
-                _chatViewKey.currentState.scrollController.animateTo(
-                  _chatViewKey.currentState.scrollController.position.maxScrollExtent + 48,
-                  duration: const Duration(milliseconds: 100),
-                  curve: Curves.easeOutQuint,
-                );
+
               },
+            );
+            _chatViewKey.currentState.scrollController.jumpTo(
+              _chatViewKey.currentState.scrollController.position.maxScrollExtent + 120,
             );
           }
         }

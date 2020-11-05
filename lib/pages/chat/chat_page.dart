@@ -118,7 +118,8 @@ class _ChatPageState extends State<ChatPage> {
               image: 'assets/icons/wheel.png',
               onPressed: () => _onEnterChatRoom(
                 category: '휠체어 사용자와 함께하기',
-                room: 'wheel',
+                // room: 'wheel',
+                room: 'korea',
               ),
             ),
             const SizedBox(
@@ -129,7 +130,8 @@ class _ChatPageState extends State<ChatPage> {
               image: 'assets/icons/pdd.png',
               onPressed: () => _onEnterChatRoom(
                 category: '발달 장애인과 함께하기',
-                room: 'pdd',
+                // room: 'pdd',
+                room: 'japan',
               ),
             ),
             const SizedBox(
@@ -140,31 +142,32 @@ class _ChatPageState extends State<ChatPage> {
               image: 'assets/icons/blind.png',
               onPressed: () => _onEnterChatRoom(
                 category: '시각 장애인과 함께하기',
-                room: 'blind',
+                // room: 'blind',
+                room: 'china',
               ),
             ),
             const SizedBox(
               height: 32,
             ),
-            _chatRoom(
-              title: '청각 장애인과\n함께하기',
-              image: 'assets/icons/deaf.png',
-              onPressed: () => _onEnterChatRoom(
-                category: '청각 장애인과 함께하기',
-                room: 'deaf',
-              ),
-            ),
-            const SizedBox(
-              height: 32,
-            ),
-            _chatRoom(
-              title: '시니어와\n함께하기',
-              image: 'assets/icons/senior.png',
-              onPressed: () => _onEnterChatRoom(
-                category: '시니어와 함께하기',
-                room: 'senior',
-              ),
-            ),
+            // _chatRoom(
+            //   title: '청각 장애인과\n함께하기',
+            //   image: 'assets/icons/deaf.png',
+            //   onPressed: () => _onEnterChatRoom(
+            //     category: '청각 장애인과 함께하기',
+            //     room: 'deaf',
+            //   ),
+            // ),
+            // const SizedBox(
+            //   height: 32,
+            // ),
+            // _chatRoom(
+            //   title: '시니어와\n함께하기',
+            //   image: 'assets/icons/senior.png',
+            //   onPressed: () => _onEnterChatRoom(
+            //     category: '시니어와 함께하기',
+            //     room: 'senior',
+            //   ),
+            // ),
             const SizedBox(
               height: 32,
             ),

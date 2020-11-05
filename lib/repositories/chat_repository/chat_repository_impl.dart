@@ -6,6 +6,7 @@ import 'package:amuse_app/repositories/chat_repository/chat_repository.dart';
 import 'package:amuse_app/services/dio.dart';
 import 'package:amuse_app/services/socket_io.dart';
 import 'package:dio/dio.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 
 class ChatRepositoryImpl extends ChatRepository {
   final HttpDio _httpDio = HttpDio(apiUrlEnum: ApiUrlEnum.chat);
@@ -20,18 +21,29 @@ class ChatRepositoryImpl extends ChatRepository {
         data: <String, dynamic>{
           'name': userName,
           'rooms': <String>[
-            // 'general',
-            'wheel',
-            'pdd',
-            'blind',
-            'deaf',
-            'senior',
+            'korea',
+            'japan',
+            'china',
+            // 'wheel',
+            // 'pdd',
+            // 'blind',
+            // 'deaf',
+            // 'senior',
           ],
         },
       );
 
       if (response.statusCode == 200) {
-        return true;
+        final Socket _socket = _socketIo.socketConnection().connect();
+        await Future<dynamic>.delayed(const Duration(milliseconds: 500));
+
+        if (_socket.connected) {
+          log('=====| enrollChatUser |==========[ SocketIO connection complete.');
+          return true;
+        } else {
+          log('=====| enrollChatUser |==========[ SocketIO connection failure.');
+          return false;
+        }
       } else {
         return false;
       }
@@ -49,7 +61,6 @@ class ChatRepositoryImpl extends ChatRepository {
       _socketIo.socketConnection().emitWithAck(
         'messages',
         <String, dynamic>{
-          // 'room': 'general',
           'room': room,
         },
         ack: (dynamic data) {
@@ -68,7 +79,7 @@ class ChatRepositoryImpl extends ChatRepository {
         return null;
       }
     } catch (e) {
-      print('===| fetchMessages |=======[ ${e.toString()}');
+      log('===| fetchMessages |=======[ ${e.toString()}');
       return null;
     }
   }
@@ -81,7 +92,6 @@ class ChatRepositoryImpl extends ChatRepository {
       _socketIo.socketConnection().emitWithAck(
         'messages',
         <String, dynamic>{
-          // 'room': 'general',
           'room': room,
           'msid': lastMsId,
         },
@@ -99,7 +109,7 @@ class ChatRepositoryImpl extends ChatRepository {
         return null;
       }
     } catch (e) {
-      print('===| fetchMoreMessages |=======[ ${e.toString()}');
+      log('===| fetchMoreMessages |=======[ ${e.toString()}');
       return null;
     }
   }
@@ -110,17 +120,16 @@ class ChatRepositoryImpl extends ChatRepository {
       _socketIo.socketConnection().emitWithAck(
         'input',
         <String, String>{
-          // 'room': 'general',
           'room': room,
           'message': message,
         },
         ack: (dynamic data) {
-          print(data);
+          log(data.toString());
         },
       );
       return true;
     } catch (e) {
-      print('===| sendMessage |=======[ ${e.toString()}');
+      log('===| sendMessage |=======[ ${e.toString()}');
       return false;
     }
   }

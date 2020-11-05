@@ -24,7 +24,6 @@ class UpdateProfileCubit extends Cubit<UpdateProfileState> {
     _singletonUser.userName = userName;
     await _secureStorage.delete(key: 'user_name');
     await _secureStorage.write(key: 'user_name', value: userName);
-
     final bool _isEnrolled = await chatRepository.enrollChatUser(userName: userName);
     if (_isEnrolled) {
       emit(UpdateProfileUserName());

@@ -23,19 +23,17 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
       final String _uid = await _secureStorage.read(key: 'uid');
       final String _userName = await _secureStorage.read(key: 'user_name');
 
-      print('userName : $_userName');
-
       if (_uid != null) {
         if (_userName != null) {
           _singletonUser.userName = _userName;
 
-          final Socket _socket = _socketIo.socketConnection();
+          final Socket _socket = _socketIo.socketConnection().connect();
           await Future<dynamic>.delayed(const Duration(milliseconds: 500));
 
           if (_socket.connected) {
-            print('=====| authenticate |==========[ SocketIO connection complete.');
+            log('=====| authenticate |==========[ SocketIO connection complete.');
           } else {
-            print('=====| authenticate |==========[ SocketIO connection failure.');
+            log('=====| authenticate |==========[ SocketIO connection failure.');
           }
         }
         return true;
@@ -43,7 +41,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
         return false;
       }
     } catch (e) {
-      print('=====| authenticate |==========[ ${e.toString()}');
+      log('=====| authenticate |==========[ ${e.toString()}');
       return false;
     }
   }
@@ -54,7 +52,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
     await _secureStorage.deleteAll();
     _socketIo.socketConnection().close();
     await Future<dynamic>.delayed(const Duration(milliseconds: 500));
-    print('=====| disprove |==========[');
+    log('=====| disprove |==========[');
   }
 
   @override
@@ -78,7 +76,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
       _socketIo.socketConnection().close();
       await Future<dynamic>.delayed(const Duration(milliseconds: 500));
     } catch (e) {
-      print('=====| deleteUser |==========[${e.toString()}');
+      log('=====| deleteUser |==========[${e.toString()}');
     }
   }
 
@@ -100,7 +98,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
 
       return true;
     } catch (e) {
-      print('=====| googleSignIn |==========[ ${e.toString()}');
+      log('=====| googleSignIn |==========[ ${e.toString()}');
       return false;
     }
   }
