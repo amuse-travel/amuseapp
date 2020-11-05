@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:amuse_app/model/chat_message_list.dart';
+import 'package:amuse_app/model/custom_chat_message.dart';
 import 'package:amuse_app/repositories/chat_repository/chat_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dash_chat/dash_chat.dart';
@@ -30,6 +31,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     }
     if (event is ChatMessageSendTried) {
       yield* _mapChatMessageSendTriedToState(event);
+    }
+    if (event is ChatIncomingMessageFetched) {
+      yield* _mapChatIncomingMessageFetchedToState(event);
     }
   }
 
@@ -86,6 +90,36 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       log('===| _mapChatMessageSendTriedToState |=======[ ${e.toString}');
       yield const ChatFailure(
         message: '메세지 전송 실패',
+      );
+    }
+  }
+
+  Stream<ChatState> _mapChatIncomingMessageFetchedToState(ChatIncomingMessageFetched event) async* {
+    yield ChatInProgress();
+    try {
+      final ChatMessage _chatMessage = ChatMessage(
+        text: event.customChatMessage.text,
+        id: event.customChatMessage.msId,
+        user: ChatUser(
+          name: event.customChatMessage.username,
+          avatar: event.customChatMessage.avatar,
+        ),
+        createdAt: DateTime.fromMillisecondsSinceEpoch(event.customChatMessage.time),
+      );
+
+      final String _chatRoom = event.customChatMessage.room;
+
+      if (_chatMessage != null) {
+        yield ChatIncomingMessageFetchSuccess(chatMessage: _chatMessage, chatRoom: _chatRoom);
+      } else {
+        yield const ChatFailure(
+          message: '채팅 서버 오류 발생',
+        );
+      }
+    } catch (e) {
+      log('===| _mapChatMessageSendTriedToState |=======[ ${e.toString}');
+      yield const ChatFailure(
+        message: '채팅 서버 오류 발생',
       );
     }
   }

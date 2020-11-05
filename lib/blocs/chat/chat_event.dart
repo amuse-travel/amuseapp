@@ -45,3 +45,11 @@ class ChatMessageSendTried extends ChatEvent {
   final String room;
   final ChatMessage chatMessage;
 }
+
+class ChatIncomingMessageFetched extends ChatEvent {
+  const ChatIncomingMessageFetched({
+    @required this.customChatMessage,
+  }) : assert(customChatMessage != null);
+
+  final CustomChatMessage customChatMessage;
+}

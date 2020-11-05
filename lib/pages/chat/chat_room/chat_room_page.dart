@@ -56,60 +56,48 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   @override
   Widget build(BuildContext context) {
     final double _sizeWidth = MediaQuery.of(context).size.width;
-    return RepositoryProvider<ChatRepository>(
-      create: (BuildContext context) {
-        final ChatRepository _chatRepository = ChatRepositoryImpl();
-        return _chatRepository;
-      },
-      child: BlocProvider<ChatBloc>(
-        create: (BuildContext context) {
-          final ChatRepository _chatRepository = RepositoryProvider.of<ChatRepository>(context);
-          return ChatBloc(chatRepository: _chatRepository);
-        },
-        child: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            title: Text(
-              _userName,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text(
+          _userName,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: MEDIUM,
+            color: Colors.black,
+          ),
+        ),
+        centerTitle: true,
+        elevation: 1,
+        backgroundColor: Colors.white,
+        bottom: PreferredSize(
+          preferredSize: Size(_sizeWidth, 38),
+          child: Container(
+            alignment: Alignment.center,
+            width: _sizeWidth,
+            height: 38,
+            color: Theme.of(context).primaryColor,
+            child: Text(
+              _category,
               style: const TextStyle(
-                fontSize: 16,
+                fontSize: 14,
                 fontWeight: MEDIUM,
-                color: Colors.black,
-              ),
-            ),
-            centerTitle: true,
-            elevation: 1,
-            backgroundColor: Colors.white,
-            bottom: PreferredSize(
-              preferredSize: Size(_sizeWidth, 38),
-              child: Container(
-                alignment: Alignment.center,
-                width: _sizeWidth,
-                height: 38,
-                color: Theme.of(context).primaryColor,
-                child: Text(
-                  _category,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: MEDIUM,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            leading: IconButton(
-              onPressed: _onBackButtonPressed,
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
+                color: Colors.white,
               ),
             ),
           ),
-          body: SafeArea(
-            child: ChatRoomForm(
-              room: _room,
-            ),
+        ),
+        leading: IconButton(
+          onPressed: _onBackButtonPressed,
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
           ),
+        ),
+      ),
+      body: SafeArea(
+        child: ChatRoomForm(
+          room: _room,
         ),
       ),
     );

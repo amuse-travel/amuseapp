@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:amuse_app/cubits/bottom_tab/bottom_tab_cubit.dart';
 import 'package:amuse_app/enums/tab_enum.dart';
 import 'package:amuse_app/pages/amuse/amuse_page.dart';
+import 'package:amuse_app/pages/chat/chat_form.dart';
 import 'package:amuse_app/pages/chat/chat_page.dart';
 import 'package:amuse_app/pages/common/common_widgets/custom_toast/custom_toast.dart';
 import 'package:amuse_app/pages/setting/setting_page.dart';

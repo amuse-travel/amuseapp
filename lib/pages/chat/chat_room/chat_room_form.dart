@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:amuse_app/blocs/chat/chat_bloc.dart';
 import 'package:amuse_app/main.dart';
 import 'package:amuse_app/model/custom_chat_message.dart';
@@ -74,7 +76,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    _listenMessages();
+    // _listenMessages();
   }
 
   @override
@@ -92,41 +94,41 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
     }
   }
 
-  void _listenMessages() {
-    CustomChatMessage _customChatMessage;
-
-    _socketIo.socketConnection().on(
-      'incomingMessage',
-      (dynamic data) {
-        final Map<String, dynamic> jsonResponse = data as Map<String, dynamic>;
-        if (jsonResponse != null) {
-          _customChatMessage = CustomChatMessage.fromJson(jsonResponse);
-          if (_customChatMessage.room == _room) {
-            if (mounted) {
-              setState(
-                () {
-                  _messages.add(
-                    ChatMessage(
-                      text: _customChatMessage.text ?? '',
-                      id: _customChatMessage.msId,
-                      user: ChatUser(
-                        name: _customChatMessage.username,
-                        avatar: _customChatMessage.avatar,
-                      ),
-                      createdAt: DateTime.fromMillisecondsSinceEpoch(_customChatMessage.time),
-                    ),
-                  );
-                },
-              );
-              _chatViewKey.currentState.scrollController.jumpTo(
-                _chatViewKey.currentState.scrollController.position.maxScrollExtent + 120,
-              );
-            }
-          }
-        }
-      },
-    );
-  }
+  // void _listenMessages() {
+  //   CustomChatMessage _customChatMessage;
+  //   _socketIo.socketConnection().on(
+  //     'incomingMessage',
+  //     (dynamic data) {
+  //       log('dtaa : ${data.toString()}');
+  //       final Map<String, dynamic> jsonResponse = data as Map<String, dynamic>;
+  //       if (jsonResponse != null) {
+  //         _customChatMessage = CustomChatMessage.fromJson(jsonResponse);
+  //         if (_customChatMessage.room == _room) {
+  //           if (mounted) {
+  //             setState(
+  //               () {
+  //                 _messages.add(
+  //                   ChatMessage(
+  //                     text: _customChatMessage.text ?? '',
+  //                     id: _customChatMessage.msId,
+  //                     user: ChatUser(
+  //                       name: _customChatMessage.username,
+  //                       avatar: _customChatMessage.avatar,
+  //                     ),
+  //                     createdAt: DateTime.fromMillisecondsSinceEpoch(_customChatMessage.time),
+  //                   ),
+  //                 );
+  //               },
+  //             );
+  //             _chatViewKey.currentState.scrollController.jumpTo(
+  //               _chatViewKey.currentState.scrollController.position.maxScrollExtent + 120,
+  //             );
+  //           }
+  //         }
+  //       }
+  //     },
+  //   );
+  // }
 
   void _onSendMessage(ChatMessage chatMessage) {
     _chatBloc.add(ChatMessageSendTried(userName: _userName, room: _room, chatMessage: chatMessage));
@@ -344,6 +346,14 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
           CustomToast(
             message: state.message,
           ).show();
+        }
+        if (state is ChatIncomingMessageFetchSuccess) {
+          if (state.chatRoom == _room) {
+            _messages.add(state.chatMessage);
+            _chatViewKey.currentState.scrollController.jumpTo(
+              _chatViewKey.currentState.scrollController.position.maxScrollExtent + 120,
+            );
+          }
         }
       },
     );
