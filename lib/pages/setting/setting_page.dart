@@ -317,6 +317,22 @@ class SettingPage extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(
+            height: 100,
+          ),
+          Container(
+            child: FlatButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute<Widget>(
+                    builder: (BuildContext buildContext) => LicensePage(),
+                  ),
+                );
+              },
+              child: Text('라이센스 페이지'),
+            ),
+          )
         ],
       ),
     );
