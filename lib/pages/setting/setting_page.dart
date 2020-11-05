@@ -1,6 +1,5 @@
 import 'package:amuse_app/blocs/authentication/authentication_bloc.dart';
 import 'package:amuse_app/main.dart';
-import 'package:amuse_app/pages/setting/license_page/license_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -62,7 +61,7 @@ class SettingPage extends StatelessWidget {
                       onPressed: () {
                         Navigator.pop(buildContext);
                       },
-                      color: Theme.of(context).secondaryHeaderColor,
+                      color: Theme.of(context).textSelectionHandleColor,
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.zero,
                       ),
@@ -80,7 +79,7 @@ class SettingPage extends StatelessWidget {
                           Navigator.pop(buildContext);
                           context.bloc<AuthenticationBloc>().add(AuthenticationOut());
                         },
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).accentColor,
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.zero,
                         ),
@@ -89,7 +88,7 @@ class SettingPage extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: MEDIUM,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                         ),
                       ),
@@ -163,7 +162,7 @@ class SettingPage extends StatelessWidget {
                       onPressed: () {
                         Navigator.pop(buildContext);
                       },
-                      color: Theme.of(context).secondaryHeaderColor,
+                      color: Theme.of(context).textSelectionHandleColor,
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.zero,
                       ),
@@ -181,7 +180,7 @@ class SettingPage extends StatelessWidget {
                           Navigator.pop(buildContext);
                           context.bloc<AuthenticationBloc>().add(AuthenticationUserDelete());
                         },
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).accentColor,
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.zero,
                         ),
@@ -190,7 +189,7 @@ class SettingPage extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: MEDIUM,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                         ),
                       ),
@@ -318,10 +317,9 @@ class SettingPage extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 100,
-          ),
+          const Spacer(),
           Container(
+            height: 30,
             child: FlatButton(
               onPressed: () {
                 Navigator.push(
@@ -331,14 +329,27 @@ class SettingPage extends StatelessWidget {
                   ),
                 );
               },
+              padding: const EdgeInsets.all(0),
               child: Text(
                 '라이센스 보기',
                 style: TextStyle(
-                  fontSize: 14,
-                  color: Theme.of(context).primaryColorDark,
+                  fontSize: 12,
+                  fontWeight: REGULAR,
+                  color: Theme.of(context).accentColor,
                 ),
               ),
             ),
+          ),
+          Text(
+            'Copyright © 2020 Amuse',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: REGULAR,
+              color: Theme.of(context).primaryColorDark,
+            ),
+          ),
+          const SizedBox(
+            height: 30,
           ),
         ],
       ),

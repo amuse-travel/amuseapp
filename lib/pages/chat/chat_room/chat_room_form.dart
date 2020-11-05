@@ -88,7 +88,8 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
   }
 
   void _onFetchMoreMessages() {
-    if (_messages.length > 10) {
+    // TODO(red): message length 생각
+    if (_messages.length > 8) {
       _chatBloc.add(ChatMessagesFetchMoreTried(userName: _userName, room: _room, lastMsId: _messages[0].id));
     }
   }
@@ -173,7 +174,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
                   ? null
                   : Border.all(
                       width: 1,
-                      color: Theme.of(context).secondaryHeaderColor,
+                      color: Theme.of(context).textSelectionHandleColor,
                     ),
               color: _isMyMessage ? const Color(0xFFD1D5DB) : Colors.white,
             ),

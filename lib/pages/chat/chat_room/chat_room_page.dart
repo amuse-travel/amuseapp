@@ -72,13 +72,13 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
             alignment: Alignment.center,
             width: _sizeWidth,
             height: 38,
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).accentColor,
             child: Text(
               _category,
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: MEDIUM,
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
           ),
