@@ -220,7 +220,7 @@ class SettingPage extends StatelessWidget {
           Container(
             width: _sizeWidth,
             height: 112,
-            color: Theme.of(context).secondaryHeaderColor,
+            color: Theme.of(context).textSelectionHandleColor,
             child: Column(
               children: [
                 Container(
@@ -331,9 +331,15 @@ class SettingPage extends StatelessWidget {
                   ),
                 );
               },
-              child: Text('라이센스 페이지'),
+              child: Text(
+                '라이센스 보기',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Theme.of(context).primaryColorDark,
+                ),
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
