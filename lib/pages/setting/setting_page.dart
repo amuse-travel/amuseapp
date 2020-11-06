@@ -233,7 +233,7 @@ class SettingPage extends StatelessWidget {
                     child: Row(
                       children: <Widget>[
                         const Text(
-                          '공지사항',
+                          '이용약관',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: MEDIUM,

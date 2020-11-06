@@ -104,39 +104,26 @@ class _MainFormState extends State<MainForm> {
               showSelectedLabels: true,
               selectedItemColor: Theme.of(context).accentColor,
               showUnselectedLabels: true,
+              unselectedItemColor: Theme.of(context).primaryColorDark,
               type: BottomNavigationBarType.fixed,
               elevation: 1,
-              items: <BottomNavigationBarItem>[
+              items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.home,
-                    color: Theme.of(context).primaryColorDark,
-                  ),
-                  activeIcon: Icon(
-                    Icons.home,
-                    color: Theme.of(context).accentColor,
                   ),
                   label: '홈',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.chat_bubble,
-                    color: Theme.of(context).primaryColorDark,
-                  ),
-                  activeIcon: Icon(
-                    Icons.chat_bubble,
-                    color: Theme.of(context).accentColor,
+                    size: 22,
                   ),
                   label: '채팅',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.settings,
-                    color: Theme.of(context).primaryColorDark,
-                  ),
-                  activeIcon: Icon(
-                    Icons.settings,
-                    color: Theme.of(context).accentColor,
                   ),
                   label: '설정',
                 ),

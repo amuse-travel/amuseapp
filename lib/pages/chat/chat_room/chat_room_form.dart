@@ -77,9 +77,9 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
 
   Color _senderColor() {
     if (_textEditingController.text.isNotEmpty) {
-      return Theme.of(context).primaryColor;
+      return Theme.of(context).accentColor;
     } else {
-      return Colors.grey;
+      return Theme.of(context).textSelectionHandleColor;
     }
   }
 
@@ -88,8 +88,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
   }
 
   void _onFetchMoreMessages() {
-    // TODO(red): message length 생각
-    if (_messages.length > 8) {
+    if (_messages.length > 9) {
       _chatBloc.add(ChatMessagesFetchMoreTried(userName: _userName, room: _room, lastMsId: _messages[0].id));
     }
   }
@@ -229,6 +228,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
             shouldShowLoadEarlier: false,
             showLoadEarlierWidget: () => _loadMoreProgressIndicator(state),
             onLoadEarlier: _onFetchMoreMessages,
+            inputCursorColor: Theme.of(context).accentColor,
             inputContainerStyle: const BoxDecoration(
               border: Border(
                 top: BorderSide(

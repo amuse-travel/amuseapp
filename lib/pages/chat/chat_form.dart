@@ -107,27 +107,14 @@ class _ChatFormState extends State<ChatForm> {
               ),
               Container(
                 margin: const EdgeInsets.all(12),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const Text(
-                      '참여인원 : ',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: BOLD,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: BOLD,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
+                alignment: Alignment.bottomLeft,
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: BOLD,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ],
