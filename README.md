@@ -1,6 +1,6 @@
-# amuse_app
+# 어뮤즈트래블
 
-A new Amuse application.
+AmuseTravel's new Application.
 
 ## Getting Started
 
