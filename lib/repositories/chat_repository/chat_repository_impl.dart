@@ -35,6 +35,7 @@ class ChatRepositoryImpl extends ChatRepository {
 
       if (response.statusCode == 200) {
         final Socket _socket = _socketIo.socketConnection().connect();
+        log(_socket.opts.toString());
         await Future<dynamic>.delayed(const Duration(milliseconds: 500));
 
         if (_socket.connected) {

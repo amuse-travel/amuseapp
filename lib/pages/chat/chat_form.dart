@@ -31,7 +31,7 @@ class _ChatFormState extends State<ChatForm> {
   void _listenMessages() {
     CustomChatMessage _customChatMessage;
 
-    if (_socketIo.socketConnection().connected) {
+    if (_socketIo.socketConnection() != null) {
       _socketIo.socketConnection().on(
         'incomingMessage',
         (dynamic data) {

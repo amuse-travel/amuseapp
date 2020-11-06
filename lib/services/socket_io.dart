@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:amuse_app/model/singleton_user.dart';
@@ -10,25 +11,28 @@ class SocketIo {
   Socket socketConnection() {
     String _userName;
 
-    if (_singletonUser.userName != null) {
-      _userName = _singletonUser.userName;
-    } else {
-      _userName = 'tester';
-    }
-    // final String localHost = Platform.isAndroid ? 'http://10.0.2.2:3210' : 'http://localhost:3210';
+    Socket _socket;
+
     final String chatApi = DotEnv().env['CHAT_API'];
 
-    final Socket _socket = io(
-      chatApi,
-      <String, dynamic>{
-        'transports': <String>['websocket'],
-        'autoConnect': false,
-        'query': <String, dynamic>{
-          'username': _userName,
-          'avatar': 'https://www.tinygraphs.com/squares/$_userName?theme=frogideas&numcolors=4',
+    if (_singletonUser.userName != null) {
+      _userName = _singletonUser.userName;
+      _socket = io(
+        chatApi,
+        <String, dynamic>{
+          'transports': <String>['websocket'],
+          'autoConnect': false,
+          'query': <String, dynamic>{
+            'username': _userName,
+            'avatar': 'https://www.tinygraphs.com/squares/$_userName?theme=frogideas&numcolors=4',
+          },
         },
-      },
-    );
-    return _socket;
+      );
+
+      log(_socket.opts.toString());
+      return _socket;
+    } else {
+      return null;
+    }
   }
 }

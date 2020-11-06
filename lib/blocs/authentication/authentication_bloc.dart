@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:amuse_app/repositories/authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
@@ -24,7 +25,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       yield* _mapAuthenticationTriedToState(event);
     }
     if (event is AuthenticationOut) {
-      yield* _mapAuthenticationFinishedToState(event);
+      yield* _mapAuthenticationOutToState(event);
     }
     if (event is AuthenticationUserDelete) {
       yield* _mapAuthenticationUserDeleteToState(event);
@@ -42,17 +43,19 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
         yield AuthenticationRequired();
       }
     } catch (e) {
-      yield AuthenticationFailure(message: 'AuthenticationTried ${e.toString()}');
+      log('=====| _mapAuthenticationTriedToState |===========[ ${e.toString()}');
+      yield AuthenticationRequired();
     }
   }
 
-  Stream<AuthenticationState> _mapAuthenticationFinishedToState(AuthenticationOut event) async* {
+  Stream<AuthenticationState> _mapAuthenticationOutToState(AuthenticationOut event) async* {
     yield AuthenticationInProgress();
     try {
       await authenticationRepository.disprove();
       yield AuthenticationRequired();
     } catch (e) {
-      yield AuthenticationFailure(message: 'AuthenticationFinished ${e.toString()}');
+      log('=====| _mapAuthenticationOutToState |===========[ ${e.toString()}');
+      yield AuthenticationRequired();
     }
   }
 
@@ -62,7 +65,8 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       await authenticationRepository.deleteUser();
       yield AuthenticationRequired();
     } catch (e) {
-      yield AuthenticationFailure(message: 'AuthenticationFinished ${e.toString()}');
+      log('=====| _mapAuthenticationUserDeleteToState |===========[ ${e.toString()}');
+      yield AuthenticationRequired();
     }
   }
 }
