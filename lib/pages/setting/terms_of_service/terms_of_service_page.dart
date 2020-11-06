@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../../../main.dart';
 
-class LicenseScreen extends StatelessWidget {
+class TermsOfServicePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          '라이센스',
+          '이용 약관',
           style: TextStyle(
             fontSize: 16,
             fontWeight: MEDIUM,
@@ -17,18 +16,8 @@ class LicenseScreen extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
         elevation: 1,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
-          ),
-        ),
-      ),
-      body: const LicensePage(
-
+        backgroundColor: Colors.white,
       ),
     );
   }

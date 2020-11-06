@@ -11,7 +11,7 @@ class CustomToast {
     Fluttertoast.showToast(
       msg: message,
       gravity: ToastGravity.BOTTOM,
-      backgroundColor: Colors.black.withOpacity(0.5),
+      backgroundColor: Colors.grey[800].withOpacity(0.9),
       textColor: Colors.white,
       toastLength: Toast.LENGTH_SHORT,
       fontSize: 16

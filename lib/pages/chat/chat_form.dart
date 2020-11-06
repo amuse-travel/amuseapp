@@ -172,28 +172,6 @@ class _ChatFormState extends State<ChatForm> {
             const SizedBox(
               height: 32,
             ),
-            // _chatRoom(
-            //   title: '청각 장애인과\n함께하기',
-            //   image: 'assets/icons/deaf.png',
-            //   onPressed: () => _onEnterChatRoom(
-            //     category: '청각 장애인과 함께하기',
-            //     room: 'deaf',
-            //   ),
-            // ),
-            // const SizedBox(
-            //   height: 32,
-            // ),
-            // _chatRoom(
-            //   title: '시니어와\n함께하기',
-            //   image: 'assets/icons/senior.png',
-            //   onPressed: () => _onEnterChatRoom(
-            //     category: '시니어와 함께하기',
-            //     room: 'senior',
-            //   ),
-            // ),
-            const SizedBox(
-              height: 32,
-            ),
           ],
         ),
       ),

@@ -1,5 +1,7 @@
 import 'package:amuse_app/blocs/authentication/authentication_bloc.dart';
 import 'package:amuse_app/main.dart';
+import 'package:amuse_app/pages/setting/amuse_travel_intro/amuse_travel_intro_page.dart';
+import 'package:amuse_app/pages/setting/terms_of_service/terms_of_service_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -219,21 +221,26 @@ class SettingPage extends StatelessWidget {
           Container(
             width: _sizeWidth,
             height: 112,
-            color: Theme.of(context).textSelectionHandleColor,
+            color: const Color(0xFFEEEEEE),
             child: Column(
-              children: [
+              children: <Widget>[
                 Container(
                   width: _sizeWidth,
                   height: 56,
                   child: RaisedButton(
-                    onPressed: () {},
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute<Widget>(
+                        builder: (BuildContext buildContext) => AmuseTravelIntroPage(),
+                      ),
+                    ),
                     color: Colors.white,
                     padding: const EdgeInsets.only(left: 40, right: 20),
                     elevation: 1,
                     child: Row(
                       children: <Widget>[
                         const Text(
-                          '이용약관',
+                          '어뮤즈트래블 소개',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: MEDIUM,
@@ -318,30 +325,62 @@ class SettingPage extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          Container(
-            height: 30,
-            child: FlatButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute<Widget>(
-                    builder: (BuildContext buildContext) => const LicensePage(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<Widget>(
+                        builder: (BuildContext buildContext) => const LicensePage(
+                          applicationName: '어뮤즈앱',
+                          applicationVersion: '1.0.0',
+                        ),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    '라이센스',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: REGULAR,
+                      color: Theme.of(context).accentColor,
+                    ),
                   ),
-                );
-              },
-              padding: const EdgeInsets.all(0),
-              child: Text(
-                '라이센스 보기',
+                ),
+              ),
+              Text(
+                '  및  ',
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: REGULAR,
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context).primaryColorDark,
                 ),
               ),
-            ),
+              Container(
+                child: InkWell(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute<Widget>(
+                      builder: (BuildContext buildContext) => TermsOfServicePage(),
+                    ),
+                  ),
+                  child: Text(
+                    '이용 약관',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: REGULAR,
+                      color: Theme.of(context).accentColor,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           Text(
-            'Copyright © 2020 Amuse',
+            'Copyright © 2020 Amuse Co., Ltd.',
             style: TextStyle(
               fontSize: 12,
               fontWeight: REGULAR,

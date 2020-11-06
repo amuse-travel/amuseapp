@@ -121,6 +121,7 @@ class _UpdateUserNameFormState extends State<UpdateUserNameForm> {
                       fontWeight: MEDIUM,
                       color: Colors.black,
                     ),
+                    maxLength: 10,
                     cursorColor: Theme.of(context).accentColor,
                     decoration: InputDecoration(
                       hintText: '닉네임을 입력해주세요.',

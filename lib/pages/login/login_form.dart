@@ -86,14 +86,10 @@ class _LoginFormState extends State<LoginForm> {
                         Container(
                           margin: const EdgeInsets.symmetric(horizontal: 20),
                           width: _sizeWidth,
-                          height: 50,
+                          height: 56,
                           child: RaisedButton(
                             onPressed: _onGoogleLoginButtonPressed,
                             shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                color: Theme.of(context).textSelectionHandleColor,
-                                width: 0.5
-                              ),
                               borderRadius: BorderRadius.circular(7),
                             ),
                             elevation: 0,
@@ -101,20 +97,22 @@ class _LoginFormState extends State<LoginForm> {
                             child: Stack(
                               children: <Widget>[
                                 Container(
-                                  width: 24,
+                                  margin: const EdgeInsets.only(left: 15),
                                   alignment: Alignment.centerLeft,
                                   child: Image.asset(
                                     'assets/icons/google-logo.png',
+                                    width: 24,
+                                    height: 24,
                                   ),
                                 ),
                                 Container(
                                   alignment: Alignment.center,
                                   child: Text(
-                                    '구글 로그인',
+                                    'Google로 로그인',
                                     style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: MEDIUM,
-                                      color: Theme.of(context).textSelectionHandleColor,
+                                      fontSize: 24,
+                                      fontWeight: REGULAR,
+                                      color: Theme.of(context).primaryColorDark,
                                     ),
                                   ),
                                 ),
@@ -128,7 +126,7 @@ class _LoginFormState extends State<LoginForm> {
                         Container(
                           margin: const EdgeInsets.symmetric(horizontal: 20),
                           width: _sizeWidth,
-                          height: 50,
+                          height: 56,
                           child: RaisedButton(
                             onPressed: _onAppleLoginButtonPressed,
                             shape: RoundedRectangleBorder(
@@ -139,19 +137,21 @@ class _LoginFormState extends State<LoginForm> {
                             child: Stack(
                               children: <Widget>[
                                 Container(
-                                  width: 28,
+                                  margin: const EdgeInsets.only(left: 15),
                                   alignment: Alignment.centerLeft,
                                   child: Image.asset(
                                     'assets/icons/apple-logo.png',
+                                    width: 24,
+                                    height: 24,
                                   ),
                                 ),
                                 Container(
                                   alignment: Alignment.center,
                                   child: const Text(
-                                    '애플 로그인',
+                                    'Apple로 로그인',
                                     style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: MEDIUM,
+                                      fontSize: 24,
+                                      fontWeight: REGULAR,
                                       color: Colors.white,
                                     ),
                                   ),

@@ -61,8 +61,8 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
   }
 
   Future<void> _onMakePhoneCall() async {
-    if (await canLaunch('tel://02-719-6814')) {
-      launch('tel://02-719-6814');
+    if (await canLaunch('tel://02-719-6811')) {
+      launch('tel://02-719-6811');
     } else {
       CustomToast(message: '전화를 걸 수 없습니다.').show();
     }
@@ -512,7 +512,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                   height: 30,
                 ),
                 Divider(
-                  color: Theme.of(context).secondaryHeaderColor,
+                  color: Theme.of(context).textSelectionHandleColor,
                 ),
                 const SizedBox(
                   height: 30,
@@ -527,7 +527,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                   height: 30,
                 ),
                 Divider(
-                  color: Theme.of(context).secondaryHeaderColor,
+                  color: Theme.of(context).textSelectionHandleColor,
                 ),
                 const SizedBox(
                   height: 30,
@@ -553,7 +553,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                   child: _travelPrograms(),
                 ),
                 Divider(
-                  color: Theme.of(context).secondaryHeaderColor,
+                  color: Theme.of(context).textSelectionHandleColor,
                 ),
                 const SizedBox(
                   height: 30,
@@ -580,7 +580,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                   child: _servicesDetail(),
                 ),
                 Divider(
-                  color: Theme.of(context).secondaryHeaderColor,
+                  color: Theme.of(context).textSelectionHandleColor,
                 ),
                 const SizedBox(
                   height: 30,
@@ -589,7 +589,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   alignment: Alignment.centerLeft,
                   child: const Text(
-                    '‼️유의사항-취소/환불',
+                    '❗️유의사항-취소/환불',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: MEDIUM,
@@ -653,7 +653,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                   height: 30,
                 ),
                 Divider(
-                  color: Theme.of(context).secondaryHeaderColor,
+                  color: Theme.of(context).textSelectionHandleColor,
                 ),
                 const SizedBox(
                   height: 30,
