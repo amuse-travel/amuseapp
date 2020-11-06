@@ -234,9 +234,13 @@ class SettingPage extends StatelessWidget {
                         builder: (BuildContext buildContext) => AmuseTravelIntroPage(),
                       ),
                     ),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero,
+                      side: BorderSide.none,
+                    ),
                     color: Colors.white,
                     padding: const EdgeInsets.only(left: 40, right: 20),
-                    elevation: 1,
+                    elevation: 0,
                     child: Row(
                       children: <Widget>[
                         const Text(
