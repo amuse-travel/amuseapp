@@ -9,10 +9,10 @@ This project is a starting point for a Amuse Travel Application.
 ## iOS/Android configurations
 
 - iOS
-  ./ios/Runner/Info.plist
-  ./ios/Runner/GoogleService-Info.plist
+  - ./ios/Runner/Info.plist
+  - ./ios/Runner/GoogleService-Info.plist
 - Android
-  - ./android/app/google-services.json (FCM)
+  - ./android/app/google-services.json
 
 A few resources to get you started if this is your first Flutter project:
 
