@@ -91,7 +91,7 @@ class _LoginFormState extends State<LoginForm> {
                             onPressed: _onGoogleLoginButtonPressed,
                             shape: RoundedRectangleBorder(
                               side: BorderSide(
-                                color: Theme.of(context).secondaryHeaderColor,
+                                color: Theme.of(context).textSelectionHandleColor,
                                 width: 0.5
                               ),
                               borderRadius: BorderRadius.circular(7),

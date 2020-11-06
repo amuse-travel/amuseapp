@@ -25,22 +25,7 @@ class _ChatFormState extends State<ChatForm> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    _countCurrentUsers();
-
     _listenMessages();
-  }
-
-  void _countCurrentUsers() {
-    if (_socketIo.socketConnection().connected) {
-      _socketIo.socketConnection().on(
-        'presence',
-        (dynamic data) {
-          log(data.toString());
-        },
-      );
-    } else {
-      log('fail');
-    }
   }
 
   void _listenMessages() {
@@ -59,7 +44,7 @@ class _ChatFormState extends State<ChatForm> {
         },
       );
     } else {
-      log('fail');
+      log('=====| _listenMessages |==========[ socket connection is failure.');
     }
   }
 
@@ -166,11 +151,10 @@ class _ChatFormState extends State<ChatForm> {
               height: 32,
             ),
             _chatRoom(
-              title: '발달 장애인과\n함께하기',
-              image: 'assets/icons/pdd.png',
+              title: '청각 장애인과\n함께하기',
+              image: 'assets/icons/deaf.png',
               onPressed: () => _onEnterChatRoom(
-                category: '발달 장애인과 함께하기',
-                // room: 'pdd',
+                category: '청각 장애인과 함께하기',
                 room: 'china',
               ),
             ),
@@ -178,11 +162,10 @@ class _ChatFormState extends State<ChatForm> {
               height: 32,
             ),
             _chatRoom(
-              title: '시각 장애인과\n함께하기',
-              image: 'assets/icons/blind.png',
+              title: '시니어와\n함께하기',
+              image: 'assets/icons/senior.png',
               onPressed: () => _onEnterChatRoom(
-                category: '시각 장애인과 함께하기',
-                // room: 'blind',
+                category: '시니어와 함께하기',
                 room: 'japan',
               ),
             ),
