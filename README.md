@@ -4,7 +4,15 @@ A new Amuse application.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project is a starting point for a Amuse Travel Application.
+
+## iOS/Android configurations
+
+- iOS
+  ./ios/Runner/Info.plist
+  ./ios/Runner/GoogleService-Info.plist
+- Android
+  - ./android/app/google-services.json (FCM)
 
 A few resources to get you started if this is your first Flutter project:
 
