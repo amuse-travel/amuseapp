@@ -101,8 +101,9 @@ class _MainFormState extends State<MainForm> {
               backgroundColor: Colors.white,
               currentIndex: _tabIndex,
               onTap: (int index) => _onSelectTab(tabEnum: TabEnum.values[index]),
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
+              showSelectedLabels: true,
+              selectedItemColor: Theme.of(context).accentColor,
+              showUnselectedLabels: true,
               type: BottomNavigationBarType.fixed,
               elevation: 1,
               items: <BottomNavigationBarItem>[
@@ -115,7 +116,7 @@ class _MainFormState extends State<MainForm> {
                     Icons.home,
                     color: Theme.of(context).accentColor,
                   ),
-                  label: 'home',
+                  label: '홈',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
@@ -126,7 +127,7 @@ class _MainFormState extends State<MainForm> {
                     Icons.chat_bubble,
                     color: Theme.of(context).accentColor,
                   ),
-                  label: 'chat',
+                  label: '채팅',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
@@ -137,7 +138,7 @@ class _MainFormState extends State<MainForm> {
                     Icons.settings,
                     color: Theme.of(context).accentColor,
                   ),
-                  label: 'setting',
+                  label: '설정',
                 ),
               ],
             ),
