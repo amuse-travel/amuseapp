@@ -94,142 +94,127 @@ class _AmuseFormState extends State<AmuseForm> {
   @override
   Widget build(BuildContext context) {
     final double _sizeWidth = MediaQuery.of(context).size.width;
-    final double _sizeHeight = MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     return BlocConsumer<ProductBloc, ProductState>(
       builder: (BuildContext buildContext, ProductState state) {
         return Stack(
           children: <Widget>[
             IgnorePointer(
               ignoring: _shouldIgnore,
-              child: Container(
-                width: _sizeWidth,
-                height: _sizeHeight,
-                color: Colors.white,
-                child: Column(
-                  children: <Widget>[
-                    const SizedBox(
-                      height: 22,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
-                      alignment: Alignment.centerLeft,
-                      child: Row(
-                        children: <Widget>[
-                          const Text(
-                            '관광약자를 위한 여행‍',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: MEDIUM,
-                              color: Colors.black,
+              child: SmartRefresher(
+                controller: _refreshController,
+                enablePullDown: true,
+                enablePullUp: true,
+                onRefresh: _onRefresh,
+                onLoading: _onLoading,
+                header: MaterialClassicHeader(
+                  color: Theme.of(context).accentColor,
+                  backgroundColor: Colors.white,
+                ),
+                footer: CustomFooter(
+                  builder: (BuildContext context, LoadStatus loadStatus) {
+                    if (loadStatus == LoadStatus.loading) {
+                      return LoadingIndicator();
+                    } else {
+                      return const SizedBox(
+                        height: 0,
+                      );
+                    }
+                  },
+                ),
+                child: CustomScrollView(
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 22, bottom: 16, left: 20, right: 20),
+                        alignment: Alignment.centerLeft,
+                        child: Row(
+                          children: <Widget>[
+                            const Text(
+                              '관광약자를 위한 여행‍',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: MEDIUM,
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                          Image.asset(
-                            'assets/icons/emoji.png',
-                            height: 20,
-                          ),
-                        ],
+                            Image.asset(
+                              'assets/icons/emoji.png',
+                              height: 20,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Expanded(
-                      child: Container(
-                        width: 375,
-                        child: SmartRefresher(
-                          controller: _refreshController,
-                          enablePullDown: true,
-                          enablePullUp: true,
-                          onRefresh: _onRefresh,
-                          onLoading: _onLoading,
-                          header: MaterialClassicHeader(
-                            color: Theme.of(context).accentColor,
-                            backgroundColor: Colors.white,
-                            // offset: 100,
-                          ),
-                          footer: CustomFooter(
-                            builder: (BuildContext context, LoadStatus loadStatus) {
-                              if (loadStatus == LoadStatus.loading) {
-                                return LoadingIndicator();
-                              } else {
-                                return const SizedBox(
-                                  height: 0,
-                                );
-                              }
-                            },
-                          ),
-                          child: ListView.builder(
-                            physics: const BouncingScrollPhysics(),
-                            itemCount: _productList.length,
-                            itemBuilder: (BuildContext buildContext, int index) => Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                              child: Container(
-                                height: 320,
-                                child: RaisedButton(
-                                  onPressed: () => _onProductDetailLoad(_productList[index].id),
-                                  padding: const EdgeInsets.all(0),
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                                  color: Colors.white,
-                                  child: Column(
-                                    children: <Widget>[
-                                      ClipRRect(
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(14),
-                                          topRight: Radius.circular(14),
-                                        ),
-                                        child: Container(
-                                          width: _sizeWidth,
-                                          height: 200,
-                                          child: CachedNetworkImage(
-                                            imageUrl: _productList[index].image.src,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (BuildContext buildContext, int index) => Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                          child: Container(
+                            height: 320,
+                            child: RaisedButton(
+                              onPressed: () => _onProductDetailLoad(_productList[index].id),
+                              padding: const EdgeInsets.all(0),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                              color: Colors.white,
+                              child: Column(
+                                children: <Widget>[
+                                  ClipRRect(
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(14),
+                                      topRight: Radius.circular(14),
+                                    ),
+                                    child: Container(
+                                      width: _sizeWidth,
+                                      height: 200,
+                                      child: CachedNetworkImage(
+                                        imageUrl: _productList[index].image.src,
+                                        fit: BoxFit.cover,
                                       ),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      Container(
-                                        margin: const EdgeInsets.symmetric(horizontal: 12),
-                                        alignment: Alignment.centerLeft,
-                                        child: _shortCategories(index),
-                                      ),
-                                      const SizedBox(
-                                        height: 6,
-                                      ),
-                                      Container(
-                                        margin: const EdgeInsets.symmetric(horizontal: 12),
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          _productList[index].title,
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: BOLD,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      Container(
-                                        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          '${_productList[index].basePrice.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match match) => '${match[1]},')}원 부터~',
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            color: Theme.of(context).textSelectionColor,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
-                                ),
+                                  const SizedBox(
+                                    height: 12,
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(horizontal: 12),
+                                    alignment: Alignment.centerLeft,
+                                    child: _shortCategories(index),
+                                  ),
+                                  const SizedBox(
+                                    height: 6,
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(horizontal: 12),
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      _productList[index].title,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: BOLD,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      '${_productList[index].basePrice.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match match) => '${match[1]},')}원 부터~',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        color: Theme.of(context).textSelectionColor,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
                         ),
+                        childCount: _productList.length,
                       ),
                     ),
                   ],
