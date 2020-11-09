@@ -24,7 +24,7 @@ class SocketIo {
           'autoConnect': false,
           'query': <String, dynamic>{
             'username': _userName,
-            'avatar': 'https://www.tinygraphs.com/squares/$_userName?theme=frogideas&numcolors=4',
+            'avatar': 'https://ui-avatars.com/api/?name=$_userName',
           },
         },
       );

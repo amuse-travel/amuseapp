@@ -21,10 +21,8 @@ class AmuseTravelIntroPage extends StatelessWidget {
         backgroundColor: Colors.white,
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          const SizedBox(
-            height: 50,
-          ),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
             alignment: Alignment.centerLeft,
@@ -97,7 +95,9 @@ class AmuseTravelIntroPage extends StatelessWidget {
               ),
             ),
           ),
-          const Spacer(),
+          const SizedBox(
+            height: 30,
+          ),
           Container(
             alignment: Alignment.center,
             width: 90,
