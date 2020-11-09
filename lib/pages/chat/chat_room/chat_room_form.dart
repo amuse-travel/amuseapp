@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:amuse_app/blocs/chat/chat_bloc.dart';
 import 'package:amuse_app/main.dart';
 import 'package:amuse_app/model/custom_chat_message.dart';
@@ -273,7 +275,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
           );
         }
         if (state is ChatMessagesFetchMoreTrySuccess) {
-          _chatViewKey.currentState.scrollController.jumpTo(_sizeHeight + 280);
+          final int _newMessageCount = state.chatMessageList.messages.length;
           for (final CustomChatMessage _customChatMessage in state.chatMessageList.messages) {
             _messages.insert(
               0,
@@ -288,6 +290,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
               ),
             );
           }
+          _chatViewKey.currentState.scrollController.jumpTo(_newMessageCount.toDouble() * 100);
         }
         if (state is ChatMessageSendTrySuccess) {
           _messages.add(state.chatMessage);
