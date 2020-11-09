@@ -66,7 +66,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
 
     _chatUser = ChatUser(
       name: _userName,
-      avatar: 'https://www.tinygraphs.com/squares/$_userName?theme=frogideas&numcolors=4',
+      avatar: 'https://ui-avatars.com/api/?name=$_userName',
     );
   }
 
