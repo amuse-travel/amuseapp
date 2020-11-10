@@ -7,6 +7,8 @@ abstract class ChatEvent extends Equatable {
   List<Object> get props => <Object>[];
 }
 
+class ChatReadyToIncomingMessage extends ChatEvent {}
+
 class ChatMessagesFetchTried extends ChatEvent {
   const ChatMessagesFetchTried({
     @required this.userName,

@@ -1,3 +1,4 @@
+import 'package:amuse_app/blocs/chat/chat_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -59,6 +60,7 @@ class _UpdateUserNameFormState extends State<UpdateUserNameForm> {
       listener: (BuildContext buildContext, UpdateProfileState state) {
         if (state is UpdateProfileUserName) {
           CustomToast(message: '닉네임 설정 완료').show();
+          context.bloc<ChatBloc>().add(ChatReadyToIncomingMessage());
           Navigator.pop(context);
         }
         if (state is UpdateProfileFailure) {

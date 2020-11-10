@@ -66,7 +66,10 @@ class _ChatFormState extends State<ChatForm> {
       Navigator.push(
         context,
         MaterialPageRoute<Widget>(
-          builder: (BuildContext buildContext) => UpdateUserNamePage(),
+          builder: (BuildContext buildContext) => BlocProvider<ChatBloc>.value(
+            value: context.bloc<ChatBloc>(),
+            child: UpdateUserNamePage(),
+          ),
         ),
       );
     }
@@ -113,66 +116,73 @@ class _ChatFormState extends State<ChatForm> {
   Widget build(BuildContext context) {
     final double _sizeWidth = MediaQuery.of(context).size.width;
     final double _sizeHeight = MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
-    return Container(
-      width: _sizeWidth,
-      height: _sizeHeight,
-      child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          children: <Widget>[
-            const SizedBox(
-              height: 22,
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              alignment: Alignment.centerLeft,
-              child: const Text(
-                '채팅을 통한 매칭🎶💬',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: MEDIUM,
-                  color: Colors.black,
+    return BlocListener<ChatBloc, ChatState>(
+      listener: (BuildContext buildContext, ChatState state) {
+        if (state is ChatReadyToIncomingMessageSuccess) {
+          _listenMessages();
+        }
+      },
+      child: Container(
+        width: _sizeWidth,
+        height: _sizeHeight,
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            children: <Widget>[
+              const SizedBox(
+                height: 22,
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                alignment: Alignment.centerLeft,
+                child: const Text(
+                  '채팅을 통한 매칭🎶💬',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: MEDIUM,
+                    color: Colors.black,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 22,
-            ),
-            _chatRoom(
-              title: '휠체어 사용자와\n함께하기',
-              image: 'assets/icons/wheel.png',
-              onPressed: () => _onEnterChatRoom(
-                category: '휠체어 사용자와 함께하기',
-                // room: 'wheel',
-                room: 'korea',
+              const SizedBox(
+                height: 22,
               ),
-            ),
-            const SizedBox(
-              height: 32,
-            ),
-            _chatRoom(
-              title: '청각 장애인과\n함께하기',
-              image: 'assets/icons/deaf.png',
-              onPressed: () => _onEnterChatRoom(
-                category: '청각 장애인과 함께하기',
-                room: 'china',
+              _chatRoom(
+                title: '휠체어 사용자와\n함께하기',
+                image: 'assets/icons/wheel.png',
+                onPressed: () => _onEnterChatRoom(
+                  category: '휠체어 사용자와 함께하기',
+                  // room: 'wheel',
+                  room: 'korea',
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 32,
-            ),
-            _chatRoom(
-              title: '시니어와\n함께하기',
-              image: 'assets/icons/senior.png',
-              onPressed: () => _onEnterChatRoom(
-                category: '시니어와 함께하기',
-                room: 'japan',
+              const SizedBox(
+                height: 32,
               ),
-            ),
-            const SizedBox(
-              height: 32,
-            ),
-          ],
+              _chatRoom(
+                title: '청각 장애인과\n함께하기',
+                image: 'assets/icons/deaf.png',
+                onPressed: () => _onEnterChatRoom(
+                  category: '청각 장애인과 함께하기',
+                  room: 'china',
+                ),
+              ),
+              const SizedBox(
+                height: 32,
+              ),
+              _chatRoom(
+                title: '시니어와\n함께하기',
+                image: 'assets/icons/senior.png',
+                onPressed: () => _onEnterChatRoom(
+                  category: '시니어와 함께하기',
+                  room: 'japan',
+                ),
+              ),
+              const SizedBox(
+                height: 32,
+              ),
+            ],
+          ),
         ),
       ),
     );

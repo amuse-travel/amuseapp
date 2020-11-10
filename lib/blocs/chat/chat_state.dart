@@ -22,6 +22,8 @@ class ChatFailure extends ChatState {
   List<Object> get props => <Object>[message];
 }
 
+class ChatReadyToIncomingMessageSuccess extends ChatState {}
+
 class ChatMessagesFetchTrySuccess extends ChatState {
   const ChatMessagesFetchTrySuccess({
     @required this.chatMessageList,

@@ -23,6 +23,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   @override
   Stream<ChatState> mapEventToState(ChatEvent event) async* {
+    if(event is ChatReadyToIncomingMessage){
+      yield* _mapChatReadyToIncomingMessageToState(event);
+    }
     if (event is ChatMessagesFetchTried) {
       yield* _mapChatMessagesFetchTriedToState(event);
     }
@@ -35,6 +38,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     if (event is ChatIncomingMessageFetched) {
       yield* _mapChatIncomingMessageFetchedToState(event);
     }
+  }
+
+  Stream<ChatState> _mapChatReadyToIncomingMessageToState(ChatReadyToIncomingMessage event) async* {
+    yield ChatInProgress();
+    yield ChatReadyToIncomingMessageSuccess();
   }
 
   Stream<ChatState> _mapChatMessagesFetchTriedToState(ChatMessagesFetchTried event) async* {
