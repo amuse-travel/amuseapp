@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:amuse_app/model/singleton_user.dart';
@@ -29,7 +28,6 @@ class SocketIo {
         },
       );
 
-      log(_socket.opts.toString());
       return _socket;
     } else {
       return null;

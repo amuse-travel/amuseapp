@@ -1,13 +1,9 @@
-import 'dart:developer';
-
 import 'package:amuse_app/blocs/chat/chat_bloc.dart';
 import 'package:amuse_app/main.dart';
 import 'package:amuse_app/model/custom_chat_message.dart';
 import 'package:amuse_app/model/singleton_user.dart';
 import 'package:amuse_app/pages/common/common_widgets/custom_toast/custom_toast.dart';
 import 'package:amuse_app/pages/common/common_widgets/loading_indicator/loading_indicator.dart';
-import 'package:amuse_app/services/socket_io.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,8 +37,6 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
   ChatUser _chatUser;
 
   final List<ChatMessage> _messages = <ChatMessage>[];
-
-  final String _emptyAvatar = 'https://www.travelcontinuously.com/wp-content/uploads/2018/04/empty-avatar.png';
 
   @override
   void initState() {
