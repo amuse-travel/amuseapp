@@ -1,4 +1,4 @@
-import 'package:amuse_app/model/product/product_item.dart';
+import 'product_item.dart';
 
 class ProductProgram {
   ProductProgram({
@@ -10,7 +10,7 @@ class ProductProgram {
   ProductProgram.fromJson(Map<String, dynamic> json) {
     day = json['day'] as int;
     title = json['title'] as String;
-    if( json['items'] != null ) {
+    if (json['items'] != null) {
       final List<dynamic> itemList = json['items'] as List<dynamic>;
       items = itemList.map((dynamic parsedJson) => ProductItem.fromJson(parsedJson as Map<String, dynamic>)).toList();
     }

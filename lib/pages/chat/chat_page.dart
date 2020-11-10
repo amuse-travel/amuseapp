@@ -1,9 +1,10 @@
-import 'package:amuse_app/blocs/chat/chat_bloc.dart';
-import 'package:amuse_app/pages/chat/chat_form.dart';
-import 'package:amuse_app/repositories/chat_repository/chat_repository.dart';
-import 'package:amuse_app/repositories/chat_repository/chat_repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../blocs/chat/chat_bloc.dart';
+import '../../repositories/chat_repository/chat_repository.dart';
+import '../../repositories/chat_repository/chat_repository_impl.dart';
+import 'chat_form.dart';
 
 class ChatPage extends StatelessWidget {
   @override

@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:amuse_app/model/product/product.dart';
-import 'package:amuse_app/model/product/product_detail.dart';
-import 'package:amuse_app/repositories/product_repository/product_repository.dart';
-import 'package:amuse_app/services/dio.dart';
 import 'package:dio/dio.dart';
+
+import '../../model/product/product.dart';
+import '../../model/product/product_detail.dart';
+import '../../services/dio.dart';
+import 'product_repository.dart';
 
 class ProductRepositoryImpl extends ProductRepository {
   final HttpDio _httpDio = HttpDio();

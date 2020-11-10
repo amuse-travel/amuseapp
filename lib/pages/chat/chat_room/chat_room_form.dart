@@ -1,13 +1,14 @@
-import 'package:amuse_app/blocs/chat/chat_bloc.dart';
-import 'package:amuse_app/main.dart';
-import 'package:amuse_app/model/custom_chat_message.dart';
-import 'package:amuse_app/model/singleton_user.dart';
-import 'package:amuse_app/pages/common/common_widgets/custom_toast/custom_toast.dart';
-import 'package:amuse_app/pages/common/common_widgets/loading_indicator/loading_indicator.dart';
 import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+
+import '../../../blocs/chat/chat_bloc.dart';
+import '../../../main.dart';
+import '../../../model/custom_chat_message.dart';
+import '../../../model/singleton_user.dart';
+import '../../common/common_widgets/custom_toast/custom_toast.dart';
+import '../../common/common_widgets/loading_indicator/loading_indicator.dart';
 
 class ChatRoomForm extends StatefulWidget {
   const ChatRoomForm({

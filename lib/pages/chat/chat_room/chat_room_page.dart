@@ -1,7 +1,8 @@
-import 'package:amuse_app/main.dart';
-import 'package:amuse_app/model/singleton_user.dart';
-import 'package:amuse_app/pages/chat/chat_room/chat_room_form.dart';
 import 'package:flutter/material.dart';
+
+import '../../../main.dart';
+import '../../../model/singleton_user.dart';
+import 'chat_room_form.dart';
 
 class ChatRoomPage extends StatefulWidget {
   const ChatRoomPage({

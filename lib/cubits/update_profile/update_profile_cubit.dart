@@ -1,9 +1,10 @@
-import 'package:amuse_app/model/singleton_user.dart';
-import 'package:amuse_app/repositories/chat_repository/chat_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:meta/meta.dart';
+
+import '../../model/singleton_user.dart';
+import '../../repositories/chat_repository/chat_repository.dart';
 
 part 'update_profile_state.dart';
 

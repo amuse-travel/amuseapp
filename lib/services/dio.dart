@@ -1,6 +1,7 @@
-import 'package:amuse_app/enums/api_url_enum.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+import '../enums/api_url_enum.dart';
 
 class HttpDio {
   HttpDio({

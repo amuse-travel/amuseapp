@@ -1,16 +1,16 @@
-import 'package:amuse_app/blocs/authentication/authentication_bloc.dart';
-import 'package:amuse_app/pages/common/common_widgets/loading_indicator/loading_indicator.dart';
-import 'package:amuse_app/pages/main/main_page.dart';
-import 'package:amuse_app/pages/splash_screen.dart';
-import 'package:amuse_app/repositories/authentication_repository/authentication_repository.dart';
-import 'package:amuse_app/repositories/authentication_repository/authentication_repository_impl.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'blocs/authentication/authentication_bloc.dart';
 import 'blocs/bloc_observer/custom_bloc_observer.dart';
+import 'pages/common/common_widgets/loading_indicator/loading_indicator.dart';
 import 'pages/login/login_page.dart';
+import 'pages/main/main_page.dart';
+import 'pages/splash_screen.dart';
+import 'repositories/authentication_repository/authentication_repository.dart';
+import 'repositories/authentication_repository/authentication_repository_impl.dart';
 
 const FontWeight THIN = FontWeight.w100;
 const FontWeight EXTRA_LIGHT = FontWeight.w200;

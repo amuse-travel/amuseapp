@@ -1,12 +1,13 @@
-import 'package:amuse_app/blocs/product/product_bloc.dart';
-import 'package:amuse_app/main.dart';
-import 'package:amuse_app/model/product/product.dart';
-import 'package:amuse_app/pages/amuse/product_detail/product_detail_page.dart';
-import 'package:amuse_app/pages/common/common_widgets/loading_indicator/loading_indicator.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import '../../blocs/product/product_bloc.dart';
+import '../../main.dart';
+import '../../model/product/product.dart';
+import '../common/common_widgets/loading_indicator/loading_indicator.dart';
+import 'product_detail/product_detail_page.dart';
 
 class AmuseForm extends StatefulWidget {
   @override

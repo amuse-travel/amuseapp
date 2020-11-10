@@ -1,13 +1,12 @@
 import 'dart:async';
 
-import 'package:amuse_app/repositories/authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
-part 'login_event.dart';
+import '../../repositories/authentication_repository/authentication_repository.dart';
 
+part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {

@@ -1,14 +1,14 @@
 import 'dart:developer';
 
-import 'package:amuse_app/blocs/chat/chat_bloc.dart';
-import 'package:amuse_app/main.dart';
-import 'package:amuse_app/model/custom_chat_message.dart';
-import 'package:amuse_app/model/singleton_user.dart';
-import 'package:amuse_app/pages/setting/update_user_name/update_user_name_page.dart';
-import 'package:amuse_app/services/socket_io.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../blocs/chat/chat_bloc.dart';
+import '../../main.dart';
+import '../../model/custom_chat_message.dart';
+import '../../model/singleton_user.dart';
+import '../../services/socket_io.dart';
+import '../setting/update_user_name/update_user_name_page.dart';
 import 'chat_room/chat_room_page.dart';
 
 class ChatForm extends StatefulWidget {

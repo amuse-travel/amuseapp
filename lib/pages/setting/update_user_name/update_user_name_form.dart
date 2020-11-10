@@ -1,9 +1,10 @@
-import 'package:amuse_app/cubits/update_profile/update_profile_cubit.dart';
-import 'package:amuse_app/main.dart';
-import 'package:amuse_app/pages/common/common_widgets/custom_toast/custom_toast.dart';
-import 'package:amuse_app/pages/common/common_widgets/dismiss_keyboard_listener/dismiss_keyboard_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../cubits/update_profile/update_profile_cubit.dart';
+import '../../../main.dart';
+import '../../common/common_widgets/custom_toast/custom_toast.dart';
+import '../../common/common_widgets/dismiss_keyboard_listener/dismiss_keyboard_listener.dart';
 
 class UpdateUserNameForm extends StatefulWidget {
   @override

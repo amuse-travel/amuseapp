@@ -1,12 +1,13 @@
-import 'package:amuse_app/main.dart';
-import 'package:amuse_app/model/product/product_detail.dart';
-import 'package:amuse_app/model/product/product_keyword.dart';
-import 'package:amuse_app/pages/common/common_widgets/custom_toast/custom_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../../main.dart';
+import '../../../model/product/product_detail.dart';
+import '../../../model/product/product_keyword.dart';
+import '../../common/common_widgets/custom_toast/custom_toast.dart';
 
 class ProductDetailForm extends StatefulWidget {
   const ProductDetailForm({

@@ -1,9 +1,9 @@
-import 'package:amuse_app/model/custom_image.dart';
-import 'package:amuse_app/model/product/product.dart';
-import 'package:amuse_app/model/product/product_keyword.dart';
-import 'package:amuse_app/model/product/product_language.dart';
-import 'package:amuse_app/model/product/product_program.dart';
-import 'package:amuse_app/model/product/product_service.dart';
+import '../custom_image.dart';
+import 'product.dart';
+import 'product_keyword.dart';
+import 'product_language.dart';
+import 'product_program.dart';
+import 'product_service.dart';
 
 class ProductDetail {
   ProductDetail({

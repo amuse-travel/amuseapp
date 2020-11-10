@@ -1,12 +1,13 @@
 import 'dart:developer';
 
-import 'package:amuse_app/enums/api_url_enum.dart';
-import 'package:amuse_app/model/chat_message_list.dart';
-import 'package:amuse_app/repositories/chat_repository/chat_repository.dart';
-import 'package:amuse_app/services/dio.dart';
-import 'package:amuse_app/services/socket_io.dart';
 import 'package:dio/dio.dart';
 import 'package:socket_io_client/socket_io_client.dart';
+
+import '../../enums/api_url_enum.dart';
+import '../../model/chat_message_list.dart';
+import '../../services/dio.dart';
+import '../../services/socket_io.dart';
+import 'chat_repository.dart';
 
 class ChatRepositoryImpl extends ChatRepository {
   final HttpDio _httpDio = HttpDio(apiUrlEnum: ApiUrlEnum.chat);
@@ -24,11 +25,6 @@ class ChatRepositoryImpl extends ChatRepository {
             'korea',
             'japan',
             'china',
-            // 'wheel',
-            // 'pdd',
-            // 'blind',
-            // 'deaf',
-            // 'senior',
           ],
         },
       );

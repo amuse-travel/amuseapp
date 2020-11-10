@@ -1,8 +1,9 @@
 import 'dart:io';
 
-import 'package:amuse_app/model/singleton_user.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:socket_io_client/socket_io_client.dart';
+
+import '../model/singleton_user.dart';
 
 class SocketIo {
   final SingletonUser _singletonUser = SingletonUser();

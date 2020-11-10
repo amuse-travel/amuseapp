@@ -1,9 +1,10 @@
-import 'package:amuse_app/cubits/update_profile/update_profile_cubit.dart';
-import 'package:amuse_app/pages/setting/update_user_name/update_user_name_form.dart';
-import 'package:amuse_app/repositories/chat_repository/chat_repository.dart';
-import 'package:amuse_app/repositories/chat_repository/chat_repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../cubits/update_profile/update_profile_cubit.dart';
+import '../../../repositories/chat_repository/chat_repository.dart';
+import '../../../repositories/chat_repository/chat_repository_impl.dart';
+import 'update_user_name_form.dart';
 
 class UpdateUserNamePage extends StatelessWidget {
   @override

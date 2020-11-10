@@ -1,4 +1,4 @@
-import 'package:amuse_app/model/custom_image.dart';
+import '../custom_image.dart';
 
 class ProductItem {
   ProductItem({

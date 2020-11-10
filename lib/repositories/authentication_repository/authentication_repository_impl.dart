@@ -1,12 +1,13 @@
 import 'dart:developer';
 
-import 'package:amuse_app/model/singleton_user.dart';
-import 'package:amuse_app/repositories/authentication_repository/authentication_repository.dart';
-import 'package:amuse_app/services/socket_io.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:socket_io_client/socket_io_client.dart';
+
+import '../../model/singleton_user.dart';
+import '../../services/socket_io.dart';
+import 'authentication_repository.dart';
 
 class AuthenticationRepositoryImpl extends AuthenticationRepository {
   final FirebaseAuth _auth = FirebaseAuth.instance;

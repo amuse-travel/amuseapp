@@ -1,4 +1,4 @@
-import 'package:amuse_app/model/custom_chat_message.dart';
+import 'custom_chat_message.dart';
 
 class ChatMessageList {
   ChatMessageList({

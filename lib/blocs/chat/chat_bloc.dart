@@ -1,16 +1,16 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:amuse_app/model/chat_message_list.dart';
-import 'package:amuse_app/model/custom_chat_message.dart';
-import 'package:amuse_app/repositories/chat_repository/chat_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dash_chat/dash_chat.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 
-part 'chat_event.dart';
+import '../../model/chat_message_list.dart';
+import '../../model/custom_chat_message.dart';
+import '../../repositories/chat_repository/chat_repository.dart';
 
+part 'chat_event.dart';
 part 'chat_state.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {

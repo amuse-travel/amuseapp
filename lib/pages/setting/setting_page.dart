@@ -1,9 +1,10 @@
-import 'package:amuse_app/blocs/authentication/authentication_bloc.dart';
-import 'package:amuse_app/main.dart';
-import 'package:amuse_app/pages/setting/amuse_travel_intro/amuse_travel_intro_page.dart';
-import 'package:amuse_app/pages/setting/terms_of_service/terms_of_service_page.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../blocs/authentication/authentication_bloc.dart';
+import '../../main.dart';
+import 'amuse_travel_intro/amuse_travel_intro_page.dart';
+import 'terms_of_service/terms_of_service_page.dart';
 
 class SettingPage extends StatelessWidget {
   void _logout(BuildContext context) {

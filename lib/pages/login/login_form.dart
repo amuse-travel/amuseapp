@@ -1,10 +1,11 @@
-import 'package:amuse_app/blocs/authentication/authentication_bloc.dart';
-import 'package:amuse_app/blocs/login/login_bloc.dart';
-import 'package:amuse_app/main.dart';
-import 'package:amuse_app/pages/common/common_widgets/custom_toast/custom_toast.dart';
-import 'package:amuse_app/pages/common/common_widgets/loading_indicator/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../blocs/authentication/authentication_bloc.dart';
+import '../../blocs/login/login_bloc.dart';
+import '../../main.dart';
+import '../common/common_widgets/custom_toast/custom_toast.dart';
+import '../common/common_widgets/loading_indicator/loading_indicator.dart';
 
 class LoginForm extends StatefulWidget {
   @override

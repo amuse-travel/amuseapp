@@ -1,4 +1,4 @@
-import 'package:amuse_app/model/product/service_detail.dart';
+import 'service_detail.dart';
 
 class ProductService {
   ProductService({
