@@ -128,9 +128,19 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
           ),
           child: CircleAvatar(
             radius: 20,
-            backgroundImage: CachedNetworkImageProvider(
-              chatUser.avatar ?? _emptyAvatar,
+            child: Text(
+              chatUser.name,
+              maxLines: 1,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.clip,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: MEDIUM,
+                letterSpacing: -0.16,
+                color: Colors.black,
+              ),
             ),
+            backgroundColor: Theme.of(context).secondaryHeaderColor,
           ),
         ),
       ),
