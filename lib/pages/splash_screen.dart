@@ -7,13 +7,13 @@ class SplashScreen extends StatelessWidget {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        color: Colors.white,
+        color: Theme.of(context).secondaryHeaderColor,
         child: Center(
           child: Container(
             width: 150,
             height: 150,
             child: Image.asset(
-              'assets/icons/amuse-mark-red.png',
+              'assets/icons/amuse-mark-blue.png',
             ),
           ),
         ),

@@ -160,11 +160,11 @@ class _UpdateUserNameFormState extends State<UpdateUserNameForm> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14),
                       side: BorderSide(
-                        color: _buttonActive ? Theme.of(context).accentColor : Theme.of(context).textSelectionHandleColor,
+                        color: _buttonActive ? Theme.of(context).secondaryHeaderColor : Theme.of(context).textSelectionHandleColor,
                       ),
                     ),
                     elevation: 0,
-                    color: _buttonActive ? Theme.of(context).accentColor : Colors.white,
+                    color: _buttonActive ? Theme.of(context).secondaryHeaderColor : Colors.white,
                     child: Text(
                       '채팅 시작하기',
                       style: TextStyle(

@@ -123,7 +123,7 @@ class _AmuseFormState extends State<AmuseForm> {
                   },
                 ),
                 child: CustomScrollView(
-                  slivers: [
+                  slivers: <Widget>[
                     SliverToBoxAdapter(
                       child: Container(
                         margin: const EdgeInsets.only(top: 22, bottom: 16, left: 20, right: 20),
@@ -206,7 +206,7 @@ class _AmuseFormState extends State<AmuseForm> {
                                       '${_productList[index].basePrice.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match match) => '${match[1]},')}원 부터~',
                                       style: TextStyle(
                                         fontSize: 18,
-                                        color: Theme.of(context).textSelectionColor,
+                                        color: Theme.of(context).accentColor,
                                       ),
                                     ),
                                   ),

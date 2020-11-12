@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -77,6 +79,14 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
           itemBuilder: (BuildContext buildContext, int index) {
             return CachedNetworkImage(
               imageUrl: _productDetail.images[index].src,
+              errorWidget: (BuildContext buildContext, String url, dynamic error) {
+                log('Product Detail error : ${error.toString()}');
+                return const Icon(
+                  Icons.error,
+                  size: 30,
+                  color: Colors.red,
+                );
+              },
               fit: BoxFit.cover,
             );
           },
@@ -101,8 +111,8 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
             effect: ScrollingDotsEffect(
               dotHeight: 8,
               dotWidth: 8,
-              dotColor: Theme.of(context).primaryColorDark,
-              activeDotColor: Theme.of(context).primaryColorLight,
+              dotColor: Theme.of(context).textSelectionHandleColor,
+              activeDotColor: Theme.of(context).toggleableActiveColor,
             ),
           ),
         ),
@@ -147,7 +157,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
       style: TextStyle(
         fontSize: 14,
         fontWeight: REGULAR,
-        color: Theme.of(context).toggleableActiveColor,
+        color: Theme.of(context).accentColor,
       ),
     );
   }
@@ -170,7 +180,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
       childAspectRatio: 1.1,
       children: <Widget>[
         Container(
-          color: Colors.white,
+          color: Theme.of(context).backgroundColor,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -190,14 +200,14 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: REGULAR,
-                  color: Theme.of(context).primaryColorDark,
+                  color: Theme.of(context).accentColor,
                 ),
               ),
             ],
           ),
         ),
         Container(
-          color: Colors.white,
+          color: Theme.of(context).backgroundColor,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -217,14 +227,14 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: REGULAR,
-                  color: Theme.of(context).primaryColorDark,
+                  color: Theme.of(context).accentColor,
                 ),
               ),
             ],
           ),
         ),
         Container(
-          color: Colors.white,
+          color: Theme.of(context).backgroundColor,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -246,14 +256,14 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: REGULAR,
-                  color: Theme.of(context).primaryColorDark,
+                  color: Theme.of(context).accentColor,
                 ),
               ),
             ],
           ),
         ),
         Container(
-          color: Colors.white,
+          color: Theme.of(context).backgroundColor,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -273,14 +283,14 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: REGULAR,
-                  color: Theme.of(context).primaryColorDark,
+                  color: Theme.of(context).accentColor,
                 ),
               ),
             ],
           ),
         ),
         Container(
-          color: Colors.white,
+          color: Theme.of(context).backgroundColor,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -300,7 +310,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: REGULAR,
-                  color: Theme.of(context).primaryColorDark,
+                  color: Theme.of(context).accentColor,
                 ),
               ),
             ],
@@ -402,7 +412,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
             children: <Widget>[
               Icon(
                 _serviceIcons[_productDetail.services[index].name].icon,
-                color: Theme.of(context).textSelectionHandleColor,
+                color: Theme.of(context).accentColor,
               ),
               const SizedBox(
                 width: 20,
@@ -412,7 +422,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: REGULAR,
-                  color: Theme.of(context).primaryColorDark,
+                  color: Theme.of(context).accentColor,
                 ),
               ),
             ],
@@ -426,7 +436,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
   Widget build(BuildContext context) {
     final double _sizeWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).secondaryHeaderColor,
       appBar: AppBar(
         title: Text(
           _productDetail.product.title,
@@ -505,43 +515,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: BOLD,
-                      color: Theme.of(context).textSelectionColor,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Divider(
-                  color: Theme.of(context).textSelectionHandleColor,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  alignment: Alignment.topCenter,
-                  width: _sizeWidth,
-                  child: _informationGrid(),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Divider(
-                  color: Theme.of(context).textSelectionHandleColor,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  alignment: Alignment.centerLeft,
-                  child: const Text(
-                    '📅여행 일정표',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: MEDIUM,
-                      color: Colors.black,
+                      color: Theme.of(context).accentColor,
                     ),
                   ),
                 ),
@@ -549,39 +523,91 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                   height: 30,
                 ),
                 Container(
-                  margin: const EdgeInsets.only(left: 20),
-                  width: _sizeWidth,
-                  child: _travelPrograms(),
-                ),
-                Divider(
-                  color: Theme.of(context).textSelectionHandleColor,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  alignment: Alignment.centerLeft,
-                  child: const Text(
-                    '📌포함사항',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: MEDIUM,
-                      color: Colors.black,
-                    ),
+                  height: 1,
+                  child: const Divider(
+                    color: Colors.white,
                   ),
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  alignment: Alignment.centerLeft,
-                  width: _sizeWidth,
-                  child: _servicesDetail(),
-                ),
-                Divider(
-                  color: Theme.of(context).textSelectionHandleColor,
+                  color: Theme.of(context).backgroundColor,
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
+                        alignment: Alignment.topCenter,
+                        width: _sizeWidth,
+                        child: _informationGrid(),
+                      ),
+                      Container(
+                        height: 1,
+                        child: const Divider(
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
+                          '📅여행 일정표',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: MEDIUM,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(left: 20),
+                        width: _sizeWidth,
+                        child: _travelPrograms(),
+                      ),
+                      Container(
+                        height: 1,
+                        child: const Divider(
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
+                          '📌포함사항',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: MEDIUM,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
+                        alignment: Alignment.centerLeft,
+                        width: _sizeWidth,
+                        child: _servicesDetail(),
+                      ),
+                      Container(
+                        height: 1,
+                        child: const Divider(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 30,
@@ -653,8 +679,11 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                 const SizedBox(
                   height: 30,
                 ),
-                Divider(
-                  color: Theme.of(context).textSelectionHandleColor,
+                Container(
+                  height: 1,
+                  child: const Divider(
+                    color: Colors.white,
+                  ),
                 ),
                 const SizedBox(
                   height: 30,
@@ -683,7 +712,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                     padding: const EdgeInsets.all(0),
                     elevation: 0,
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).toggleableActiveColor,
                     child: const Text(
                       '담당자와 전화 상담',
                       style: TextStyle(

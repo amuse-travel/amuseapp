@@ -27,19 +27,19 @@ class AmuseTravelIntroPage extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 20),
             alignment: Alignment.centerLeft,
             child: RichText(
-              text: TextSpan(
-                children: [
+              text: const TextSpan(
+                children: <InlineSpan>[
                   WidgetSpan(
                     child: Text(
                       '어뮤즈트래블',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: MEDIUM,
-                        color: Theme.of(context).textSelectionColor,
+                        color: Color(0xFFD9264A),
                       ),
                     ),
                   ),
-                  const WidgetSpan(
+                  WidgetSpan(
                     child: Text(
                       '은',
                       style: TextStyle(
@@ -116,6 +116,7 @@ class AmuseTravelIntroPage extends StatelessWidget {
             child: Image.asset(
               'assets/icons/amuse-logo.png',
               fit: BoxFit.cover,
+              color: const Color(0xFFD9264A),
             ),
           ),
           const SizedBox(

@@ -72,7 +72,7 @@ class _MainFormState extends State<MainForm> {
         return WillPopScope(
           onWillPop: _onAndroidWillPop,
           child: Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).secondaryHeaderColor,
             appBar: AppBar(
               title: Container(
                 alignment: Alignment.centerLeft,
@@ -102,9 +102,9 @@ class _MainFormState extends State<MainForm> {
               currentIndex: _tabIndex,
               onTap: (int index) => _onSelectTab(tabEnum: TabEnum.values[index]),
               showSelectedLabels: true,
-              selectedItemColor: Theme.of(context).accentColor,
+              selectedItemColor: Theme.of(context).toggleableActiveColor,
               showUnselectedLabels: true,
-              unselectedItemColor: Theme.of(context).primaryColorDark,
+              unselectedItemColor: Theme.of(context).textSelectionHandleColor,
               type: BottomNavigationBarType.fixed,
               elevation: 1,
               items: const <BottomNavigationBarItem>[

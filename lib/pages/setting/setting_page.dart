@@ -82,7 +82,7 @@ class SettingPage extends StatelessWidget {
                           Navigator.pop(buildContext);
                           context.bloc<AuthenticationBloc>().add(AuthenticationOut());
                         },
-                        color: Theme.of(context).accentColor,
+                        color: Theme.of(context).secondaryHeaderColor,
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.zero,
                         ),
@@ -183,7 +183,7 @@ class SettingPage extends StatelessWidget {
                           Navigator.pop(buildContext);
                           context.bloc<AuthenticationBloc>().add(AuthenticationUserDelete());
                         },
-                        color: Theme.of(context).accentColor,
+                        color: Theme.of(context).secondaryHeaderColor,
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.zero,
                         ),
@@ -351,7 +351,7 @@ class SettingPage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: REGULAR,
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).primaryColorLight,
                     ),
                   ),
                 ),
@@ -377,7 +377,7 @@ class SettingPage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: REGULAR,
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).primaryColorLight,
                     ),
                   ),
                 ),

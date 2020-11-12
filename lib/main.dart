@@ -54,13 +54,13 @@ class AmuseApp extends StatelessWidget {
         primarySwatch: const MaterialColor(
           0xFFFFFFFF, //primaryColor
           <int, Color>{
-            50: Color(0xFFFFD332), //secondaryHeaderColor
+            50: Color(0xFFCBE7FF), //secondaryHeaderColor
             100: Color(0xFF53C6FF), //primaryColorLight
-            200: Color(0xFFD9264A), //textSelectionColor, backgroundColor
+            200: Color(0xFFFFE896), //textSelectionColor, backgroundColor
             300: Color(0xFFCCCCCC), //textSelectionHandleColor
             400: Color(0xFFFFFFFF), //primaryColor
-            500: Color(0xFF53C6FF), //accentColor
-            600: Color(0xFF0095CC), //toggleableActiveColor
+            500: Color(0xFF2F66BE), //accentColor
+            600: Color(0xFFFFD332), //toggleableActiveColor
             700: Color(0xFF999999), //primaryColorDark
             800: Color(0xFFD1D5DB),
             900: Color(0xFF66E4F2),
