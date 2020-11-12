@@ -364,9 +364,9 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                                     imageUrl: _productDetail.programs[day].items[index].image.thumb,
                                   )
                                 : Container(
-                                    color: Theme.of(context).backgroundColor,
+                                    color: Colors.white,
                                     child: Image.asset(
-                                      'assets/icons/amuse-mark.png',
+                                      'assets/icons/amuse-mark-red.png',
                                     ),
                                   ),
                           ),

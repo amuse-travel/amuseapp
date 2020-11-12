@@ -36,7 +36,7 @@ class TermsOfServicePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          '이용 약관',
+          '이용 약관 및 개인정보취급정책',
           style: TextStyle(
             fontSize: 16,
             fontWeight: MEDIUM,
