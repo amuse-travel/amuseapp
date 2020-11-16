@@ -124,43 +124,43 @@ class _LoginFormState extends State<LoginForm> {
                         const SizedBox(
                           height: 8,
                         ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 20),
-                          width: _sizeWidth,
-                          height: 56,
-                          child: RaisedButton(
-                            onPressed: _onAppleLoginButtonPressed,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(7),
-                            ),
-                            elevation: 0,
-                            color: Colors.black,
-                            child: Stack(
-                              children: <Widget>[
-                                Container(
-                                  margin: const EdgeInsets.only(left: 15),
-                                  alignment: Alignment.centerLeft,
-                                  child: Image.asset(
-                                    'assets/icons/apple-logo.png',
-                                    width: 24,
-                                    height: 24,
-                                  ),
-                                ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  child: const Text(
-                                    'Apple로 로그인',
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: REGULAR,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        // Container(
+                        //   margin: const EdgeInsets.symmetric(horizontal: 20),
+                        //   width: _sizeWidth,
+                        //   height: 56,
+                        //   child: RaisedButton(
+                        //     onPressed: _onAppleLoginButtonPressed,
+                        //     shape: RoundedRectangleBorder(
+                        //       borderRadius: BorderRadius.circular(7),
+                        //     ),
+                        //     elevation: 0,
+                        //     color: Colors.black,
+                        //     child: Stack(
+                        //       children: <Widget>[
+                        //         Container(
+                        //           margin: const EdgeInsets.only(left: 15),
+                        //           alignment: Alignment.centerLeft,
+                        //           child: Image.asset(
+                        //             'assets/icons/apple-logo.png',
+                        //             width: 24,
+                        //             height: 24,
+                        //           ),
+                        //         ),
+                        //         Container(
+                        //           alignment: Alignment.center,
+                        //           child: const Text(
+                        //             'Apple로 로그인',
+                        //             style: TextStyle(
+                        //               fontSize: 24,
+                        //               fontWeight: REGULAR,
+                        //               color: Colors.white,
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
                         const SizedBox(
                           height: 60,
                         ),
