@@ -22,7 +22,6 @@ class HttpDio {
       _dio.options.baseUrl = amuseApi;
     } else {
       _dio.options.baseUrl = chatApi;
-      // _dio.options.baseUrl = 'http://localhost:3210';
     }
     _dio.options.headers['Accept'] = 'application/json';
     _dio.options.headers['content-type'] = 'application/json';

@@ -76,7 +76,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         );
       }
     } catch (e) {
-      print('===| _mapChatMessagesFetchMoreTriedToState |=======[ ${e.toString}');
+      log('===| _mapChatMessagesFetchMoreTriedToState |=======[ ${e.toString}');
       yield const ChatFailure(
         message: '메세지 불러오기 실패',
       );
