@@ -1,7 +1,7 @@
-import 'package:amuse_app/blocs/chat/chat_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../blocs/chat/chat_bloc.dart';
 import '../../../cubits/update_profile/update_profile_cubit.dart';
 import '../../../main.dart';
 import '../../common/common_widgets/custom_toast/custom_toast.dart';
