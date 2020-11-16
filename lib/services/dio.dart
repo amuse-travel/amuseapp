@@ -1,18 +1,17 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:meta/meta.dart';
 
 import '../enums/api_url_enum.dart';
 
 class HttpDio {
   HttpDio({
-    this.apiUrlEnum,
-  });
+    @required this.apiUrlEnum,
+  }): assert(apiUrlEnum != null);
 
-  ApiUrlEnum apiUrlEnum;
+  final ApiUrlEnum apiUrlEnum;
 
   Dio dio() {
-    apiUrlEnum ??= ApiUrlEnum.amuse;
-
     final String amuseApi = DotEnv().env['AMUSE_API'];
     final String chatApi = DotEnv().env['CHAT_API'];
 

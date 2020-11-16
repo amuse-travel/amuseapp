@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:amuse_app/enums/api_url_enum.dart';
 import 'package:dio/dio.dart';
 
 import '../../model/product/product.dart';
@@ -9,7 +10,7 @@ import '../../services/dio.dart';
 import 'product_repository.dart';
 
 class ProductRepositoryImpl extends ProductRepository {
-  final HttpDio _httpDio = HttpDio();
+  final HttpDio _httpDio = HttpDio(apiUrlEnum: ApiUrlEnum.amuse);
 
   @override
   Future<List<Product>> getProductList({int page}) async {
