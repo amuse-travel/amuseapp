@@ -21,4 +21,4 @@ class LoginFailure extends LoginState {
   List<Object> get props => <Object>[message];
 }
 
-class LoginWithGoogleTrySuccess extends LoginState {}
+class LoginTrySuccess extends LoginState {}

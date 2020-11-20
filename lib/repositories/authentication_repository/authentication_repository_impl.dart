@@ -1,8 +1,12 @@
+import 'dart:convert';
 import 'dart:developer';
+import 'dart:math' as math;
 
+import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
 import '../../model/singleton_user.dart';
@@ -100,6 +104,51 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
       return true;
     } catch (e) {
       log('=====| googleSignIn |==========[ ${e.toString()}');
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> appleSignIn() async {
+    /// Generates a cryptographically secure random nonce, to be included in a
+    /// credential request.
+    String generateNonce([int length = 32]) {
+      const String charset = '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+      final random = math.Random.secure();
+      return List<String>.generate(length, (_) => charset[random.nextInt(charset.length)]).join();
+    }
+
+    /// Returns the sha256 hash of [input] in hex notation.
+    String sha256ofString(String input) {
+      final bytes = utf8.encode(input);
+      final digest = sha256.convert(bytes);
+      return digest.toString();
+    }
+
+    try {
+      final rawNonce = generateNonce();
+      final nonce = sha256ofString(rawNonce);
+
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        nonce: nonce,
+      );
+
+      // Create an `OAuthCredential` from the credential returned by Apple.
+      final oauthCredential = OAuthProvider("apple.com").credential(
+        idToken: appleCredential.identityToken,
+        rawNonce: rawNonce,
+      );
+
+      final UserCredential _userCredential = await _auth.signInWithCredential(oauthCredential);
+      await _secureStorage.write(key: 'uid', value: _userCredential.user.uid);
+
+      return true;
+    } catch (e) {
+      log('=====| appleSignIn |==========[ ${e.toString()}');
       return false;
     }
   }

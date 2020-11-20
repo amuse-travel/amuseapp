@@ -26,7 +26,9 @@ class _LoginFormState extends State<LoginForm> {
     context.bloc<LoginBloc>().add(LoginWithGoogleTried());
   }
 
-  void _onAppleLoginButtonPressed() {}
+  void _onAppleLoginButtonPressed() {
+    context.bloc<LoginBloc>().add(LoginWithAppleTried());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,43 +126,43 @@ class _LoginFormState extends State<LoginForm> {
                         const SizedBox(
                           height: 8,
                         ),
-                        // Container(
-                        //   margin: const EdgeInsets.symmetric(horizontal: 20),
-                        //   width: _sizeWidth,
-                        //   height: 56,
-                        //   child: RaisedButton(
-                        //     onPressed: _onAppleLoginButtonPressed,
-                        //     shape: RoundedRectangleBorder(
-                        //       borderRadius: BorderRadius.circular(7),
-                        //     ),
-                        //     elevation: 0,
-                        //     color: Colors.black,
-                        //     child: Stack(
-                        //       children: <Widget>[
-                        //         Container(
-                        //           margin: const EdgeInsets.only(left: 15),
-                        //           alignment: Alignment.centerLeft,
-                        //           child: Image.asset(
-                        //             'assets/icons/apple-logo.png',
-                        //             width: 24,
-                        //             height: 24,
-                        //           ),
-                        //         ),
-                        //         Container(
-                        //           alignment: Alignment.center,
-                        //           child: const Text(
-                        //             'Apple로 로그인',
-                        //             style: TextStyle(
-                        //               fontSize: 24,
-                        //               fontWeight: REGULAR,
-                        //               color: Colors.white,
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          width: _sizeWidth,
+                          height: 56,
+                          child: RaisedButton(
+                            onPressed: _onAppleLoginButtonPressed,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(7),
+                            ),
+                            elevation: 0,
+                            color: Colors.black,
+                            child: Stack(
+                              children: <Widget>[
+                                Container(
+                                  margin: const EdgeInsets.only(left: 15),
+                                  alignment: Alignment.centerLeft,
+                                  child: Image.asset(
+                                    'assets/icons/apple-logo.png',
+                                    width: 24,
+                                    height: 24,
+                                  ),
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: const Text(
+                                    'Apple로 로그인',
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: REGULAR,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                         const SizedBox(
                           height: 60,
                         ),
@@ -182,7 +184,7 @@ class _LoginFormState extends State<LoginForm> {
           _shouldIgnore = false;
           CustomToast(message: '로그인에 실패하였습니다.').show();
         }
-        if (state is LoginWithGoogleTrySuccess) {
+        if (state is LoginTrySuccess) {
           context.bloc<AuthenticationBloc>().add(AuthenticationTried());
         }
       },
