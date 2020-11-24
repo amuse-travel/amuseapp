@@ -218,7 +218,6 @@ class _LoginFormState extends State<LoginForm> {
           CustomToast(message: '로그인에 실패하였습니다.').show();
         }
         if (state is LoginTrySuccess) {
-          _shouldIgnore = false;
           if (state.uid != null) {
             context.bloc<AuthenticationBloc>().add(AuthenticationTried());
           } else {
