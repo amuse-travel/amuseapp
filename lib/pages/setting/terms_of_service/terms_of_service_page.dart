@@ -69,7 +69,7 @@ class TermsOfServicePage extends StatelessWidget {
           ),
           SliverList(
             delegate: SliverChildListDelegate(
-              [
+              <Widget>[
                 _titleText(text: '제1조 (목적)'),
                 _subTitleText(text: '이 약관은 ㈜어뮤즈(이하 "당사"라 함)과 여행자가 체결한 국내여행계약의 세부이행 및 준수사항을 정함을 목적으로 합니다.'),
                 _titleText(text: '제2조 (여행의 종류 및 정의)'),
@@ -171,7 +171,7 @@ class TermsOfServicePage extends StatelessWidget {
           ),
           SliverList(
             delegate: SliverChildListDelegate(
-              [
+              <Widget>[
                 _subTitleText(
                   text:
                       '㈜어뮤즈트래블(이하 ‘회사’)는 고객의 개인정보보호와 정보주체자의 권익보장을 위해 최선의 노력을 다하고 있습니다. 회사는 『개인정보보호법』 관련 조항과 『정보통신망 이용촉진 및 정보보호에 관한 법률』의 기준에 따라 ‘개인정보처리방침’을 수립하여 이를 준수하고 있습니다. 고객의 개인정보가 어떠한 목적과 절차로 수집,이용되고 있으며 개인정보보호를 위해 어떠한 조치가 취해지고 있는지 다음과 같이 알려드립니다. 본 개인정보처리방침을 개정하는 경우에는 회사 웹사이트를 통하여 사전에 고지 하겠습니다.',

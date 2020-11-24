@@ -1,3 +1,4 @@
+import 'package:amusetravel/pages/setting/update_user_name/precaution_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -45,7 +46,13 @@ class _UpdateUserNameFormState extends State<UpdateUserNameForm> {
   void _onUpdateUserName() {
     if (_textEditingController.text.isNotEmpty) {
       if (_textEditingController.text.length < 11) {
-        context.bloc<UpdateProfileCubit>().updateUserName(userName: _textEditingController.text);
+        Navigator.push(
+          context,
+          MaterialPageRoute<Widget>(
+            builder: (BuildContext buildContext) => PrecautionScreen(),
+          ),
+        );
+        // context.bloc<UpdateProfileCubit>().updateUserName(userName: _textEditingController.text);
       } else {
         CustomToast(message: '닉네임을 10자 이내로 정해주세요.').show();
       }
@@ -150,6 +157,21 @@ class _UpdateUserNameFormState extends State<UpdateUserNameForm> {
                 ),
                 const SizedBox(
                   height: 30,
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  alignment: Alignment.centerLeft,
+                  child: const Text(
+                    '채팅을 시작하기 위해선 반드시 개인정보 처리방침 및 이용약관에 대한 동의가 필요합니다.',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: REGULAR,
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 20),
