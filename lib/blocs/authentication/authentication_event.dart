@@ -9,6 +9,8 @@ abstract class AuthenticationEvent extends Equatable {
 
 class AuthenticationTried extends AuthenticationEvent {}
 
+class AuthenticationTemporaryTried extends AuthenticationEvent {}
+
 class AuthenticationOut extends AuthenticationEvent {}
 
 class AuthenticationUserDelete extends AuthenticationEvent {}

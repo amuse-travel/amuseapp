@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,6 +30,10 @@ class _LoginFormState extends State<LoginForm> {
 
   void _onAppleLoginButtonPressed() {
     context.bloc<LoginBloc>().add(LoginWithAppleTried());
+  }
+
+  void _onGuestLoginButtonPressed() {
+    context.bloc<LoginBloc>().add(LoginWithGuestTried());
   }
 
   @override
@@ -164,6 +170,33 @@ class _LoginFormState extends State<LoginForm> {
                           ),
                         ),
                         const SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          width: _sizeWidth,
+                          height: 56,
+                          child: RaisedButton(
+                            onPressed: _onGuestLoginButtonPressed,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(7),
+                            ),
+                            elevation: 0,
+                            color: Theme.of(context).toggleableActiveColor,
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: const Text(
+                                'Guest로 로그인',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: REGULAR,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
                           height: 60,
                         ),
                       ],
@@ -185,7 +218,12 @@ class _LoginFormState extends State<LoginForm> {
           CustomToast(message: '로그인에 실패하였습니다.').show();
         }
         if (state is LoginTrySuccess) {
-          context.bloc<AuthenticationBloc>().add(AuthenticationTried());
+          _shouldIgnore = false;
+          if (state.uid != null) {
+            context.bloc<AuthenticationBloc>().add(AuthenticationTried());
+          } else {
+            context.bloc<AuthenticationBloc>().add(AuthenticationTemporaryTried());
+          }
         }
       },
     );

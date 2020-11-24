@@ -8,6 +8,7 @@ import 'package:meta/meta.dart';
 import '../../repositories/authentication_repository/authentication_repository.dart';
 
 part 'authentication_event.dart';
+
 part 'authentication_state.dart';
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
@@ -22,6 +23,9 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   Stream<AuthenticationState> mapEventToState(AuthenticationEvent event) async* {
     if (event is AuthenticationTried) {
       yield* _mapAuthenticationTriedToState(event);
+    }
+    if (event is AuthenticationTemporaryTried) {
+      yield* _mapAuthenticationTemporaryTriedToState(event);
     }
     if (event is AuthenticationOut) {
       yield* _mapAuthenticationOutToState(event);
@@ -45,6 +49,12 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       log('=====| _mapAuthenticationTriedToState |===========[ ${e.toString()}');
       yield AuthenticationRequired();
     }
+  }
+
+  Stream<AuthenticationState> _mapAuthenticationTemporaryTriedToState(AuthenticationTemporaryTried event) async* {
+    yield AuthenticationInProgress();
+    log('=====| _mapAuthenticationTemporaryTriedToState |===========');
+    yield AuthenticationTrySuccess();
   }
 
   Stream<AuthenticationState> _mapAuthenticationOutToState(AuthenticationOut event) async* {

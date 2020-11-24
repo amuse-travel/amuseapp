@@ -5,7 +5,7 @@ abstract class AuthenticationRepository {
 
   Future<void> deleteUser();
 
-  Future<bool> googleSignIn();
+  Future<String> googleSignIn();
 
-  Future<bool> appleSignIn();
+  Future<String> appleSignIn();
 }

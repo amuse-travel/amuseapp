@@ -21,4 +21,13 @@ class LoginFailure extends LoginState {
   List<Object> get props => <Object>[message];
 }
 
-class LoginTrySuccess extends LoginState {}
+class LoginTrySuccess extends LoginState {
+  const LoginTrySuccess({
+    this.uid,
+  });
+
+  final String uid;
+
+  @override
+  List<Object> get props => <Object>[uid];
+}

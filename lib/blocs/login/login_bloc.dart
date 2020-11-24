@@ -26,14 +26,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (event is LoginWithAppleTried) {
       yield* _mapLoginWithAppleTriedToState(event);
     }
+    if (event is LoginWithGuestTried) {
+      yield* _mapLoginWithGuestTriedToState(event);
+    }
   }
 
   Stream<LoginState> _mapLoginWithGoogleTriedToState(LoginWithGoogleTried event) async* {
     yield LoginInProgress();
     try {
-      final bool _isGoogleSignedIn = await authenticationRepository.googleSignIn();
-      if (_isGoogleSignedIn) {
-        yield LoginTrySuccess();
+      final String _uid = await authenticationRepository.googleSignIn();
+      if (_uid != null) {
+        yield LoginTrySuccess(uid: _uid);
       } else {
         yield const LoginFailure(message: 'LoginWithGoogleTried');
       }
@@ -45,14 +48,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> _mapLoginWithAppleTriedToState(LoginWithAppleTried event) async* {
     yield LoginInProgress();
     try {
-      final bool _isAppleSignedIn = await authenticationRepository.appleSignIn();
-      if (_isAppleSignedIn) {
-        yield LoginTrySuccess();
+      final String _uid = await authenticationRepository.appleSignIn();
+      if (_uid != null) {
+        yield LoginTrySuccess(uid: _uid);
       } else {
         yield const LoginFailure(message: 'LoginWithAppleTried');
       }
     } catch (e) {
       yield LoginFailure(message: 'LoginWithAppleTried ${e.toString()}');
     }
+  }
+
+  Stream<LoginState> _mapLoginWithGuestTriedToState(LoginWithGuestTried event) async* {
+    yield LoginInProgress();
+    yield const LoginTrySuccess(uid: null);
   }
 }

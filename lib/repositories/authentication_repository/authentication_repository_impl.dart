@@ -86,7 +86,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<bool> googleSignIn() async {
+  Future<String> googleSignIn() async {
     final GoogleSignIn _googleSignIn = GoogleSignIn();
 
     try {
@@ -101,15 +101,15 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
       final UserCredential _userCredential = await _auth.signInWithCredential(_authCredential);
       await _secureStorage.write(key: 'uid', value: _userCredential.user.uid);
 
-      return true;
+      return _userCredential.user.uid;
     } catch (e) {
       log('=====| googleSignIn |==========[ ${e.toString()}');
-      return false;
+      return null;
     }
   }
 
   @override
-  Future<bool> appleSignIn() async {
+  Future<String> appleSignIn() async {
     /// Generates a cryptographically secure random nonce, to be included in a
     /// credential request.
     String generateNonce([int length = 32]) {
@@ -146,10 +146,10 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
       final UserCredential _userCredential = await _auth.signInWithCredential(oauthCredential);
       await _secureStorage.write(key: 'uid', value: _userCredential.user.uid);
 
-      return true;
+      return _userCredential.user.uid;
     } catch (e) {
       log('=====| appleSignIn |==========[ ${e.toString()}');
-      return false;
+      return null;
     }
   }
 }
