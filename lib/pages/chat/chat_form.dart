@@ -1,7 +1,10 @@
 import 'dart:developer';
 
+import 'package:amusetravel/pages/common/common_widgets/custom_toast/custom_toast.dart';
+import 'package:amusetravel/pages/setting/update_user_name/update_user_name_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../blocs/chat/chat_bloc.dart';
 import '../../main.dart';
@@ -21,11 +24,26 @@ class _ChatFormState extends State<ChatForm> {
 
   final SocketIo _socketIo = SocketIo();
 
+  final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
+
+  String _uid;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _readUid();
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
     _listenMessages();
+  }
+
+  Future<void> _readUid() async {
+    _uid = await _secureStorage.read(key: 'uid');
   }
 
   void _listenMessages() {
@@ -49,29 +67,35 @@ class _ChatFormState extends State<ChatForm> {
   }
 
   void _onEnterChatRoom({String category, String room}) {
-    if (_singletonUser.userName != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute<Widget>(
-          builder: (BuildContext buildContext) => BlocProvider<ChatBloc>.value(
-            value: context.bloc<ChatBloc>(),
-            child: ChatRoomPage(
-              category: category,
-              room: room,
+    if (_uid != null) {
+      if (_singletonUser.userName != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute<Widget>(
+            builder: (BuildContext buildContext) => BlocProvider<ChatBloc>.value(
+              value: context.bloc<ChatBloc>(),
+              child: ChatRoomPage(
+                category: category,
+                room: room,
+              ),
             ),
           ),
-        ),
-      );
-    } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute<Widget>(
-          builder: (BuildContext buildContext) => BlocProvider<ChatBloc>.value(
-            value: context.bloc<ChatBloc>(),
-            child: UpdateUserNamePage(),
+        );
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute<Widget>(
+            builder: (BuildContext buildContext) => BlocProvider<ChatBloc>.value(
+              value: context.bloc<ChatBloc>(),
+              child: UpdateUserNamePage(),
+            ),
           ),
-        ),
-      );
+        );
+      }
+    } else {
+      CustomToast(
+        message: '채팅을 하시려면 소셜로그인이 필요합니다!',
+      ).show();
     }
   }
 
