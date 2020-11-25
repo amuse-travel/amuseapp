@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,15 +23,15 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void _onGoogleLoginButtonPressed() {
-    context.bloc<LoginBloc>().add(LoginWithGoogleTried());
+    context.read<LoginBloc>().add(LoginWithGoogleTried());
   }
 
   void _onAppleLoginButtonPressed() {
-    context.bloc<LoginBloc>().add(LoginWithAppleTried());
+    context.read<LoginBloc>().add(LoginWithAppleTried());
   }
 
   void _onGuestLoginButtonPressed() {
-    context.bloc<LoginBloc>().add(LoginWithGuestTried());
+    context.read<LoginBloc>().add(LoginWithGuestTried());
   }
 
   @override
@@ -219,9 +217,9 @@ class _LoginFormState extends State<LoginForm> {
         }
         if (state is LoginTrySuccess) {
           if (state.uid != null) {
-            context.bloc<AuthenticationBloc>().add(AuthenticationTried());
+            context.read<AuthenticationBloc>().add(AuthenticationTried());
           } else {
-            context.bloc<AuthenticationBloc>().add(AuthenticationTemporaryTried());
+            context.read<AuthenticationBloc>().add(AuthenticationTemporaryTried());
           }
         }
       },

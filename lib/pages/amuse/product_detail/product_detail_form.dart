@@ -531,7 +531,7 @@ class _ProductDetailFormState extends State<ProductDetailForm> {
                 Container(
                   color: Theme.of(context).backgroundColor,
                   child: Column(
-                    children: [
+                    children: <Widget>[
                       const SizedBox(
                         height: 30,
                       ),

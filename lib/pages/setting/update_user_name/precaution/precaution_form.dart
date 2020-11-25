@@ -28,7 +28,7 @@ class _PrecautionFormState extends State<PrecautionForm> {
   }
 
   void _onUpdateUserName() {
-    context.bloc<UpdateProfileCubit>().updateUserName(userName: _userName);
+    context.read<UpdateProfileCubit>().updateUserName(userName: _userName);
   }
 
   Widget _titleText({String text}) {
@@ -65,7 +65,7 @@ class _PrecautionFormState extends State<PrecautionForm> {
       listener: (BuildContext buildContext, UpdateProfileState state) {
         if (state is UpdateProfileUserName) {
           CustomToast(message: '닉네임 설정 완료').show();
-          context.bloc<ChatBloc>().add(ChatReadyToIncomingMessage());
+          context.read<ChatBloc>().add(ChatReadyToIncomingMessage());
           Navigator.popUntil(context, ModalRoute.withName('/'));
         }
         if (state is UpdateProfileFailure) {

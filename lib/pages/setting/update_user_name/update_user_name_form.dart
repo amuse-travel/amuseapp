@@ -1,10 +1,8 @@
-import 'package:amusetravel/pages/setting/update_user_name/precaution/precaution_form.dart';
 import 'package:amusetravel/pages/setting/update_user_name/precaution/precaution_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../blocs/chat/chat_bloc.dart';
-import '../../../cubits/update_profile/update_profile_cubit.dart';
 import '../../../main.dart';
 import '../../common/common_widgets/custom_toast/custom_toast.dart';
 import '../../common/common_widgets/dismiss_keyboard_listener/dismiss_keyboard_listener.dart';
@@ -51,7 +49,7 @@ class _UpdateUserNameFormState extends State<UpdateUserNameForm> {
           context,
           MaterialPageRoute<Widget>(
             builder: (BuildContext buildContext) => BlocProvider<ChatBloc>.value(
-              value: context.bloc<ChatBloc>(),
+              value: context.read<ChatBloc>(),
               child: PrecautionPage(
                 userName: _textEditingController.text,
               ),

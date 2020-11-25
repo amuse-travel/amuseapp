@@ -138,7 +138,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
       );
 
       // Create an `OAuthCredential` from the credential returned by Apple.
-      final oauthCredential = OAuthProvider("apple.com").credential(
+      final oauthCredential = OAuthProvider('apple.com').credential(
         idToken: appleCredential.identityToken,
         rawNonce: rawNonce,
       );

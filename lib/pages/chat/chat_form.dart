@@ -56,7 +56,7 @@ class _ChatFormState extends State<ChatForm> {
           final Map<String, dynamic> jsonResponse = data as Map<String, dynamic>;
           if (jsonResponse != null) {
             _customChatMessage = CustomChatMessage.fromJson(jsonResponse);
-            context.bloc<ChatBloc>().add(ChatIncomingMessageFetched(customChatMessage: _customChatMessage));
+            context.read<ChatBloc>().add(ChatIncomingMessageFetched(customChatMessage: _customChatMessage));
           }
         },
       );
@@ -72,7 +72,7 @@ class _ChatFormState extends State<ChatForm> {
           context,
           MaterialPageRoute<Widget>(
             builder: (BuildContext buildContext) => BlocProvider<ChatBloc>.value(
-              value: context.bloc<ChatBloc>(),
+              value: context.read<ChatBloc>(),
               child: ChatRoomPage(
                 category: category,
                 room: room,
@@ -85,7 +85,7 @@ class _ChatFormState extends State<ChatForm> {
           context,
           MaterialPageRoute<Widget>(
             builder: (BuildContext buildContext) => BlocProvider<ChatBloc>.value(
-              value: context.bloc<ChatBloc>(),
+              value: context.read<ChatBloc>(),
               child: UpdateUserNamePage(),
             ),
           ),

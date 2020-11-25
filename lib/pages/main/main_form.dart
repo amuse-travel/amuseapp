@@ -52,7 +52,7 @@ class _MainFormState extends State<MainForm> {
   }
 
   void _onSelectTab({TabEnum tabEnum}) {
-    context.bloc<BottomTabCubit>().updateTab(tabEnum: tabEnum);
+    context.read<BottomTabCubit>().updateTab(tabEnum: tabEnum);
   }
 
   Future<bool> _onAndroidWillPop() async {

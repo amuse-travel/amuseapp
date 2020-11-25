@@ -80,7 +80,7 @@ class SettingPage extends StatelessWidget {
                       child: FlatButton(
                         onPressed: () {
                           Navigator.pop(buildContext);
-                          context.bloc<AuthenticationBloc>().add(AuthenticationOut());
+                          context.read<AuthenticationBloc>().add(AuthenticationOut());
                         },
                         color: Theme.of(context).secondaryHeaderColor,
                         shape: const RoundedRectangleBorder(
@@ -181,7 +181,7 @@ class SettingPage extends StatelessWidget {
                       child: FlatButton(
                         onPressed: () {
                           Navigator.pop(buildContext);
-                          context.bloc<AuthenticationBloc>().add(AuthenticationUserDelete());
+                          context.read<AuthenticationBloc>().add(AuthenticationUserDelete());
                         },
                         color: Theme.of(context).secondaryHeaderColor,
                         shape: const RoundedRectangleBorder(

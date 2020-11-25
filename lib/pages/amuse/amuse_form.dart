@@ -29,7 +29,7 @@ class _AmuseFormState extends State<AmuseForm> {
   void initState() {
     super.initState();
 
-    _productBloc = context.bloc<ProductBloc>();
+    _productBloc = BlocProvider.of<ProductBloc>(context);
 
     _productList = <Product>[];
 
