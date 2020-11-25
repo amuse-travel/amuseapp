@@ -11,8 +11,10 @@ This project is a starting point for a Amuse Travel Application.
 - iOS
   - ./ios/Runner/Info.plist
   - ./ios/Runner/GoogleService-Info.plist
+  
 - Android
   - ./android/app/google-services.json
+  - ./android/key.properties
 
 - Flutter dot env
   - ./assets/.env
