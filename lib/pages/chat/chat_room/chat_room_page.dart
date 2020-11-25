@@ -1,4 +1,8 @@
+import 'package:amusetravel/blocs/reported/reported_bloc.dart';
+import 'package:amusetravel/repositories/reported_repository/reported_repository.dart';
+import 'package:amusetravel/repositories/reported_repository/reported_repository_impl.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../main.dart';
 import '../../../model/singleton_user.dart';
@@ -53,48 +57,57 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   @override
   Widget build(BuildContext context) {
     final double _sizeWidth = MediaQuery.of(context).size.width;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          _userName,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: MEDIUM,
-            color: Colors.black,
-          ),
-        ),
-        centerTitle: true,
-        elevation: 1,
-        backgroundColor: Colors.white,
-        bottom: PreferredSize(
-          preferredSize: Size(_sizeWidth, 38),
-          child: Container(
-            alignment: Alignment.center,
-            width: _sizeWidth,
-            height: 38,
-            color: Theme.of(context).secondaryHeaderColor,
-            child: Text(
-              _category,
+    return RepositoryProvider<ReportedRepository>(
+      create: (BuildContext buildContext) => ReportedRepositoryImpl(),
+      child: BlocProvider<ReportedBloc>(
+        create: (BuildContext buildContext) {
+          final ReportedRepository _reportedRepository = RepositoryProvider.of<ReportedRepository>(buildContext);
+          return ReportedBloc(reportRepository: _reportedRepository);
+        },
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            title: Text(
+              _userName,
               style: const TextStyle(
-                fontSize: 14,
+                fontSize: 16,
                 fontWeight: MEDIUM,
                 color: Colors.black,
               ),
             ),
+            centerTitle: true,
+            elevation: 1,
+            backgroundColor: Colors.white,
+            bottom: PreferredSize(
+              preferredSize: Size(_sizeWidth, 38),
+              child: Container(
+                alignment: Alignment.center,
+                width: _sizeWidth,
+                height: 38,
+                color: Theme.of(context).secondaryHeaderColor,
+                child: Text(
+                  _category,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: MEDIUM,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ),
+            leading: IconButton(
+              onPressed: _onBackButtonPressed,
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+              ),
+            ),
           ),
-        ),
-        leading: IconButton(
-          onPressed: _onBackButtonPressed,
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
+          body: SafeArea(
+            child: ChatRoomForm(
+              room: _room,
+            ),
           ),
-        ),
-      ),
-      body: SafeArea(
-        child: ChatRoomForm(
-          room: _room,
         ),
       ),
     );

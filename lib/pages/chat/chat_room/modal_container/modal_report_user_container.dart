@@ -1,8 +1,16 @@
+import 'package:amusetravel/blocs/reported/reported_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../main.dart';
 
 class ModalReportUserContainer extends StatelessWidget {
+  const ModalReportUserContainer({
+    @required this.userName,
+  }) : assert(userName != null);
+
+  final String userName;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -71,6 +79,7 @@ class ModalReportUserContainer extends StatelessWidget {
                     height: 75,
                     child: FlatButton(
                       onPressed: () {
+                        context.read<ReportedBloc>().add(ReportedUserTried(userName: userName));
                         Navigator.pop(context);
                       },
                       color: Theme.of(context).secondaryHeaderColor,

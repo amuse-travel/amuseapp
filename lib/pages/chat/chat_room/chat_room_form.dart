@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:amusetravel/blocs/reported/reported_bloc.dart';
 import 'package:amusetravel/pages/chat/chat_room/modal_container/modal_report_user_container.dart';
 import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +35,8 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
 
   ChatBloc _chatBloc;
 
+  ReportedBloc _reportedBloc;
+
   final GlobalKey<DashChatState> _chatViewKey = GlobalKey<DashChatState>();
 
   TextEditingController _textEditingController;
@@ -57,6 +62,8 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
     _chatBloc = BlocProvider.of<ChatBloc>(context);
 
     _chatBloc.add(ChatMessagesFetchTried(userName: _userName, room: _room));
+
+    _reportedBloc = BlocProvider.of<ReportedBloc>(context);
 
     _textEditingController = TextEditingController();
 
@@ -91,12 +98,18 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
     }
   }
 
-  void _reportUser() {
+  void _reportUser(String userName) {
+    log(userName);
     showModalBottomSheet<void>(
       context: context,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
       isScrollControlled: true,
-      builder: (BuildContext buildContext) => ModalReportUserContainer(),
+      builder: (BuildContext buildContext) => BlocProvider<ReportedBloc>.value(
+        value: _reportedBloc,
+        child: ModalReportUserContainer(
+          userName: userName,
+        ),
+      ),
     );
   }
 
@@ -125,7 +138,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
         width: 40,
         height: 40,
         child: ElevatedButton(
-          onPressed: _reportUser,
+          onPressed: () => _reportUser(chatUser.name),
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.all(0),
             elevation: 1,
