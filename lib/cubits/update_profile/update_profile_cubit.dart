@@ -20,12 +20,12 @@ class UpdateProfileCubit extends Cubit<UpdateProfileState> {
 
   final SingletonUser _singletonUser = SingletonUser();
 
-  Future<void> updateUserName({String userName}) async {
+  Future<void> updateUserName({String userName, String uid}) async {
     emit(UpdateProfileInProgress());
     _singletonUser.userName = userName;
     await _secureStorage.delete(key: 'user_name');
     await _secureStorage.write(key: 'user_name', value: userName);
-    final bool _isEnrolled = await chatRepository.enrollChatUser(userName: userName);
+    final bool _isEnrolled = await chatRepository.enrollChatUser(userName: userName, uid: uid);
     if (_isEnrolled) {
       emit(UpdateProfileUserName());
     } else {

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
@@ -14,8 +15,10 @@ class ChatRepositoryImpl extends ChatRepository {
 
   final SocketIo _socketIo = SocketIo();
 
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   @override
-  Future<bool> enrollChatUser({String userName}) async {
+  Future<bool> enrollChatUser({String userName, String uid}) async {
     try {
       final Response<dynamic> response = await _httpDio.dio().post<dynamic>(
         '/users',
@@ -30,6 +33,13 @@ class ChatRepositoryImpl extends ChatRepository {
       );
 
       if (response.statusCode == 200) {
+        final CollectionReference _reported = _firestore.collection('authenticated');
+        _reported.doc('users').update(
+          <String, dynamic>{
+            userName: uid,
+          },
+        );
+
         final Socket _socket = _socketIo.socketConnection().connect();
         log(_socket.opts.toString());
         await Future<dynamic>.delayed(const Duration(milliseconds: 500));

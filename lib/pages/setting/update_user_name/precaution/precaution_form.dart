@@ -3,6 +3,7 @@ import 'package:amusetravel/cubits/update_profile/update_profile_cubit.dart';
 import 'package:amusetravel/pages/common/common_widgets/custom_toast/custom_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../../../main.dart';
 
@@ -20,15 +21,27 @@ class PrecautionForm extends StatefulWidget {
 class _PrecautionFormState extends State<PrecautionForm> {
   String _userName;
 
+  FlutterSecureStorage _secureStorage;
+
+  String _uid;
+
   @override
   void initState() {
     super.initState();
 
     _userName = widget.userName;
+
+    _secureStorage = const FlutterSecureStorage();
+
+    _readUid();
+  }
+
+  Future<void> _readUid() async {
+    _uid = await _secureStorage.read(key: 'uid');
   }
 
   void _onUpdateUserName() {
-    context.read<UpdateProfileCubit>().updateUserName(userName: _userName);
+    context.read<UpdateProfileCubit>().updateUserName(userName: _userName, uid: _uid);
   }
 
   Widget _titleText({String text}) {

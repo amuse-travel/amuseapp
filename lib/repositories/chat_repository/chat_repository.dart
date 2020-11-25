@@ -1,7 +1,7 @@
 import '../../model/chat_message_list.dart';
 
 abstract class ChatRepository {
-  Future<bool> enrollChatUser({String userName});
+  Future<bool> enrollChatUser({String userName, String uid});
 
   Future<ChatMessageList> fetchMessages({String userName, String room});
 
