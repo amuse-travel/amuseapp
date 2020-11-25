@@ -1,3 +1,4 @@
+import 'package:amusetravel/pages/chat/chat_room/modal_container/modal_report_user_container.dart';
 import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -90,6 +91,15 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
     }
   }
 
+  void _reportUser() {
+    showModalBottomSheet<void>(
+      context: context,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
+      isScrollControlled: true,
+      builder: (BuildContext buildContext) => ModalReportUserContainer(),
+    );
+  }
+
   Widget _loadMoreProgressIndicator(ChatState state) {
     if (state is ChatInProgress) {
       return Container(
@@ -115,7 +125,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
         width: 40,
         height: 40,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: _reportUser,
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.all(0),
             elevation: 1,
