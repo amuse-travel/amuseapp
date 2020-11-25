@@ -109,33 +109,30 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
       return Container();
     }
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      child: Card(
-        shape: const CircleBorder(),
-        child: Container(
-          padding: const EdgeInsets.all(3),
-          alignment: Alignment.center,
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: Colors.white,
+      margin: const EdgeInsets.only(bottom: 24),
+      child: Container(
+        alignment: Alignment.center,
+        width: 40,
+        height: 40,
+        child: ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.all(0),
+            elevation: 1,
+            shape: const CircleBorder(),
+            primary: Theme.of(context).secondaryHeaderColor,
           ),
-          child: CircleAvatar(
-            radius: 20,
-            child: Text(
-              chatUser.name,
-              maxLines: 1,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.clip,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: MEDIUM,
-                letterSpacing: -0.16,
-                color: Colors.black,
-              ),
+          child: Text(
+            chatUser.name,
+            maxLines: 1,
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.clip,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: MEDIUM,
+              letterSpacing: -0.16,
+              color: Colors.black,
             ),
-            backgroundColor: Theme.of(context).secondaryHeaderColor,
           ),
         ),
       ),
@@ -172,17 +169,24 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
           ),
         Container(
           alignment: _isMyMessage ? Alignment.centerRight : Alignment.centerLeft,
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: _isMyMessage
-                  ? null
-                  : Border.all(
+          child: ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+              primary: _isMyMessage ? const Color(0xFFD1D5DB) : Colors.white,
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              side: _isMyMessage
+                  ? const BorderSide(
+                      width: 1,
+                      color: Colors.white,
+                    )
+                  : BorderSide(
                       width: 1,
                       color: Theme.of(context).textSelectionHandleColor,
                     ),
-              color: _isMyMessage ? const Color(0xFFD1D5DB) : Colors.white,
             ),
             child: Text(
               chatMessage.text,
