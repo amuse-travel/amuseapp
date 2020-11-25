@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:amusetravel/blocs/reported/reported_bloc.dart';
 import 'package:amusetravel/pages/chat/chat_room/modal_container/modal_report_message_container.dart';
 import 'package:amusetravel/pages/chat/chat_room/modal_container/modal_report_user_container.dart';
@@ -12,7 +10,6 @@ import '../../../blocs/chat/chat_bloc.dart';
 import '../../../main.dart';
 import '../../../model/custom_chat_message.dart';
 import '../../../model/singleton_user.dart';
-import '../../common/common_widgets/custom_toast/custom_toast.dart';
 import '../../common/common_widgets/custom_toast/custom_toast.dart';
 import '../../common/common_widgets/loading_indicator/loading_indicator.dart';
 
@@ -209,7 +206,12 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
         Container(
           alignment: _isMyMessage ? Alignment.centerRight : Alignment.centerLeft,
           child: ElevatedButton(
-            onPressed: _isMyMessage ? () {} : () => _reportMessage(userName: chatMessage.user.name, message: chatMessage.text),
+            onPressed: _isMyMessage
+                ? () {}
+                : () => _reportMessage(
+                      userName: chatMessage.user.name,
+                      message: '${chatMessage.text}, ${chatMessage.createdAt}',
+                    ),
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
               primary: _isMyMessage ? const Color(0xFFD1D5DB) : Colors.white,
