@@ -24,18 +24,37 @@ class ReportedBloc extends Bloc<ReportedEvent, ReportedState> {
     if (event is ReportedUserTried) {
       yield* _mapReportedUserTriedToState(event);
     }
+    if(event is ReportedMessageTried){
+      yield* _mapReportedMessageTriedToState(event);
+    }
   }
 
   Stream<ReportedState> _mapReportedUserTriedToState(ReportedUserTried event) async* {
+    yield ReportedInProgress();
     try {
       final bool _isSuccess = await _reportRepository.reportUser(userName: event.userName);
       if (_isSuccess) {
-        yield ReportedUserTrySuccess();
+        yield const ReportedSuccess(message: '사용자 신고가 접수되었습니다.');
       } else {
         yield ReportedFailure();
       }
     } catch (e) {
       log('=====| _mapReportedUserTriedToState |=====[ ${e.toString()}');
+      yield ReportedFailure();
+    }
+  }
+
+  Stream<ReportedState> _mapReportedMessageTriedToState(ReportedMessageTried event) async* {
+    yield ReportedInProgress();
+    try{
+      final bool _isSuccess = await _reportRepository.reportMessage(userName: event.userName, message: event.message);
+      if(_isSuccess){
+        yield const ReportedSuccess(message: '메시지 신고가 접수되었습니다.');
+      } else {
+        yield ReportedFailure();
+      }
+    } catch(e) {
+      log('=====| _mapReportedMessageTriedToState |=====[ ${e.toString()}');
       yield ReportedFailure();
     }
   }

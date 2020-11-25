@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:amusetravel/blocs/reported/reported_bloc.dart';
+import 'package:amusetravel/pages/chat/chat_room/modal_container/modal_report_message_container.dart';
 import 'package:amusetravel/pages/chat/chat_room/modal_container/modal_report_user_container.dart';
 import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import '../../../blocs/chat/chat_bloc.dart';
 import '../../../main.dart';
 import '../../../model/custom_chat_message.dart';
 import '../../../model/singleton_user.dart';
+import '../../common/common_widgets/custom_toast/custom_toast.dart';
 import '../../common/common_widgets/custom_toast/custom_toast.dart';
 import '../../common/common_widgets/loading_indicator/loading_indicator.dart';
 
@@ -99,7 +101,6 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
   }
 
   void _reportUser(String userName) {
-    log(userName);
     showModalBottomSheet<void>(
       context: context,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
@@ -108,6 +109,21 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
         value: _reportedBloc,
         child: ModalReportUserContainer(
           userName: userName,
+        ),
+      ),
+    );
+  }
+
+  void _reportMessage({String userName, String message}) {
+    showModalBottomSheet<void>(
+      context: context,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
+      isScrollControlled: true,
+      builder: (BuildContext buildContext) => BlocProvider<ReportedBloc>.value(
+        value: _reportedBloc,
+        child: ModalReportMessageContainer(
+          userName: userName,
+          message: message,
         ),
       ),
     );
@@ -193,7 +209,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
         Container(
           alignment: _isMyMessage ? Alignment.centerRight : Alignment.centerLeft,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: _isMyMessage ? () {} : () => _reportMessage(userName: chatMessage.user.name, message: chatMessage.text),
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
               primary: _isMyMessage ? const Color(0xFFD1D5DB) : Colors.white,
@@ -244,107 +260,116 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
   Widget build(BuildContext context) {
     final double _sizeWidth = MediaQuery.of(context).size.width;
     final double _sizeHeight = MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
-    return BlocConsumer<ChatBloc, ChatState>(
-      builder: (BuildContext buildContext, ChatState state) {
-        return Container(
-          width: _sizeWidth,
-          height: _sizeHeight,
-          child: DashChat(
-            key: _chatViewKey,
-            user: _chatUser,
-            messages: _messages,
-            textController: _textEditingController,
-            inputMaxLines: 3,
-            onSend: _onSendMessage,
-            sendOnEnter: true,
-            textInputAction: TextInputAction.send,
-            scrollToBottom: false,
-            shouldShowLoadEarlier: false,
-            showLoadEarlierWidget: () => _loadMoreProgressIndicator(state),
-            onLoadEarlier: _onFetchMoreMessages,
-            inputCursorColor: Theme.of(context).accentColor,
-            inputContainerStyle: const BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  width: 0.5,
-                  color: Colors.grey,
-                ),
-              ),
-              color: Colors.white,
-            ),
-            sendButtonBuilder: (Function sendMessage) => IconButton(
-              onPressed: () => sendMessage(),
-              icon: Icon(
-                Icons.send,
-                color: _senderColor(),
-              ),
-            ),
-            dateBuilder: (String dateTime) => Container(),
-            avatarBuilder: (ChatUser chatUser) => _avatarBuilder(chatUser),
-            messageBuilder: (ChatMessage chatMessage) => _messageBuilder(chatMessage),
-            dateFormat: DateFormat('yyyy.MM.dd'),
-          ),
-        );
-      },
-      listener: (BuildContext buildContext, ChatState state) {
-        if (state is ChatMessagesFetchTrySuccess) {
-          for (final CustomChatMessage _customChatMessage in state.chatMessageList.messages) {
-            _messages.insert(
-              0,
-              ChatMessage(
-                text: _customChatMessage.text ?? '',
-                id: _customChatMessage.msId,
-                user: ChatUser(
-                  name: _customChatMessage.username,
-                  avatar: _customChatMessage.avatar,
-                ),
-                createdAt: DateTime.fromMillisecondsSinceEpoch(_customChatMessage.time),
-              ),
-            );
-          }
-          _chatViewKey.currentState.scrollController.jumpTo(
-            _sizeHeight,
-          );
-        }
-        if (state is ChatMessagesFetchMoreTrySuccess) {
-          final int _newMessageCount = state.chatMessageList.messages.length;
-          for (final CustomChatMessage _customChatMessage in state.chatMessageList.messages) {
-            _messages.insert(
-              0,
-              ChatMessage(
-                text: _customChatMessage.text ?? '',
-                id: _customChatMessage.msId,
-                user: ChatUser(
-                  name: _customChatMessage.username,
-                  avatar: _customChatMessage.avatar,
-                ),
-                createdAt: DateTime.fromMillisecondsSinceEpoch(_customChatMessage.time),
-              ),
-            );
-          }
-          _chatViewKey.currentState.scrollController.jumpTo(_newMessageCount.toDouble() * 100);
-        }
-        if (state is ChatMessageSendTrySuccess) {
-          _messages.add(state.chatMessage);
-
-          _chatViewKey.currentState.scrollController.jumpTo(
-            _chatViewKey.currentState.scrollController.position.maxScrollExtent + 200,
-          );
-        }
-        if (state is ChatFailure) {
+    return BlocListener<ReportedBloc, ReportedState>(
+      listener: (BuildContext buildContext, ReportedState state) {
+        if (state is ReportedSuccess) {
           CustomToast(
             message: state.message,
           ).show();
         }
-        if (state is ChatIncomingMessageFetchSuccess) {
-          if (state.chatRoom == _room) {
-            _messages.add(state.chatMessage);
+      },
+      child: BlocConsumer<ChatBloc, ChatState>(
+        builder: (BuildContext buildContext, ChatState state) {
+          return Container(
+            width: _sizeWidth,
+            height: _sizeHeight,
+            child: DashChat(
+              key: _chatViewKey,
+              user: _chatUser,
+              messages: _messages,
+              textController: _textEditingController,
+              inputMaxLines: 3,
+              onSend: _onSendMessage,
+              sendOnEnter: true,
+              textInputAction: TextInputAction.send,
+              scrollToBottom: false,
+              shouldShowLoadEarlier: false,
+              showLoadEarlierWidget: () => _loadMoreProgressIndicator(state),
+              onLoadEarlier: _onFetchMoreMessages,
+              inputCursorColor: Theme.of(context).accentColor,
+              inputContainerStyle: const BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    width: 0.5,
+                    color: Colors.grey,
+                  ),
+                ),
+                color: Colors.white,
+              ),
+              sendButtonBuilder: (Function sendMessage) => IconButton(
+                onPressed: () => sendMessage(),
+                icon: Icon(
+                  Icons.send,
+                  color: _senderColor(),
+                ),
+              ),
+              dateBuilder: (String dateTime) => Container(),
+              avatarBuilder: (ChatUser chatUser) => _avatarBuilder(chatUser),
+              messageBuilder: (ChatMessage chatMessage) => _messageBuilder(chatMessage),
+              dateFormat: DateFormat('yyyy.MM.dd'),
+            ),
+          );
+        },
+        listener: (BuildContext buildContext, ChatState state) {
+          if (state is ChatMessagesFetchTrySuccess) {
+            for (final CustomChatMessage _customChatMessage in state.chatMessageList.messages) {
+              _messages.insert(
+                0,
+                ChatMessage(
+                  text: _customChatMessage.text ?? '',
+                  id: _customChatMessage.msId,
+                  user: ChatUser(
+                    name: _customChatMessage.username,
+                    avatar: _customChatMessage.avatar,
+                  ),
+                  createdAt: DateTime.fromMillisecondsSinceEpoch(_customChatMessage.time),
+                ),
+              );
+            }
             _chatViewKey.currentState.scrollController.jumpTo(
-              _chatViewKey.currentState.scrollController.position.maxScrollExtent + 120,
+              _sizeHeight,
             );
           }
-        }
-      },
+          if (state is ChatMessagesFetchMoreTrySuccess) {
+            final int _newMessageCount = state.chatMessageList.messages.length;
+            for (final CustomChatMessage _customChatMessage in state.chatMessageList.messages) {
+              _messages.insert(
+                0,
+                ChatMessage(
+                  text: _customChatMessage.text ?? '',
+                  id: _customChatMessage.msId,
+                  user: ChatUser(
+                    name: _customChatMessage.username,
+                    avatar: _customChatMessage.avatar,
+                  ),
+                  createdAt: DateTime.fromMillisecondsSinceEpoch(_customChatMessage.time),
+                ),
+              );
+            }
+            _chatViewKey.currentState.scrollController.jumpTo(_newMessageCount.toDouble() * 100);
+          }
+          if (state is ChatMessageSendTrySuccess) {
+            _messages.add(state.chatMessage);
+
+            _chatViewKey.currentState.scrollController.jumpTo(
+              _chatViewKey.currentState.scrollController.position.maxScrollExtent + 200,
+            );
+          }
+          if (state is ChatFailure) {
+            CustomToast(
+              message: state.message,
+            ).show();
+          }
+          if (state is ChatIncomingMessageFetchSuccess) {
+            if (state.chatRoom == _room) {
+              _messages.add(state.chatMessage);
+              _chatViewKey.currentState.scrollController.jumpTo(
+                _chatViewKey.currentState.scrollController.position.maxScrollExtent + 120,
+              );
+            }
+          }
+        },
+      ),
     );
   }
 }

@@ -22,4 +22,21 @@ class ReportedRepositoryImpl extends ReportedRepository {
       return false;
     }
   }
+
+  @override
+  Future<bool> reportMessage({String userName, String message}) async {
+    try {
+      final CollectionReference _reported = _firestore.collection('reported');
+      _reported.doc('messages').update(
+        <String, dynamic>{
+          userName: message,
+        },
+      );
+
+      return true;
+    } catch (e) {
+      log('=====| reportMessage |=====[ ${e.toString()}');
+      return false;
+    }
+  }
 }

@@ -14,3 +14,14 @@ class ReportedUserTried extends ReportedEvent {
 
   final String userName;
 }
+
+class ReportedMessageTried extends ReportedEvent {
+  const ReportedMessageTried({
+    @required this.userName,
+    @required this.message,
+  })  : assert(userName != null),
+        assert(message != null);
+
+  final String userName;
+  final String message;
+}

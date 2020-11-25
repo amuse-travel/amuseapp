@@ -13,4 +13,13 @@ class ReportedInProgress extends ReportedState {}
 
 class ReportedFailure extends ReportedState {}
 
-class ReportedUserTrySuccess extends ReportedState {}
+class ReportedSuccess extends ReportedState {
+  const ReportedSuccess({
+    @required this.message,
+  }) : assert(message != null);
+
+  final String message;
+
+  @override
+  List<Object> get props => <Object>[message];
+}
