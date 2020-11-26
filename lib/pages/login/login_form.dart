@@ -54,7 +54,7 @@ class _LoginFormState extends State<LoginForm> {
                     width: _sizeWidth,
                     height: _sizeHeight,
                     child: Image.asset(
-                      'assets/icons/login-background.jpg',
+                      'assets/icons/login-background.png',
                       fit: BoxFit.cover,
                     ),
                   ),
